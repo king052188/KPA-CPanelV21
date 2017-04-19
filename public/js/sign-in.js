@@ -173,8 +173,8 @@ $(document).ready(function() {
                     $("#span_" + type).hide();
                     $("#span_" + type).text("");
 
-                    $("#form").attr("action", "POST");
-                    $("#form").attr("method", "/sign-up/processing");
+                    $("#form").attr("action", "/sign-up/processing");
+                    $("#form").attr("method", "POST");
                     $("#btnSignUp").removeAttr("disabled");
                 }
             }

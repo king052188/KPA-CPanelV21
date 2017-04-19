@@ -6,7 +6,7 @@ $url_secured = $helper["status"];
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>KPA CPanel - Sign In</title>
+    <title>CPanelV21 - Sign In</title>
     <!-- Favicon-->
     <link rel="icon" href="{{ asset('images/k-icon.png', $url_secured) }}" type="image/x-icon">
     <!-- Google Fonts -->
@@ -51,7 +51,7 @@ $url_secured = $helper["status"];
 <body class="login-page">
 <div class="login-box">
     <div class="logo" style="background: #4267b2; padding: 10px;">
-        <a href="javascript:void(0);"><b>KPA CPanel</b>- Log In</a>
+        <a href="javascript:void(0);"><b>CPanelV21</b>- Log In</a>
         <small>Version 21.0.0 - {{ date("Y") }}</small>
     </div>
     <div class="card">

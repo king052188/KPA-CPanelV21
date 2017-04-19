@@ -7,7 +7,7 @@ $url_secured = $helper["status"];
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <meta http-equiv="pragma" content="no-cache" />
-    <title>KPA CPanel - Sign Up</title>
+    <title>CPanelV21 - Sign Up</title>
     <!-- Favicon-->
     <link rel="icon" href="{{ asset('images/k-icon.png', $url_secured) }}" type="image/x-icon">
     <!-- Google Fonts -->
@@ -41,13 +41,18 @@ $url_secured = $helper["status"];
         .login-box {
             margin: -40px;;
         }
+
+        .checking {
+            color: red;
+            font-size: .8em;
+        }
     </style>
 </head>
 {{--//4267b2--}}
 <body class="login-page">
 <div class="login-box">
     <div class="logo" style="background: #4267b2; padding: 10px;"  id="notifier_msg">
-        <a href="javascript:void(0);"><b>KPA CPanel </b>- Sign Up</a>
+        <a href="javascript:void(0);"><b>CPanelV21 </b>- Sign Up</a>
         <small>Sign up to start managing your site!</small>
     </div>
     <div class="card">
@@ -105,8 +110,9 @@ $url_secured = $helper["status"];
                             <i class="material-icons">email</i>
                         </span>
                     <div class="form-line">
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required autofocus>
+                        <input type="text" class="form-control" id="email" name="email" placeholder="Email" required autofocus>
                     </div>
+                    <span class="checking" id="span_email" style="display: none;">Checking...</span>
                 </div>
                 <div class="input-group">
                         <span class="input-group-addon">
@@ -115,6 +121,7 @@ $url_secured = $helper["status"];
                     <div class="form-line">
                         <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Mobile" required autofocus>
                     </div>
+                    <span class="checking" id="span_mobile" style="display: none;">Checking...</span>
                 </div>
                 <div class="row">
                     <div class="col-xs-4">

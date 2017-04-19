@@ -238,6 +238,21 @@ class Helper extends Controller
         return array("new_password" => $value, "hash_password" => $result);
     }
 
+    public static function is_exist($account) {
+
+        $random = DB::select("
+                  SELECT * FROM member_table 
+                  WHERE hash_code = '{$account}' OR username = '{$account}' 
+                  OR email = '{$account}' OR mobile = '{$account}';
+        ");
+
+        if( COUNT($random) > 0 ) {
+            return true;
+        }
+
+        return false;
+    }
+
     public static function get_member_information($account) {
         $random = DB::select("
                   SELECT * FROM member_table 
@@ -289,7 +304,7 @@ class Helper extends Controller
         return $members[0]->total_count;
     }
 
-    public static function post_email_send($uid = 3, $temp = "FBI.Notification", $arr = array()) {
+    public static function post_email_send($uid = 2, $temp = "KPA.Notification", $arr = array()) {
         if( count($arr) == 0) {
             return false;
         }
@@ -299,7 +314,7 @@ class Helper extends Controller
         $subject = str_replace(" ", "%20", $arr["subject"]);
         $message = str_replace(" ", "%20", $arr["message"]);
 
-        $query = "http://www.fbi-ph.org:2100/mail/post/email?id={$uid}&name={$name}&email={$to}&subject={$subject}&message={$message}&temp_name={$temp}";
+        $query = "http://107.180.71.242:2100/mail/post/email?id={$uid}&name={$name}&email={$to}&subject={$subject}&temp_name={$temp}&message={$message}";
 
         $result = Helper::do_curl($query);
 
@@ -308,18 +323,19 @@ class Helper extends Controller
 
     public static function post_password_email_send($name, $email, $username, $password) {
         $message =      "<h3>We would like to personally welcome you to our community.</h3>";
-        $message .=     "Login: www.fbi-ph.org/login<br />";
-        $message .=     "Your Hash-Code: {$username}<br />";
+        $message .=     "Your Login Information<br />";
+        $message .=     "Login: http://cpanelv21.kpa21.com/login<br />";
+        $message .=     "Your Hash-Code: {$username} | you can use your email<br />";
         $message .=     "Your Password: {$password}<br />";
 
         $data = array(
             "name" => $name,
             "to" => $email,
-            "subject" => "FBI Verification and Account Information",
+            "subject" => "CPanelV21 Verification and Account Details",
             "message" => $message
         );
 
-        return Helper::post_email_send(3, "FBI.Notification", $data);
+        return Helper::post_email_send(2, "KPA.Notification", $data);
     }
 
     public static function post_generic_email_send($name, $email, $message, $subject) {
@@ -331,7 +347,7 @@ class Helper extends Controller
             "message" => $message
         );
 
-        return Helper::post_email_send(3, "FBI.Notification", $data);
+        return Helper::post_email_send(2, "KPA.Notification", $data);
     }
 
     // Method to send Get request to url

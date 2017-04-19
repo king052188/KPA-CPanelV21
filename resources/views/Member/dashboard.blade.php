@@ -188,7 +188,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <h6 class="text-center"><a href="mailto:info@cpanelv21.kpa21.com">For more info email us at info@CPanelV21.kpa21.com</a></h6>
+                    <h6 class="text-center"><a href="mailto:cpanelv21@kpa21.info">For more info email us at CPanelV21@kpa21.info</a></h6>
                 </div>
             </div>
         </div>

@@ -66,6 +66,22 @@ class MemberController extends Controller
         }
     }
 
+    public function validate_account($type, $value) {
+        $r = Helper::is_exist($value);
+
+        if($r) {
+            return array(
+                "status" => 500,
+                "message" => "{$type} already exists."
+            );
+        }
+
+        return array(
+            "status" => 200,
+            "message" => ""
+        );
+    }
+
     public function member_sign_up_index(Request $request, $clear = null) {
         if($clear != null) {
             Helper::flushCookies();
