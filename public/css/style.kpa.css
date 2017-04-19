@@ -1,0 +1,52 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: 'Ubuntu', sans-serif;
+    font: 14px/1.4;
+}
+#page-wrap {
+    margin: 50px;
+}
+p {
+    margin: 10px 0;
+}
+
+a {
+    color: #bd0a5a;
+    border-bottom: 0px solid #bd0a5a;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #750D3B;
+    text-decoration: none;
+    border-bottom: 1px solid #750D3B;
+}
+
+input, select, button {
+    padding: 10px;
+}
+/*
+Generic Styling, for Desktops/Laptops
+*/
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+/* Zebra striping */
+tr:nth-of-type(odd) {
+    background: #e6e6e6;
+}
+
+th {
+    background: #bd0a5a;
+    color: white;
+    font-weight: bold;
+}
+td, th {
+    padding: 6px;
+    border: 1px solid #e6e6e6;
+    text-align: left;
+}
