@@ -4,7 +4,7 @@
 $url_secured = $helper["status"];
 ?>
 <head>
-    <title>FBI - Page 404</title>
+    <title>KPA CPanelV21 - Page 404</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="icon" href="{{ asset('images/k-icon.png', $url_secured) }}" type="image/x-icon">
@@ -25,7 +25,7 @@ $url_secured = $helper["status"];
 </div>
 <!---->
 <div class="copy-right">
-    <p> &copy; 2017 FB Inc. </p>
+    <p> &copy; 2016-{{ date("Y") }} KPA CPanelV21. </p>
 </div>
 <!---->
 <!--scrolling js-->

@@ -18,6 +18,35 @@ USE `kpa_cpanelv21`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `ftp_account_table`
+--
+
+DROP TABLE IF EXISTS `ftp_account_table`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ftp_account_table` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `username` varchar(20) DEFAULT NULL,
+  `password` varchar(50) DEFAULT NULL,
+  `path` varchar(100) DEFAULT NULL,
+  `status` tinyint(4) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ftp_account_table`
+--
+
+LOCK TABLES `ftp_account_table` WRITE;
+/*!40000 ALTER TABLE `ftp_account_table` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ftp_account_table` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `member_basic_table`
 --
 
@@ -132,6 +161,63 @@ LOCK TABLES `member_table` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `mysql_account_table`
+--
+
+DROP TABLE IF EXISTS `mysql_account_table`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `mysql_account_table` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `role` tinyint(4) DEFAULT NULL,
+  `username` varchar(20) DEFAULT NULL,
+  `password` varchar(50) DEFAULT NULL,
+  `status` tinyint(4) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `mysql_account_table`
+--
+
+LOCK TABLES `mysql_account_table` WRITE;
+/*!40000 ALTER TABLE `mysql_account_table` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mysql_account_table` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `mysql_database_table`
+--
+
+DROP TABLE IF EXISTS `mysql_database_table`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `mysql_database_table` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(45) DEFAULT NULL,
+  `account_id` varchar(45) DEFAULT NULL,
+  `database_name` varchar(45) DEFAULT NULL,
+  `status` varchar(45) DEFAULT NULL,
+  `updated_at` varchar(45) DEFAULT NULL,
+  `created_at` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `mysql_database_table`
+--
+
+LOCK TABLES `mysql_database_table` WRITE;
+/*!40000 ALTER TABLE `mysql_database_table` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mysql_database_table` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `payment_table`
 --
 
@@ -176,4 +262,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-19 10:59:29
+-- Dump completed on 2017-04-19 11:07:05

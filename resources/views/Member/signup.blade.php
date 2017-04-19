@@ -7,7 +7,7 @@ $url_secured = $helper["status"];
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <meta http-equiv="pragma" content="no-cache" />
-    <title>FBI - Sign Up</title>
+    <title>KPA CPanel - Sign Up</title>
     <!-- Favicon-->
     <link rel="icon" href="{{ asset('images/k-icon.png', $url_secured) }}" type="image/x-icon">
     <!-- Google Fonts -->
@@ -47,8 +47,8 @@ $url_secured = $helper["status"];
 <body class="login-page">
 <div class="login-box">
     <div class="logo" style="background: #4267b2; padding: 10px;"  id="notifier_msg">
-        <a href="javascript:void(0);"><b>FBI </b>- Registration Form</a>
-        <small>Sign up to start your FBI!</small>
+        <a href="javascript:void(0);"><b>KPA CPanel </b>- Sign Up</a>
+        <small>Sign up to start managing your site!</small>
     </div>
     <div class="card">
         <div class="body">
@@ -68,7 +68,7 @@ $url_secured = $helper["status"];
                         <i class="material-icons">face</i>
                     </span>
                     <div class="form-line">
-                        <input type="text" class="form-control" id="middle_name" name="middle_name" placeholder="Middle name" required autofocus>
+                        <input type="text" class="form-control" id="middle_name" name="middle_name" placeholder="Middle name (Optional)" autofocus>
                     </div>
                 </div>
                 <div class="input-group">
@@ -114,24 +114,6 @@ $url_secured = $helper["status"];
                         </span>
                     <div class="form-line">
                         <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Mobile" required autofocus>
-                    </div>
-                </div>
-                @if( $endorser_account == null)
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">person</i>
-                        </span>
-                        <div class="form-line">
-                            <input type="text" class="form-control" id="endorsed_by" name="endorsed_by" placeholder="Endorsed by (Required)" required autofocus>
-                        </div>
-                    </div>
-                @endif
-                <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">person</i>
-                        </span>
-                    <div class="form-line">
-                        <input type="text" class="form-control" id="specialist" name="specialist" placeholder="Specialist (Optional)" >
                     </div>
                 </div>
                 <div class="row">

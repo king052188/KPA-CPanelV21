@@ -4,7 +4,7 @@
 $url_secured = $helper["status"];
 ?>
 <head>
-    <title>FBI - Portal</title>
+    <title>KPA CPanelV21 - Portal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="icon" href="{{ asset('images/k-icon.png', $url_secured) }}" type="image/x-icon">
@@ -83,7 +83,7 @@ $url_secured = $helper["status"];
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <h1> <a class="navbar-brand" href="/dashboard">FBI</a></h1>
+            <h1 style="font-size: 1em;"> <a class="navbar-brand" href="/dashboard">CPanelV21</a></h1>
         </div>
 
         <div class=" border-bottom">
@@ -162,17 +162,20 @@ $url_secured = $helper["status"];
                         @endif
 
                         <li>
-                            <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-indent nav_icon"></i> <span class="nav-label">Levels</span><span class="fa arrow"></span></a>
+                            <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-indent nav_icon"></i> <span class="nav-label">MySQL</span><span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li><a href="#" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Graphs</a></li>
+                                <li><a href="/mysql/create-database" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Create Database</a></li>
+                                <li><a href="/mysql/list-database" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>View Database</a></li>
                             </ul>
                         </li>
 
                         <li>
-                            <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-inbox nav_icon"></i> <span class="nav-label">Message</span> </a>
+                            <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-inbox nav_icon"></i> <span class="nav-label">FTP</span><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="/ftp/create-username" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Create Account</a></li>
+                            </ul>
                         </li>
 
-                        <li><a href="#" class=" hvr-bounce-to-right"><i class="fa fa-question-circle nav_icon"></i>FAQ</a></li>
 
                         @if( IsSet($page["page"]) )
                             @if($page["page"] == "settings")
@@ -197,7 +200,7 @@ $url_secured = $helper["status"];
         <div class="content-main">
             @yield("content")
             <div class="copy">
-                <p> &copy; {{ date("Y") }} FB Inc. </p>
+                <p> &copy; 2016-{{ date("Y") }} KPA CPanelV21. </p>
             </div>
         </div>
         <div class="clearfix"> </div>

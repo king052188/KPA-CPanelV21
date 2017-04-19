@@ -79,28 +79,9 @@ class MemberController extends Controller
     }
 
     public function member_sign_up_execute(Request $request) {
+
         if((int)$request->gender == 0) {
             return redirect('/sign-up')->with('message', 'Oops, Please select your gender.');
-        }
-
-        $specialist = Helper::get_member_information($request->specialist);
-
-        $endorser_id = 0;;
-        $endorser = Helper::getCookies('endorsement_session');
-        if($endorser == null) {
-            $endorser = Helper::get_member_information($request->endorsed_by);
-            if($endorser == null) {
-                return redirect('/sign-up')->with('message', 'Oops, Invalid endorser account name.');
-            }
-            $endorser_id = $endorser[0]->Id;
-        }
-        else {
-            $endorser_id = $endorser["Id"];
-        }
-
-        $specialist_uid = 0;
-        if($specialist != null) {
-            $specialist_uid = $specialist[0]->Id;
         }
 
         $password_code = Helper::get_random_password();
@@ -115,9 +96,7 @@ class MemberController extends Controller
         $member->gender = $request->gender;
         $member->email = $request->email;
         $member->mobile = $request->mobile;
-        $member->endorse_uid = $endorser_id;
-        $member->specialist_uid = $specialist_uid;
-        $member->status = 1; // default 1, meaning member is not yet verified. 2 is verified!
+        $member->status = 2; // default 1, meaning member is not yet verified. 2 is verified!
         $result = $member->save();
         $issued_uid = $member->id;
 
@@ -143,7 +122,7 @@ class MemberController extends Controller
                 return redirect('/sign-up/verification');
             }
 
-            return redirect('/sign-up')->with('message', 'Oops, Error sending your account information, Please contact FBI Admin.');
+            return redirect('/sign-up')->with('message', 'Oops, Error sending your account information, Please contact info@kpa21.com.');
 
         }
         return redirect('/sign-up')->with('message', 'Oops, Something went wrong. Please try again');
@@ -159,26 +138,28 @@ class MemberController extends Controller
         }
 
         $user_uid = $user[0]->Id;
-        $check_ = MemberBasic::where("uid", "=", $user_uid)->first();
-        if($check_ == null) {
-            return redirect('/edit-profile?page=basic');
-        }
+//        $check_ = MemberBasic::where("uid", "=", $user_uid)->first();
+//        if($check_ == null) {
+//            return redirect('/edit-profile?page=basic');
+//        }
+//
+//        $check_ = MemberBeneficiary::where("uid", "=", $user_uid)->first();
+//        if($check_ == null) {
+//            return redirect('/edit-profile?page=beneficiary');
+//        }
+//
+//        $check_ = DB::select("SELECT * FROM payment_table WHERE uid = {$user_uid} AND status > 0;");
+//        if($check_ == null) {
+//            return redirect('/payment');
+//        }
 
-        $check_ = MemberBeneficiary::where("uid", "=", $user_uid)->first();
-        if($check_ == null) {
-            return redirect('/edit-profile?page=beneficiary');
-        }
-
-        $check_ = DB::select("SELECT * FROM payment_table WHERE uid = {$user_uid} AND status > 0;");
-        if($check_ == null) {
-            return redirect('/payment');
-        }
-
-        $total_connected = Helper::get_total_connected($user[0]->Id);
+        $Website_Quota = 0;
+        $MySQL_Quota = Helper::get_total_quota("mysql_database_table", $user[0]->Id);
+        $FTP_Quota = Helper::get_total_quota("ftp_account_table", $user[0]->Id);
         $statistics = array(
-            "Connected" => $total_connected,
-            "PBAT" => 0,
-            "Damayan" => 0
+            "Website" => $Website_Quota,
+            "MySQL" => $MySQL_Quota,
+            "FTP" => $FTP_Quota
         );
 
         return view('member.dashboard', compact('helper', 'user', 'statistics'));

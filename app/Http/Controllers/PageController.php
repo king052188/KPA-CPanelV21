@@ -7,7 +7,13 @@ use Illuminate\Http\Request;
 class PageController extends Controller
 {
     public function landing_page() {
-        return view('layout.promo');
+        return redirect('\login');
+    }
+
+    public function temp(Request $request) {
+        $helper = Helper::ssl_secured($request);
+
+        return view('layout.404', compact('helper'));
     }
 
     public function clear_cache() {

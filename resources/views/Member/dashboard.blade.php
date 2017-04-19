@@ -5,111 +5,12 @@
     $url_secured = $helper["status"];
     ?>
     <!--banner-->
-    <style>
-        input#referral_link, span.referral_label {
-            color: #B3AEAE;
-        }
-
-        .banner {
-
-        }
-
-        div.kpa_custom {
-            margin-top: -6px;
-            float: right;
-        }
-
-        div.kpa_custom_referral {
-
-        }
-
-        .kpa_custom_referral input[type=text] {
-            width: 168px;
-        }
-
-        .kpa_custom_referral button {
-            width: 170px;;
-        }
-
-        @media only screen and (max-width: 505px) {
-            .banner {
-                height: 150px;
-            }
-
-            .kpa_custom_referral {
-                margin-top: 15px;
-                height: 20px;
-            }
-
-            .kpa_custom_referral input[type=text] {
-                text-align: center;
-                margin-top: 5px;
-                width: 100%;
-            }
-
-            .kpa_custom_referral button {
-                margin-top: 5px;
-                width: 100%;
-            }
-        }
-    </style>
     <a href="#" id="modal_event" class="btn btn-blue btn-lg btn-huge lato" data-toggle="modal" data-target="#myModal" style="display: none;"></a>
     <div class="banner" >
         <h2>
             {{--<a href="index.html">Home</a>--}}
             <i class="fa fa-angle-right"></i>
             <span>Dashboard</span>
-            <div class="kpa_custom">
-                <div class="kpa_custom_referral">
-                    <input type="checkbox" id="referral_checkbox" checked/> Short URL:
-                    <input type="text" id="referral_link" style="border: 0px;" />
-                    <button id="btnCopy" class="btn btn-default">(COPY) Referral Link</button>
-                    <script>
-                        var copyTextareaBtn = document.querySelector('#btnCopy');
-                        copyTextareaBtn.addEventListener('click', function(event) {
-                            var copyTextarea = document.querySelector('#referral_link');
-                            copyTextarea.select();
-                            try {
-                                var successful = document.execCommand('copy');
-                                var msg = successful ? 'successful' : 'unsuccessful';
-                                console.log('Copying text command was ' + msg);
-                            } catch (err) {
-                                console.log('Oops, unable to copy');
-                            }
-                        });
-                        $(document).ready(function() {
-                            var endorsement_link = "{{ url("/endorsement/link/".$user[0]->hash_code) }}";
-                            var url = "https://api-ssl.bitly.com/v3/shorten?access_token=52664555e49495d9285b20b6ccfb3fb15cb19a5b&longUrl="+endorsement_link;
-
-                            $('#referral_checkbox').click(function() {
-                                if ($(this).is(':checked')) {
-                                    load_bitly();
-                                }
-                                else {
-                                    $("#referral_link").val(endorsement_link);
-                                }
-                            });
-
-                            load_bitly();
-                            function load_bitly() {
-                                $.ajax({
-                                    url: url,
-                                    dataType: "text",
-                                    beforeSend: function () {
-                                        $("#referral_link").val("*** Please Wait ***");
-                                    },
-                                    success: function(response) {
-                                        var json = $.parseJSON(response);
-                                        $(json.data).each(function(n, data){
-                                            $("#referral_link").val(data.url);
-                                        });
-                                    }
-                                });
-                            }
-                        })
-                    </script>
-                </div>
-            </div>
         </h2>
     </div>
     <!--//banner-->
@@ -120,31 +21,31 @@
         <div class="col-md-4 ">
             <div class="content-top-1">
                 <div class="col-md-6 top-content">
-                    <h5>Connected</h5>
-                    <label>{{ $statistics["Connected"] }}</label>
+                    <h5>Website</h5>
+                    <label>{{ $statistics["Website"] }}</label>
                 </div>
                 <div class="col-md-6 top-content1">
-                    <div id="demo-pie-1" class="pie-title-center" data-percent="{{ $statistics["Connected"] }}"> <span class="pie-value"></span> </div>
+                    <div id="demo-pie-1" class="pie-title-center" data-percent="{{ $statistics["Website"] }}"> <span class="pie-value"></span> </div>
                 </div>
                 <div class="clearfix"> </div>
             </div>
             <div class="content-top-1">
                 <div class="col-md-6 top-content">
-                    <h5>FIBAT</h5>
-                    <label>0</label>
+                    <h5>MySQL</h5>
+                    <label>{{ $statistics["MySQL"] }}</label>
                 </div>
                 <div class="col-md-6 top-content1">
-                    <div id="demo-pie-2" class="pie-title-center" data-percent="0"> <span class="pie-value"></span> </div>
+                    <div id="demo-pie-2" class="pie-title-center" data-percent="{{ $statistics["MySQL"] }}"> <span class="pie-value"></span> </div>
                 </div>
                 <div class="clearfix"> </div>
             </div>
             <div class="content-top-1">
                 <div class="col-md-6 top-content">
-                    <h5>DAMAYAN</h5>
-                    <label>0</label>
+                    <h5>FTP</h5>
+                    <label>{{ $statistics["FTP"] }}</label>
                 </div>
                 <div class="col-md-6 top-content1">
-                    <div id="demo-pie-3" class="pie-title-center" data-percent="0"> <span class="pie-value"></span> </div>
+                    <div id="demo-pie-3" class="pie-title-center" data-percent="{{ $statistics["FTP"] }}"> <span class="pie-value"></span> </div>
                 </div>
                 <div class="clearfix"> </div>
             </div>
@@ -152,16 +53,15 @@
 
         <div class="col-md-8">
             <div class="content-top-1">
-
                 <script type="text/javascript">
                     $(function () {
                         Highcharts.chart('container', {
                             title: {
-                                text: 'Monthly Average Gross',
+                                text: 'Monthly Average Traffic',
                                 x: -20 //center
                             },
                             subtitle: {
-                                text: 'Source: www.FBI-PH.org',
+                                text: 'Source: CPanel.kpa21.com',
                                 x: -20
                             },
                             xAxis: {
@@ -188,16 +88,13 @@
                                 borderWidth: 0
                             },
                             series: [{
-                                name: 'FIBAT',
+                                name: 'Website',
                                 data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
                             }, {
-                                name: 'DAMAYAN',
+                                name: 'MySQL',
                                 data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
                             }, {
-                                name: 'RECEIVED',
-                                data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-                            }, {
-                                name: 'SENT',
+                                name: 'FTP',
                                 data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
                             }]
                         });
@@ -206,12 +103,9 @@
                 <script src="https://code.highcharts.com/highcharts.js"></script>
                 <script src="https://code.highcharts.com/modules/exporting.js"></script>
                 <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-
             </div>
         </div>
-
         <div class="clearfix"> </div>
-
     </div>
     <!---->
     <div class="content-bottom">
@@ -273,7 +167,6 @@
         <div class="clearfix"> </div>
     </div>
 
-
     <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -295,7 +188,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <h6 class="text-center"><a href="mailto:filipinobayanihaninc@gmail.com">For more info email us at filipinobayanihaninc@gmail.com</a></h6>
+                    <h6 class="text-center"><a href="mailto:info@cpanelv21.kpa21.com">For more info email us at info@CPanelV21.kpa21.com</a></h6>
                 </div>
             </div>
         </div>

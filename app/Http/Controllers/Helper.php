@@ -19,17 +19,23 @@ class Helper extends Controller
     public static $account_kit_api_version = "v1.1";
 
     public static function create_database_user($username, $password, $withRemote = null) {
-
         try {
-            $db = DB::statement("CREATE USER '{$username}'@'localhost' IDENTIFIED BY '{$password}';");
 
             if($withRemote != null) {
                 $db = DB::statement("CREATE USER '{$username}'@'%' IDENTIFIED BY '{$password}';");
             }
+            else {
+                $db = DB::statement("CREATE USER '{$username}'@'localhost' IDENTIFIED BY '{$password}';");
+            }
 
             if($db) {
 
-                $db = DB::statement("GRANT USAGE ON *.* TO '{$username}'@'%' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;");
+                if($withRemote != null) {
+                    $db = DB::statement("GRANT USAGE ON *.* TO '{$username}'@'%' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;");
+                }
+                else {
+                    $db = DB::statement("GRANT USAGE ON *.* TO '{$username}'@'localhost' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;");
+                }
 
                 if($db) {
 
@@ -61,19 +67,22 @@ class Helper extends Controller
                 "message" => $e->errorInfo[2],
             ];
 
-        } catch (PDOException $e) {
-            dd($e);
         }
     }
 
-    public static function create_database_and_attach_user($username, $database) {
+    public static function create_database_and_attach_user($database, $username, $withRemote = null) {
 
         try {
             $db = DB::statement("CREATE DATABASE `{$database}`;");
 
             if($db) {
 
-                $db = DB::statement("GRANT ALL PRIVILEGES ON `{$database}`.* TO '{$username}'@'localhost' WITH GRANT OPTION;");
+                if($withRemote != null) {
+                    $db = DB::statement("GRANT ALL PRIVILEGES ON `{$database}`.* TO '{$username}'@'%' WITH GRANT OPTION;");
+                }
+                else {
+                    $db = DB::statement("GRANT ALL PRIVILEGES ON `{$database}`.* TO '{$username}'@'localhost' WITH GRANT OPTION;");
+                }
 
                 if($db) {
 
@@ -104,9 +113,6 @@ class Helper extends Controller
                 "code" => $e->errorInfo[1],
                 "message" => $e->errorInfo[2],
             ];
-
-        } catch (PDOException $e) {
-            dd($e);
         }
     }
 
@@ -114,10 +120,11 @@ class Helper extends Controller
 
         try {
 
-            $db = DB::statement("GRANT ALL PRIVILEGES ON `{$database}`.* TO '{$username}'@'localhost' WITH GRANT OPTION;");
-
             if($withRemote != null) {
                 $db = DB::statement("GRANT ALL PRIVILEGES ON `{$database}`.* TO '{$username}'@'%' WITH GRANT OPTION;");
+            }
+            else {
+                $db = DB::statement("GRANT ALL PRIVILEGES ON `{$database}`.* TO '{$username}'@'localhost' WITH GRANT OPTION;");
             }
 
             if($db) {
@@ -143,8 +150,6 @@ class Helper extends Controller
                 "message" => $e->errorInfo[2],
             ];
 
-        } catch (PDOException $e) {
-            dd($e);
         }
     }
 
@@ -254,6 +259,16 @@ class Helper extends Controller
         ");
 
         return $total[0]->total_conntected;
+    }
+
+    public static function get_total_quota($table, $uid) {
+        $total = DB::select("
+                  SELECT COUNT(*) AS total_quota
+                  FROM {$table} 
+                  WHERE user_id = {$uid} AND status = 2;
+        ");
+
+        return $total[0]->total_quota;
     }
 
     public static function get_total_members($type) {

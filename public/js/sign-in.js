@@ -107,3 +107,77 @@ function do_facebook_2(access_token, csrf) {
         });
     } )
 }
+
+$(document).ready(function() {
+    $( "#txt_date_of_birth" ).click(function() {
+        $("#txt_date_of_birth").hide();
+        $("#date_of_birth").show();
+    });
+
+    $( "#email" ).keyup(function() {
+        validate("email",  $( "#email" ).val());
+    });
+
+    $( "#mobile" ).keyup(function() {
+
+        var m = $( "#mobile" ).val();
+
+        if(m.length != 11) {
+            $("#span_mobile").show();
+            $("#span_mobile").text("Please enter a valid mobile number");
+
+            $("#form").removeAttr("action");
+            $("#form").removeAttr("method");
+            $("#btnSignUp").attr("disabled", "disabled");
+            return false;
+        }
+
+        if(m.length > 11) {
+            $("#span_mobile").show();
+            $("#span_mobile").text("Please enter a valid mobile number");
+
+            $("#form").removeAttr("action");
+            $("#form").removeAttr("method");
+            $("#btnSignUp").attr("disabled", "disabled");
+            return false;
+        }
+
+        validate("mobile",  m);
+    });
+
+    function validate(type, value) {
+
+        $("#span_" + type).show();
+
+        $.ajax({
+            url: "/validating/"+type+"/"+value,
+            dataType: "text",
+            beforeSend: function () {
+                $("#span_" + type).show();
+                $("#span_" + type).text("Checking...");
+            },
+            success: function(images) {
+                var json = $.parseJSON(images);
+                if(json == null)
+                    return false;
+
+                if(json.status == 500) {
+                    $("#span_" + type).show();
+                    $("#span_" + type).text(json.message);
+
+                    $("#form").removeAttr("action");
+                    $("#form").removeAttr("method");
+                    $("#btnSignUp").attr("disabled", "disabled");
+                }
+                else {
+                    $("#span_" + type).hide();
+                    $("#span_" + type).text("");
+
+                    $("#form").attr("action", "POST");
+                    $("#form").attr("method", "/sign-up/processing");
+                    $("#btnSignUp").removeAttr("disabled");
+                }
+            }
+        });
+    }
+})
