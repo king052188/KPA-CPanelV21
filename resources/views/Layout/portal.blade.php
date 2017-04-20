@@ -166,7 +166,7 @@ $url_secured = $helper["status"];
                             <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-indent nav_icon"></i> <span class="nav-label">MySQL</span><span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li><a href="/mysql/create-database" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Create Database</a></li>
-                                <li><a href="/mysql/list-database" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>View Database</a></li>
+                                <li><a href="/mysql/phpmyadmin" class="hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>PHPMyAdmin</a></li>
                             </ul>
                         </li>
 
@@ -213,6 +213,10 @@ $url_secured = $helper["status"];
 <script src="{{ asset("/plugins/minimal_admin_panel/js/scripts.js", $url_secured) }}"></script>
 <!--//scrolling js-->
 <script src="{{ asset("/plugins/minimal_admin_panel/js/bootstrap.min.js", $url_secured) }}"> </script>
+
+<link href="{{ asset("/css/toastr.css", $url_secured) }}"" rel="stylesheet" type="text/css" />
+<script src="{{ asset("/js/toastr.js", $url_secured) }}"> </script>
+<script src="{{ asset("/js/cpanelV21.kpa.min.js", $url_secured) }}"></script>
 </body>
 </html>
 

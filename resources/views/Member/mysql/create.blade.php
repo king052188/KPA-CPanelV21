@@ -25,9 +25,9 @@
 
             <br />
 
-            <form method="POST" action="/mysql/create-database-execute">
+            {{--<form method="POST" action="/mysql/create-database-execute">--}}
 
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                {{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
 
                 <div class="col-md-12 form-group1 group-mail">
                     <label class="control-label">Database Name (required)</label>
@@ -47,12 +47,12 @@
                 </div>
 
                 <div class="col-md-12 form-group">
-                    <button type="submit" id="btnSave" class="btn btn-primary">Save</button>
+                    <button type="submit" id="btnSaveDatabase" class="btn btn-primary">Save</button>
                     <a href="/mysql/create-database-username" id="btnAddAccount" class="btn btn-default">Add Username</a>
                 </div>
 
                 <div class="clearfix"> </div>
-            </form>
+            {{--</form>--}}
 
         </div>
 
