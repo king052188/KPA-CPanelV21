@@ -7,6 +7,7 @@ $url_secured = $helper["status"];
     <title>KPA CPanelV21 - Portal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="icon" href="{{ asset('images/k-icon.png', $url_secured) }}" type="image/x-icon">
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     <link href="{{ asset("/plugins/minimal_admin_panel/css/bootstrap.min.css", $url_secured) }}" rel='stylesheet' type='text/css' />
