@@ -4,6 +4,52 @@
     <?php
     $url_secured = $helper["status"];
     ?>
+    <style>
+        input#referral_link, span.referral_label {
+            color: #B3AEAE;
+        }
+
+        .banner {
+
+        }
+
+        div.kpa_custom {
+            margin-top: -6px;
+            float: right;
+        }
+
+        .kpa_custom_mysql input[type=text] {
+            width: 168px;
+            padding: 10px 5px 10px 5px;
+        }
+
+        .kpa_custom_mysql button {
+            width: 160px;;
+        }
+
+        @media  only screen and (max-width: 505px) {
+            .banner {
+                height: 150px;
+            }
+
+            .kpa_custom_mysql {
+                margin-top: 15px;
+                height: 20px;
+            }
+
+            .kpa_custom_mysql input[type=text] {
+                text-align: center;
+                margin-top: 5px;
+                width: 100%;
+                padding: 5px;
+            }
+
+            .kpa_custom_mysql button {
+                margin-top: 5px;
+                width: 100%;
+            }
+        }
+    </style>
 
     <!--banner-->
     <div class="banner">
@@ -11,6 +57,47 @@
             <a href="/login">Home</a>
             <i class="fa fa-angle-right"></i>
             <span>Create Database</span>
+            <div class="kpa_custom">
+                <div class="kpa_custom_mysql">
+                    <input type="checkbox" id="ip_checkbox" /> Use IP |
+                    <input type="text" id="mysqlConnection" value="mysql-ckt.kpa21.com" style="border: 0px;" disabled />
+                    <button id="btnCopy" class="btn btn-default">COPY MySQL Host</button>
+                    <script>
+                        var copyTextareaBtn = document.querySelector('#btnCopy');
+                        copyTextareaBtn.addEventListener('click', function(event) {
+                            $('#mysqlConnection').removeAttr("disabled");
+
+                            var copyTextarea = document.querySelector('#mysqlConnection');
+                            copyTextarea.select();
+                            try {
+                                var successful = document.execCommand('copy');
+                                var msg = successful ? 'successful' : 'unsuccessful';
+                                console.log('Copying text command was ' + msg);
+                            } catch (err) {
+                                console.log('Oops, unable to copy');
+                            }
+
+                            $('#mysqlConnection').attr("disabled","disabled");
+                        });
+
+                        $(document).ready(function() {
+                            $('#ip_checkbox').click(function(){
+                                if($(this).prop('checked')){
+                                    $('#mysqlConnection').val("69.4.84.226");
+                                }else{
+                                    $('#mysqlConnection').val("mysql-ckt.kpa21.com");
+                                }
+                            });
+
+                            $( "#database" ).keyup(function() {
+                                var m = $( "#database" ).val();
+                                $( "#database_prefixes" ).val(db_prefix + m);
+                            });
+                        })
+                    </script>
+                </div>
+            </div>
+
         </h2>
     </div>
     <!--//banner-->
@@ -32,6 +119,11 @@
                 <div class="col-md-12 form-group1 group-mail">
                     <label class="control-label">Database Name (required)</label>
                     <input type="text" id="database" name="database" placeholder="Database name here..."  required="">
+                </div>
+
+                <div class="col-md-12 form-group1 group-mail">
+                    <label class="control-label">Database with Prefixes</label>
+                    <input type="text" id="database_prefixes" name="database_prefixes" disabled>
                 </div>
 
                 <div class="clearfix"> </div>

@@ -298,9 +298,20 @@ class MemberController extends Controller
 
     public function activate_account(Request $request, $uid) {
 
-        $m = Member::where("Id", "=", $uid)
-            ->update(
-                array("status" => 3)
+        $data = Member::where("Id", "=", $uid);
+        $u = $data->first();
+
+        if($u->status > 2) {
+            return array(
+                "status" => 201
+            );
+        }
+
+        $m = $data->update(
+                array(
+                    "group_name" => $request->group,
+                    "status" => 3
+                )
             );
 
         if($m) {

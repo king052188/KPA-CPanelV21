@@ -37,7 +37,6 @@ $url_secured = $helper["status"];
     <!--pie-chart--->
     <script src="{{ asset("/plugins/minimal_admin_panel/js/pie-chart.js", $url_secured) }}" type="text/javascript"></script>
     <script type="text/javascript">
-
         $(document).ready(function () {
             $('#demo-pie-1').pieChart({
                 barColor: '#3bb2d0',
@@ -76,6 +75,9 @@ $url_secured = $helper["status"];
 </head>
 <body>
 <div id="wrapper">
+    <script>
+        var db_prefix = "{{ $member[0]->group_name . $member[0]->Id }}_";
+    </script>
     <nav class="navbar-default navbar-static-top" role="navigation">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -162,10 +164,13 @@ $url_secured = $helper["status"];
                             </li>
                         @endif
 
+                        @if($member[0]->status > 2)
                         <li>
                             <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-indent nav_icon"></i> <span class="nav-label">MySQL</span><span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li><a href="/mysql/create-database" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Create Database</a></li>
+                                <li><a href="/mysql/create-database" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Database</a></li>
+                                <li><a href="/mysql/create-database-username" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>User Accounts</a></li>
+                                <li><a href="/mysql/add-privileges" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>User Privileges</a></li>
                                 <li><a href="/mysql/phpmyadmin" class="hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>PHPMyAdmin</a></li>
                             </ul>
                         </li>
@@ -176,7 +181,7 @@ $url_secured = $helper["status"];
                                 <li><a href="/ftp/create-username" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Create Account</a></li>
                             </ul>
                         </li>
-
+                        @endif
 
                         @if( IsSet($page["page"]) )
                             @if($page["page"] == "settings")

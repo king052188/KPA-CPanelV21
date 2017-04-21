@@ -59,6 +59,9 @@ Route::post('/mysql/create-database-execute', 'MySQLController@create_database_e
 Route::get('/mysql/create-database-username', 'MySQLController@create_database_username_init');
 Route::post('/mysql/create-database-username-execute', 'MySQLController@create_database_username_execute');
 
+Route::get('/mysql/add-privileges', 'MySQLController@add_privileges_init');
+Route::post('/mysql/add-privileges-execute', 'MySQLController@add_privileges_execute');
+
 Route::get('/mysql/phpmyadmin', 'MySQLController@phpmyadmin_init');
 
 Route::get('/ftp/create-username', 'PageController@temp');

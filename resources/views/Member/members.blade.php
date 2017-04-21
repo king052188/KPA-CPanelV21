@@ -60,8 +60,8 @@
         <table id="members_dt" class="footable table" data-sorting="true" data-page-size="10" data-limit-navigation="5">
             <thead>
             <tr>
-                <th style="width: 320px;">Hash</th>
-                <th>Name (Last, First Middle)</th>
+                <th style="width: 150px;">Group</th>
+                <th>Name (Last, First, Middle)</th>
                 <th style="width: 110px;">Gender</th>
                 <th style="width: 250px;">Email</th>
                 <th style="width: 120px;">Mobile</th>
@@ -73,14 +73,14 @@
                 @if(COUNT($members) > 0)
                     @for($i = 0; $i < COUNT($members); $i++)
                         <tr>
-                            <td>{{ $members[$i]->hash_code }}</td>
+                            <td>{{ $members[$i]->group_name }}</td>
                             <td>
                                 <?php
-                                    $f_name = preg_replace('/\s+/', '', strtoupper($members[$i]->first_name));
-                                    $m_name = preg_replace('/\s+/', '', strtoupper($members[$i]->middle_name));
-                                    $l_name = preg_replace('/\s+/', '', strtoupper($members[$i]->last_name));
+                                    $f_name = strtoupper($members[$i]->first_name);
+                                    $m_name = strtoupper($members[$i]->middle_name);
+                                    $l_name = strtoupper($members[$i]->last_name);
                                 ?>
-                                <b>{{ $l_name }},</b> {{ $m_name }} {{ $m_name }}
+                                <b>{{ $l_name }},</b> {{ $f_name }}, {{ $m_name }}
                             </td>
                             <td>{{ $members[$i]->gender == 1 ? "Male" : "Female" }}</td>
                             <td>{{ $members[$i]->email }}</td>
@@ -141,10 +141,15 @@
                         <h2 id="success_noti" class="text-center"><img src="http://icons.iconarchive.com/icons/graphicloads/100-flat-2/128/signal-icon.png" class="img-circle"><br />Confirming</h2>
                     </div>
                     <div class="modal-body row">
-                        <div id="activation_msg">
-                        </div>
+                        <div id="activation_msg"> </div>
+
                     </div>
                     <div class="modal-footer">
+                        <select id="ddlGroups" style="padding: 5px; margin-top: 1.5px;">
+                            <option value="0">-- Select Group --</option>
+                            <option value="kpa">KPA</option>
+                            <option value="ckt">CKT</option>
+                        </select>
                         <button type="submit" id="activationBtnSave" class="btn btn-primary">Yes</button>
                         <button type="submit" id="activationNtnNo" class="btn btn-default" >No</button>
                     </div>
@@ -212,8 +217,15 @@
                         alert("Please reload the page.");
                         return false;
                     }
+
+                    var groups = $('#ddlGroups').val();
+                    if(groups == "0") {
+                        alert("Please select a group.");
+                        return false;
+                    }
+
                     $.ajax({
-                        url: "/activate/account/"+_uid,
+                        url: "/activate/account/"+_uid+"?group="+groups,
                         dataType: "text",
                         beforeSend: function () {
                             $('#activationBtnSave').text("Please wait...");
@@ -227,6 +239,15 @@
                                 alert("Activation was successful");
                                 location.reload();
                             }
+                            else if(json.status == 201) {
+                                alert("Account already activated.");
+                            }
+                            else {
+                                alert("Error, Please try again.");
+                                location.reload();
+                            }
+
+                            $('#activationBtnSave').text("Yes");
                         }
                     });
                 })
