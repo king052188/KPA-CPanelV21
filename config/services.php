@@ -15,8 +15,8 @@ return [
     */
 
     'mailgun' => [
-        'domain' => 'mailgun.ipass-select.com',
-        'secret' => 'key-dd7bd76d46c7b8ed56718400f75e0e6e',
+        'domain' => 'mail.cpanelv21.kpa21.com',
+        'secret' => 'key-43844631eb9b0f082e5033999fb69aa5',
     ],
 
     'ses' => [

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\Handler;
+use App\User;
 use Illuminate\Http\Request;
 use App\Member;
 use App\MemberBasic;
@@ -13,6 +14,40 @@ use DB;
 
 class MemberController extends Controller
 {
+    // login processing
+    public function member_forgot_password_index(Request $request) {
+        $helper = Helper::ssl_secured($request);
+
+        return view('member.forgot_password', compact('helper'));
+    }
+
+    public function member_forgot_password_execute(Request $request) {
+
+        $user = Member::where("username", "=", $request->account)
+        ->orWhere("email", "=", $request->account)
+        ->orWhere("mobile", "=", $request->account);
+
+        $u = $user->first();
+
+        if( COUNT($u) > 0) {
+            $password_code = Helper::get_random_password();
+
+            $h = $password_code["hash_password"];
+            $p = $password_code["new_password"];
+
+            $r = $user->update(
+                array("password" => $h)
+            );
+
+            if($r) {
+                $h = Helper::reset_password_email_send_mailgun($u->first_name, $u->email, $p);
+                if($h) {
+                    return redirect('/reset-password/completed');
+                }
+            }
+        }
+    }
+
     // login processing
     public function member_sign_in_index(Request $request) {
         $helper = Helper::ssl_secured($request);
@@ -108,7 +143,6 @@ class MemberController extends Controller
         $member->first_name = $request->first_name;
         $member->middle_name = $request->middle_name;
         $member->last_name = $request->last_name;
-        $member->birth_date = $request->date_of_birth;
         $member->gender = $request->gender;
         $member->email = $request->email;
         $member->mobile = $request->mobile;
@@ -132,13 +166,17 @@ class MemberController extends Controller
                   )
                 );
 
-            $h = Helper::post_password_email_send($request->first_name, $request->email, $user_hash_code, $password_code["new_password"]);
+//            $h = Helper::post_password_email_send($request->first_name, $request->email, $user_hash_code, $password_code["new_password"]);
 
-            if($h["Status"] == 200) {
+            $h = Helper::welcome_email_send_mailgun($request->first_name, $request->email, $password_code["new_password"]);
+
+//            if($h["Status"] == 200) {
+
+            if($h) {
                 return redirect('/sign-up/verification');
             }
 
-            return redirect('/sign-up')->with('message', 'Oops, Error sending your account information, Please contact info@kpa21.com.');
+            return redirect('/sign-up')->with('message', 'Oops, Error sending your account information, Please contact info@CPanelV21.kpa21.com.');
 
         }
         return redirect('/sign-up')->with('message', 'Oops, Something went wrong. Please try again');

@@ -19,14 +19,14 @@ $url_secured = $helper["status"];
     <script>
         setInterval(function() {
             window.location.href="/login";
-        }, 3000);
+        }, 5000);
     </script>
 </head>
 <body>
 <div class="four">
     <img src="{{ asset("/images/success-img.png", $url_secured) }}" alt="Hooray! Thank you for registering! You will receive a personal confirmation email." />
     <br /><br /><br />
-    <p style="font-size: 1.2em;">This page will automatically redirect to login page after 3 seconds.</p>
+    <p style="font-size: 1.2em;">This page will automatically redirect to login page after 5 seconds.</p>
     Or <br /><br /> <a href="/login" class="hvr-shutter-in-horizontal">Click here to Login</a>
 </div>
 <!---->

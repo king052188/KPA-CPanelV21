@@ -193,6 +193,7 @@
             </div>
         </div>
     </div>
+
     @if (session('message'))
         <script>
             $(document).ready(function() {

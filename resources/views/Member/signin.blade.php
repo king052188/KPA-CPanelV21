@@ -64,7 +64,7 @@ $url_secured = $helper["status"];
                         <i class="material-icons">person</i>
                     </span>
                     <div class="form-line">
-                        <input type="text" class="form-control" id="account" name="account" placeholder="Hash Code or Username" required autofocus>
+                        <input type="text" class="form-control" id="account" name="account" placeholder="Email, Username or Mobile" required autofocus>
                     </div>
                 </div>
                 <div class="input-group">

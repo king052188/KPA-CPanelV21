@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use DB;
+use Illuminate\Support\Facades\Mail;
 
 class Helper extends Controller
 {
@@ -349,6 +350,77 @@ class Helper extends Controller
 
         return Helper::post_email_send(2, "KPA.Notification", $data);
     }
+
+
+    // Email Sending using MailGun API
+
+    public static function welcome_email_send_mailgun($name, $email, $password) {
+        $data = [
+            "TO" => $email,
+            "NAME" => $name,
+            "SUBJECT_MESSAGE" => "Welcome Email and Account Information",
+            "EMAIL" => $email,
+            "PASSWORD" => $password,
+            "COMPANY_NAME" => "CPanelV21 Team"
+        ];
+
+        Mail::send('email.welcome', $data, function($message) use ($data) {
+            $message->to($data["TO"]);
+            $message->subject($data["SUBJECT_MESSAGE"]);
+        });
+
+        if( count(Mail::failures()) > 0 ) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public static function reset_password_email_send_mailgun($name, $email, $password) {
+        $data = [
+            "TO" => $email,
+            "NAME" => $name,
+            "SUBJECT_MESSAGE" => "Password Reset Information",
+            "EMAIL" => $email,
+            "PASSWORD" => $password,
+            "COMPANY_NAME" => "CPanelV21 Team"
+        ];
+
+        Mail::send('email.reset_password', $data, function($message) use ($data) {
+            $message->to($data["TO"]);
+            $message->subject($data["SUBJECT_MESSAGE"]);
+        });
+
+        if( count(Mail::failures()) > 0 ) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public static function notification_email_send_mailgun($name, $email, $subject, $message) {
+        $data = [
+            "TO" => $email,
+            "NAME" => $name,
+            "SUBJECT_MESSAGE" => "Status Alert: ". $subject,
+            "BODY_MESSAGE" => $message,
+            "COMPANY_NAME" => "CPanelV21 Team"
+        ];
+
+        Mail::send('email.notification', $data, function($message) use ($data) {
+            $message->to($data["TO"]);
+            $message->subject($data["SUBJECT_MESSAGE"]);
+        });
+
+        if( count(Mail::failures()) > 0 ) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+
 
     // Method to send Get request to url
     public static function do_curl($url) {

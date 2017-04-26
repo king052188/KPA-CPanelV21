@@ -87,7 +87,9 @@ class MySQLController extends Controller
             $body .= "<br /><br /><b>Database:</b> {$database_name}";
             $body .= "<br /><b>Username:</b> {$account_name}";
 
-            $this->post_notification_email_send("Database Added", $user[0]->first_name, $user[0]->email, $body);
+//            $this->post_notification_email_send("Database Added", $user[0]->first_name, $user[0]->email, $body);
+            
+            Helper::notification_email_send_mailgun($user[0]->first_name, $user[0]->email, "New database has been added", $body);
 
             return array(
                 "code" => 200,
@@ -160,7 +162,9 @@ class MySQLController extends Controller
             $body .= "<br /><br /><b>Username:</b> {$username}";
             $body .= "<br /><b>Password:</b> {$password}";
 
-            $this->post_notification_email_send("Database Account Added", $user[0]->first_name, $user[0]->email, $body);
+//            $this->post_notification_email_send("Database Account Added", $user[0]->first_name, $user[0]->email, $body);
+
+            Helper::notification_email_send_mailgun($user[0]->first_name, $user[0]->email, "New database account has been added", $body);
 
             return array(
                 "code" => 200,
@@ -232,9 +236,11 @@ class MySQLController extends Controller
         if($r) {
 
             $body = "We have received a request that the username set the privilege for the following:";
-            $body .= "<br /><br />{$username} username added the privileges for {$database} database";
+            $body .= "<br /><br />{$username} username added a privileges for {$database} database";
 
-            $this->post_notification_email_send("Username Added Privilege", $user[0]->first_name, $user[0]->email, $body);
+//            $this->post_notification_email_send("Username Added Privilege", $user[0]->first_name, $user[0]->email, $body);
+
+            Helper::notification_email_send_mailgun($user[0]->first_name, $user[0]->email, "User privilege has been added to a database", $body);
 
             return array(
                 "code" => 200,

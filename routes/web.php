@@ -24,6 +24,10 @@ Route::get('/account-kit', 'TestController@index');
 Route::post('/account-kit/process', 'TestController@account_kit_response');
 Route::get('/account-kit/process/v2/{token}', 'TestController@account_kit_token');
 
+Route::get('/forgot-password', 'MemberController@member_forgot_password_index');
+Route::post('/forgot-password/processing', 'MemberController@member_forgot_password_execute');
+
+
 Route::get('/login', 'MemberController@member_sign_in_index');
 Route::post('/login/processing', 'MemberController@member_sign_in_validation');
 Route::any('/login/execute/v2', 'MemberController@member_sign_in_validation_v2');
@@ -35,6 +39,9 @@ Route::post('/sign-up/processing', 'MemberController@member_sign_up_execute');
 Route::get('/validating/{type}/{value}', 'MemberController@validate_account');
 Route::get('/registration/verification', 'PageController@clear_cache');
 Route::get('/registration/completed', 'PageController@registration_completed');
+
+
+Route::get('/reset-password/completed', 'PageController@reset_password_completed');
 
 
 Route::get('/dashboard', 'MemberController@dashboard_index');
@@ -92,18 +99,26 @@ Route::get('/list-of-all-downline/{value}', function($value) {
 
 Route::get('/smtp.mailgun.org/sandboxf97d79f7c7184f32b8d6b2e472f527ba.mailgun.org', function() {
 
-    $data = [
-        "email" => "kingpauloaquino@gmail.com",
-        "body" => "waaaaaaa"
-    ];
+    $var  = \App\Http\Controllers\Helper::notification_email_send_mailgun("King", "king@cdgpacific.com", "123213 13221 2 321 ", "3213213213123 213 21 321 321 3");
 
-    Mail::send('email.mailEvent', $data, function($message) use ($data) {
-        $message->to($data["email"]);
-        $message->subject('Mailgun Testing');
-    });
-
-    dd('Mail Send Successfully');
+    if($var) {
+        dd('Mail Send Successfully');
+    }
+    dd('Mail Sending Error');
 });
+
+
+Route::get('/smtp.mailgun.org/mail.cpanelv21.kpa21.com', function() {
+
+    $var  = \App\Http\Controllers\Helper::welcome_email_send_mailgun("King", "king@cdgpacific.com", "ABC12abc");
+
+    if($var) {
+        dd('Mail Send Successfully');
+    }
+    dd('Mail Sending Error');
+
+});
+
 
 
 

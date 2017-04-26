@@ -3,11 +3,11 @@
 
 return array(
     'driver' => 'mailgun',
-    'host' => 'smtp.zoho.com',
+    'host' => 'smtp.mailgun.org',
     'port' => 465,
-    'from' => array('address' => 'donotreply@cpanelV21.kpa21.com', 'name' => 'donotreply@cpanelV21.kpa21.com'),
+    'from' => array('address' => 'donotreply@mail.cpanelV21.kpa21.com', 'name' => 'donotreply@mail.cpanelV21.kpa21.com'),
     'encryption' => 'ssl',
-    'username' => 'donotreply@cpanelV21.kpa21.com',
+    'username' => 'donotreply@mail.cpanelV21.kpa21.com',
     'password' => 'ABC12abc',
     'sendmail' => '/usr/sbin/sendmail -bs',
     'pretend' => false,

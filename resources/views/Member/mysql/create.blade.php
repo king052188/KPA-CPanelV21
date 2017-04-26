@@ -60,7 +60,7 @@
             <div class="kpa_custom">
                 <div class="kpa_custom_mysql">
                     <input type="checkbox" id="ip_checkbox" /> Use IP |
-                    <input type="text" id="mysqlConnection" value="mysql-ckt.kpa21.com" style="border: 0px;" disabled />
+                    <input type="text" id="mysqlConnection" value="mysql.ckt.kpa21.com" style="border: 0px;" disabled />
                     <button id="btnCopy" class="btn btn-default">COPY MySQL Host</button>
                     <script>
                         var copyTextareaBtn = document.querySelector('#btnCopy');
