@@ -2,12 +2,12 @@
 
 
 return array(
-    'driver' => 'smtp',
+    'driver' => 'mailgun',
     'host' => 'smtp.zoho.com',
     'port' => 465,
-    'from' => array('address' => 'donotreply@mail4wrd-easy-free-shared-service.noip.me', 'name' => 'donotreply@mail4wrd-easy-free-shared-service.noip.me'),
+    'from' => array('address' => 'donotreply@cpanelV21.kpa21.com', 'name' => 'donotreply@cpanelV21.kpa21.com'),
     'encryption' => 'ssl',
-    'username' => 'donotreply@mail4wrd-easy-free-shared-service.noip.me',
+    'username' => 'donotreply@cpanelV21.kpa21.com',
     'password' => 'ABC12abc',
     'sendmail' => '/usr/sbin/sendmail -bs',
     'pretend' => false,

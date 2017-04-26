@@ -86,7 +86,26 @@ Route::get('/list-of-all-downline/{value}', function($value) {
 
     return view('test.downline', compact('id'));
 
+
+
 });
+
+Route::get('/smtp.mailgun.org/sandboxf97d79f7c7184f32b8d6b2e472f527ba.mailgun.org', function() {
+
+    $data = [
+        "email" => "kingpauloaquino@gmail.com",
+        "body" => "waaaaaaa"
+    ];
+
+    Mail::send('email.mailEvent', $data, function($message) use ($data) {
+        $message->to($data["email"]);
+        $message->subject('Mailgun Testing');
+    });
+
+    dd('Mail Send Successfully');
+});
+
+
 
 
 

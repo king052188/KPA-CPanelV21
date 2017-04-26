@@ -15,8 +15,8 @@ return [
     */
 
     'mailgun' => [
-        'domain' => env('MAILGUN_DOMAIN'),
-        'secret' => env('MAILGUN_SECRET'),
+        'domain' => 'mailgun.ipass-select.com',
+        'secret' => 'key-dd7bd76d46c7b8ed56718400f75e0e6e',
     ],
 
     'ses' => [
