@@ -168,7 +168,7 @@ $url_secured = $helper["status"];
                         <li>
                             <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-indent nav_icon"></i> <span class="nav-label">MySQL</span><span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li><a href="/mysql/create-database" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Database</a></li>
+                                <li><a href="/mysql/database" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Database</a></li>
                                 <li><a href="/mysql/create-database-username" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>User Accounts</a></li>
                                 <li><a href="/mysql/add-privileges" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>User Privileges</a></li>
                                 <li><a href="/mysql/phpmyadmin" class="hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>PHPMyAdmin</a></li>

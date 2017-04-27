@@ -56,7 +56,7 @@
         <h2>
             <a href="/login">Home</a>
             <i class="fa fa-angle-right"></i>
-            <span>Create Database</span>
+            <span>Database Lists</span>
             <div class="kpa_custom">
                 <div class="kpa_custom_mysql">
                     <input type="checkbox" id="ip_checkbox" /> Use IP |
@@ -114,42 +114,43 @@
 
             {{--<form method="POST" action="/mysql/create-database-execute">--}}
 
-                {{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
+            {{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
 
-                <div class="col-md-12 form-group1 group-mail">
-                    <label class="control-label">Database Name (required)</label>
-                    <input type="text" id="database" name="database" placeholder="Database name here..."  required="">
-                </div>
+            <div class="col-md-12 form-group1 group-mail">
+                <label class="control-label">Database Name (required)</label>
+                <input type="text" id="database" name="database" placeholder="Database name here..."  required="">
+            </div>
 
-                <div class="col-md-12 form-group1 group-mail">
-                    <label class="control-label">Database with Prefixes</label>
-                    <input type="text" id="database_prefixes" name="database_prefixes" disabled>
-                </div>
+            <div class="col-md-12 form-group1 group-mail">
+                <label class="control-label">Database with Prefixes</label>
+                <input type="text" id="database_prefixes" name="database_prefixes" disabled>
+            </div>
 
-                <div class="clearfix"> </div>
+            <div class="clearfix"> </div>
 
-                <div class="col-md-12 form-group2 group-mail">
-                    <label class="control-label">Attach Username (required)</label>
-                    <select id="account" name="account">
-                        <option value="0">-- Select Account --</option>
-                        @for($i = 0; $i < COUNT($account); $i++)
-                            <option value="{{ $account[$i]["username"] }}">{{ $account[$i]["username"] }}</option>
-                        @endfor
-                    </select>
-                </div>
+            <div class="col-md-12 form-group2 group-mail">
+                <label class="control-label">Attach Username (required)</label>
+                <select id="account" name="account">
+                    <option value="0">-- Select Account --</option>
+                    @for($i = 0; $i < COUNT($account); $i++)
+                        <option value="{{ $account[$i]["username"] }}">{{ $account[$i]["username"] }}</option>
+                    @endfor
+                </select>
+            </div>
 
-                <div class="col-md-12 form-group">
-                    <button type="submit" id="btnSaveDatabase" class="btn btn-primary">Save</button>
-                    <a href="/mysql/create-database-username" id="btnAddAccount" class="btn btn-default">Add Username</a>
-                </div>
+            <div class="col-md-12 form-group">
+                <button type="submit" id="btnSaveDatabase" class="btn btn-primary">Save</button>
+                <a href="/mysql/create-database-username" id="btnAddAccount" class="btn btn-default">Add Username</a>
+            </div>
 
-                <div class="clearfix"> </div>
+            <div class="clearfix"> </div>
             {{--</form>--}}
 
         </div>
 
     </div>
     <!--//grid-->
+
     <style>
         .notifyjs-container div span {
             font-weight: 200;
@@ -161,10 +162,13 @@
             font-size: .8em;
             color: #DD3A3A;
         }
+
+        #share_verify_msg table.username_verify_list tbody tr:last-child { background:#ff0000; }
     </style>
+
     <!-- Jquery Core Js -->
-    {{--<script src="{{ asset("js/jquery-3.1.1.min.js", $url_secured) }}"></script>--}}
     <script src="//rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
+
     @if (session('message'))
         <script>
             var error_message = "{{ session('message') }}";

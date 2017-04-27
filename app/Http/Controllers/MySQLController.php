@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Member;
+use App\MySQLSharedDatabase;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -14,13 +16,26 @@ use Illuminate\Support\Str;
 class MySQLController extends Controller
 {
     //
-
     public function phpmyadmin_init(Request $request) {
         $helper = Helper::ssl_secured($request);
 
         $rand = substr(uniqid('', true), -5);
 
         return view('member.mysql.phpmyadmin', compact('helper'));
+    }
+
+    public function database_init(Request $request) {
+        $helper = Helper::ssl_secured($request);
+        $user = Helper::getCookies();
+
+        if($user == null) {
+            return redirect('/logout');
+        }
+
+        $user_uid = $user[0]->Id;
+        $database = MySQLDatabase::where("user_id", "=", $user_uid)->orderBy("database_name")->get()->toArray();
+
+        return view('member.mysql.database', compact('helper', 'user', 'database'));
     }
 
     public function create_database_init(Request $request) {
@@ -33,6 +48,7 @@ class MySQLController extends Controller
 
         $user_uid = $user[0]->Id;
         $account = MySQLAccount::where("user_id", "=", $user_uid)->orderBy("username")->get()->toArray();
+//        $database = MySQLDatabase::where("user_id", "=", $user_uid)->orderBy("database_name")->get()->toArray();
 
         return view('member.mysql.create', compact('helper', 'user', 'account'));
     }
@@ -234,11 +250,9 @@ class MySQLController extends Controller
         $r = $p->save();
 
         if($r) {
-
             $body = "We have received a request that the username set the privilege for the following:";
-            $body .= "<br /><br />{$username} username added a privileges for {$database} database";
-
-//            $this->post_notification_email_send("Username Added Privilege", $user[0]->first_name, $user[0]->email, $body);
+            $body .= "<br /><br /><b>Database:</b> {$database}";
+            $body .= "<br /><b>Username:</b> {$username}";
 
             Helper::notification_email_send_mailgun($user[0]->first_name, $user[0]->email, "User privilege has been added to a database", $body);
 
@@ -253,6 +267,86 @@ class MySQLController extends Controller
         );
     }
 
+    public function share_database($database, Request $request) {
+        $user = Helper::getCookies();
+        if($user == null) {
+            return array(
+                "code" => 404,
+                "message" => 'Please re-login, session was expired.'
+            );
+        }
+
+        $owner_uid = $user[0]->Id;
+        $share_uid = (int)$request->shared_uid;
+        $role = (int)$request->role;
+        $username = $request->username;
+
+        $d = DB::select("
+                  SELECT * FROM mysql_database_shared_table 
+                  WHERE owner_uid = {$owner_uid}
+                  AND shared_uid = {$share_uid}
+                  AND role = {$role}
+                  AND account_name = '{$username}'
+                  AND database_name = '{$database}';
+              ");
+
+        if( COUNT($d) > 0 ) {
+            return array(
+                "code" => 402,
+                "message" => "[ {$database} ] already shared to [ {$username} ]."
+            );
+        }
+
+        $remote = null;
+        if($role > 1) {
+            $remote = "YES";
+        }
+
+        $mysql = Helper::set_database_and_attach_user($username, $database, $remote);
+        if($mysql["code"] != 200) {
+            return array(
+                "code" => 401,
+                "message" => $mysql["message"]
+            );
+        }
+
+        $account = Member::where("Id", "=", $share_uid)->first();
+
+        $m = new MySQLSharedDatabase();
+        $m->owner_uid = $owner_uid;
+        $m->shared_uid = $share_uid;
+        $m->role = $role;
+        $m->account_name = $username;
+        $m->database_name = $database;
+        $m->status = 2;
+        $r = $m->save();
+
+        if($r) {
+            $body = "We have received a request that you share your database for the following:";
+            $body .= "<br /><br /><b>Database:</b> {$database}";
+            $body .= "<br /><b>Username:</b> {$username}";
+
+            Helper::notification_email_send_mailgun($user[0]->first_name, $user[0]->email, "Database shared to other account", $body);
+
+            $g = $account->gender == 1 ? "his" : "her";
+            $body = $user[0]->first_name .", has shared ". $g ." database with your account for the following:";
+            $body .= "<br /><br /><b>Database:</b> {$database}";
+            $body .= "<br /><b>Your Username:</b> {$username}";
+
+            Helper::notification_email_send_mailgun($account->first_name, $account->email, "Database shared to one of your account", $body);
+
+            return array(
+                "code" => 200,
+                "message" => "[ {$username} ] username has been shared to [ {$database} ]."
+            );
+        }
+        return array(
+            "code" => 500,
+            "message" => "[ {$username} ] username failed to share."
+        );
+
+    }
+
     public static function post_notification_email_send($subject, $name, $email, $body) {
 
         $data = array(
@@ -264,4 +358,5 @@ class MySQLController extends Controller
         
         return Helper::post_email_send(2, "KPA.Notification", $data);
     }
+
 }

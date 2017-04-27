@@ -51,6 +51,8 @@ Route::post('/edit-profile/{type}/execute', 'MemberController@edit_profile_execu
 
 Route::get('/activate/account/{uid}', 'MemberController@activate_account');
 
+Route::get('/verify/account/{username}', 'MemberController@verify_database_username');
+
 Route::get('/payment', 'MemberController@payment_index');
 Route::post('/payment/execute', 'MemberController@payment_execute');
 
@@ -60,14 +62,20 @@ Route::get('/settings', 'MemberController@settings_index');
 Route::post('/settings/change-password', 'MemberController@settings_change_password');
 
 
+Route::get('/mysql/database', 'MySQLController@database_init');
+
 Route::get('/mysql/create-database', 'MySQLController@create_database_init');
 Route::post('/mysql/create-database-execute', 'MySQLController@create_database_execute');
+
+Route::post('/mysql/share/database/', 'MySQLController@create_database_execute');
 
 Route::get('/mysql/create-database-username', 'MySQLController@create_database_username_init');
 Route::post('/mysql/create-database-username-execute', 'MySQLController@create_database_username_execute');
 
 Route::get('/mysql/add-privileges', 'MySQLController@add_privileges_init');
 Route::post('/mysql/add-privileges-execute', 'MySQLController@add_privileges_execute');
+
+Route::post('/mysql/share/database/{database}', 'MySQLController@share_database');
 
 Route::get('/mysql/phpmyadmin', 'MySQLController@phpmyadmin_init');
 

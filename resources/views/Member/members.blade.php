@@ -11,13 +11,17 @@
     </h2>
 </div>
 <!--//banner-->
+
 <!--faq-->
 <div class="blank">
+
     <a href="#" id="modal_event" class="btn btn-blue btn-lg btn-huge lato" data-toggle="modal" data-target="#myModal" style="display: none;"></a>
+
     <!-- FooTable -->
     <link href="{{ asset('/css/footable.core.css')}}" rel="stylesheet">
     <script src="{{ asset('/js/footable.all.min.js')}}"></script>
     <!-- FooTable -- Page-Level Scripts -->
+
     <style>
         ._wrapper .show_ label, ._wrapper .show_ select, ._wrapper .search_ label, ._wrapper .search_ input {
             font-family: 'Muli-Regular';
@@ -39,7 +43,9 @@
             float: right;
         }
     </style>
+
     <div class="blank-page">
+
         <div class="_wrapper">
             <div class="show_" style="display: none;">
                 <label>Show</label>
@@ -57,6 +63,7 @@
                 </form>
             </div>
         </div>
+
         <table id="members_dt" class="footable table" data-sorting="true" data-page-size="10" data-limit-navigation="5">
             <thead>
             <tr>
@@ -177,6 +184,7 @@
         </div>
 
         <script href="//code.jquery.com/jquery-3.2.0.min.js" ></script>
+
         <script>
             $(document).ready(function() {
                 $('.footable').footable();
@@ -255,8 +263,8 @@
         </script>
 
     </div>
-</div>
 
+</div>
 <!--//faq-->
 
 @endsection

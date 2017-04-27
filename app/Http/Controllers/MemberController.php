@@ -182,6 +182,30 @@ class MemberController extends Controller
         return redirect('/sign-up')->with('message', 'Oops, Something went wrong. Please try again');
     }
     // end registration processing
+
+    public function verify_database_username($username) {
+        $data = DB::select("
+            SELECT a.*, m.email, m.first_name, m.last_name 
+            FROM mysql_account_table AS a
+            INNER JOIN member_table AS m
+            ON a.user_id = m.Id
+            WHERE a.username = '{$username}';
+        ");
+
+        if( COUNT($data) > 0) {
+            return array(
+                "status" => 200,
+                "count" => COUNT($data),
+                "data" => $data
+            );
+        }
+
+        return array(
+            "status" => 500,
+            "count" => 0,
+            "data" => null
+        );
+    }
     
     public function dashboard_index(Request $request) {
         $helper = Helper::ssl_secured($request);
