@@ -193,7 +193,7 @@ class Helper extends Controller
         return $ssl;
     }
 
-    public static function getCookies($cookies_name = "fbi_session")
+    public static function getCookies($cookies_name = "Laradnet-User")
     {
         $data = \Cookie::get($cookies_name);
 
@@ -208,7 +208,7 @@ class Helper extends Controller
         return $data;
     }
 
-    public static function flushCookies($cookies_name = "fbi_session") {
+    public static function flushCookies($cookies_name = "Laradnet-User") {
         \Cookie::forget($cookies_name);
         \Cookie::queue(\Cookie::forget($cookies_name));
 

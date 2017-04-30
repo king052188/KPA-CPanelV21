@@ -9,6 +9,8 @@ use App\MemberBeneficiary;
 use App\Payment;
 use DB;
 
+use Illuminate\Support\Facades\Crypt;
+
 class ApiController extends Controller
 {
     //
@@ -42,4 +44,38 @@ class ApiController extends Controller
             "data" => $members,
         );
     }
+
+    public function cookies(Request $request) {
+
+        $user_cookies = Helper::getCookies();
+
+        if($user_cookies == null) {
+            $data = array(
+                "code" => 404,
+                "message" => "Fail"
+            );
+
+            return $data;
+        }
+
+        $data = array(
+            "code" => 200,
+            "message" => "Success"
+        );
+
+        $user = Crypt::decrypt($user_cookies);
+        $app_id = 1;
+        $app_name = $request->app;
+        $feed = $request->feed;
+        $user_id = $user[0]->Id;
+
+        Helper::flushCookies("LaradnetServer");
+        $cookies = Helper::do_curl("http://localhost:61512/TokenRequest.aspx?app_id={$app_id}&app_name={$app_name}&uid={$user_id}&first={$feed}");
+        $guid = $cookies["Token_GUID"];
+        $hashed = $cookies["Token_Hashed"];
+        return response($data)
+            ->withCookie(cookie('Laradnet-Guid', $guid, 60))
+            ->withCookie(cookie('Laradnet-Session', $hashed, 60));
+    }
+
 }

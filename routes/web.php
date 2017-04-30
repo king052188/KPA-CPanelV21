@@ -79,8 +79,9 @@ Route::post('/mysql/share/database/{database}', 'MySQLController@share_database'
 
 Route::get('/mysql/phpmyadmin', 'MySQLController@phpmyadmin_init');
 
-Route::get('/ftp/create-username', 'PageController@temp');
-Route::post('/ftp/create-username-execute', 'PageController@temp');
+Route::get('/ftp/create', 'FTPController@create_init');
+
+Route::post('/ftp/create-execute', 'PageController@temp');
 
 
 Route::get('/logout', 'MemberController@member_sign_out_process');

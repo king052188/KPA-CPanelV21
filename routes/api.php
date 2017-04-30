@@ -19,3 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get('/members/{type}', 'ApiController@member_populate');
+
+
+Route::post('/request/token', 'ApiController@cookies');

@@ -22,6 +22,7 @@ $url_secured = $helper["status"];
     <link href="{{ asset("/plugins/minimal_admin_panel/css/custom.css", $url_secured) }}" rel="stylesheet">
     <script src="{{ asset("/plugins/minimal_admin_panel/js/custom.js", $url_secured) }}"></script>
     <script src="{{ asset("/plugins/minimal_admin_panel/js/screenfull.js", $url_secured) }}"></script>
+    <script src="{{ asset("/js/laradnet.session.min.js", $url_secured) }}"></script>
     <script>
         $(function () {
             $('#supported').text('Supported/allowed: ' + !!screenfull.enabled);
@@ -178,7 +179,7 @@ $url_secured = $helper["status"];
                         <li>
                             <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-inbox nav_icon"></i> <span class="nav-label">FTP</span><span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li><a href="/ftp/create-username" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Create Account</a></li>
+                                <li><a href="/ftp/create" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Create Account</a></li>
                             </ul>
                         </li>
                         @endif
