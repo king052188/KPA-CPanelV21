@@ -81,7 +81,6 @@
                         });
 
                         var root_path = "";
-                        var ftp_dir = "";
                         var app_name = "";
                         var sub_name = "";
 
@@ -97,33 +96,32 @@
                             root_path = "\\{{ $user[0]->username }}\\";
 
                             $( "#app_path" ).change(function() {
-                                ftp_dir = $( "#app_path" ).val();
-                                if(ftp_dir == "0") {
+                                app_name = $( "#app_path" ).val();
+                                if(app_name == "0") {
                                     return false;
                                 }
 
-                                if(ftp_dir != "1") {
+                                if(app_name != "1") {
                                     $( "#app_name" ).val("");
                                     $( "#div_app_name" ).hide();
-                                    app_name = "";
-                                    $( "#ftp_dir" ).val(root_path + ftp_dir + app_name + sub_name);
+                                    $( "#ftp_dir" ).val(root_path + app_name + sub_name);
                                 }
                                 else {
-                                    ftp_dir = "";
+                                    app_name = "";
                                     $( "#app_name" ).val("");
                                     $( "#div_app_name" ).show();
-                                    $( "#ftp_dir" ).val(root_path + ftp_dir + app_name + sub_name);
+                                    $( "#ftp_dir" ).val(root_path + app_name + sub_name);
                                 }
                             });
 
                             $( "#app_name" ).keyup(function() {
                                 app_name = $( "#app_name" ).val() + "\\";
-                                $( "#ftp_dir" ).val(root_path + ftp_dir + app_name + sub_name);
+                                $( "#ftp_dir" ).val(root_path + app_name + sub_name);
                             });
 
                             $( "#sub_name" ).keyup(function() {
                                 sub_name = $( "#sub_name" ).val();
-                                $( "#ftp_dir" ).val(root_path + ftp_dir + app_name + sub_name);
+                                $( "#ftp_dir" ).val(root_path + app_name + sub_name);
                             });
                         })
                     </script>
@@ -160,13 +158,13 @@
                         <option value="{{ $web[$i]["site_name"] }}\">{{ $web[$i]["site_name"] }}</option>
                     @endfor
                     <optgroup label="New Application">New WebSite</optgroup>
-                    <option value="1">Create Application</option>
+                    <option value="1">Create New Application</option>
                 </select>
             </div>
 
             <div id="div_app_name" class="col-md-12 form-group1 group-mail" style="display: none;">
                 <label class="control-label">Application Name (required)</label>
-                <input type="text" id="app_name" name="app_name" placeholder="Application name I.e.: your-domain.com" required="">
+                <input type="text" id="app_name" name="app_name" placeholder="Application name I.e.: your-domain.com" required>
             </div>
 
             <div class="col-md-12 form-group1 group-mail">
@@ -176,16 +174,16 @@
 
             <div class="col-md-12 form-group1 group-mail">
                 <label class="control-label">Username (required)</label>
-                <input type="text" id="username" name="username" placeholder="Username here..."  required="">
+                <input type="text" id="username" name="username" placeholder="Username here..."  required>
             </div>
 
             <div class="col-md-12 form-group1 group-mail">
                 <label class="control-label">Password (required)</label>
-                <input type="text" id="password1" name="password1" placeholder="Password here..."  required="">
+                <input type="password" id="password1" name="password1" placeholder="Password here..."  required>
             </div>
             <div class="col-md-12 form-group1 group-mail">
                 <label class="control-label">Re-type password (required)</label>
-                <input type="text" id="password2" name="password2" placeholder="Re-type password here..."  required="">
+                <input type="password" id="password2" name="password2" placeholder="Re-type password here..."  required>
             </div>
 
             <div class="col-md-12 form-group">

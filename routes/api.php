@@ -20,5 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/members/{type}', 'ApiController@member_populate');
 
-
 Route::post('/request/token', 'ApiController@cookies');
+
+Route::post('/disk/create', 'ApiController@create_disk');
+
+Route::post('/ftp/create', 'ApiController@create_ftp');

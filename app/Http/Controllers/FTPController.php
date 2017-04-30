@@ -9,6 +9,17 @@ class FTPController extends Controller
 {
     //
 
+    public function create_disk_init(Request $request) {
+        $helper = Helper::ssl_secured($request);
+        $user = Helper::getCookies();
+
+        if($user == null) {
+            return redirect('/logout');
+        }
+
+        return view('member.disk.create', compact('helper', 'user'));
+    }
+
     public function create_init(Request $request) {
         $helper = Helper::ssl_secured($request);
         $user = Helper::getCookies();

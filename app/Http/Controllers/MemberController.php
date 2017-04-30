@@ -215,7 +215,10 @@ class MemberController extends Controller
             return redirect('/logout');
         }
 
+        $user_status = $user[0]->status;
         $user_uid = $user[0]->Id;
+        $disk = DB::select("SELECT * FROM disk_table WHERE user_id = {$user_uid};");
+
 //        $check_ = MemberBasic::where("uid", "=", $user_uid)->first();
 //        if($check_ == null) {
 //            return redirect('/edit-profile?page=basic');
@@ -239,6 +242,12 @@ class MemberController extends Controller
             "MySQL" => $MySQL_Quota,
             "FTP" => $FTP_Quota
         );
+
+        if($user_status > 2) {
+            if( COUNT($disk) == 0 ) {
+                return redirect('/create-disk');
+            }
+        }
 
         return view('member.dashboard', compact('helper', 'user', 'statistics'));
     }
