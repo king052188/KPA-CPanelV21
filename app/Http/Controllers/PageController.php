@@ -10,6 +10,17 @@ class PageController extends Controller
         return redirect('\login');
     }
 
+    public function package(Request $request) {
+        $helper = Helper::ssl_secured($request);
+        $user = Helper::getCookies();
+
+        if($user == null) {
+            return redirect('/logout');
+        }
+        
+        return view('member.package.index', compact('helper', 'user'));
+    }
+
     public function temp(Request $request) {
         $helper = Helper::ssl_secured($request);
 

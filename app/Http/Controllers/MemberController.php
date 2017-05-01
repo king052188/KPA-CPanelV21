@@ -237,7 +237,7 @@ class MemberController extends Controller
 
         if($user_status > 2) {
             if( COUNT($disk) == 0 ) {
-                return redirect('/create-disk');
+                return redirect('/setup/package/plan');
             }
         }
 
@@ -268,6 +268,19 @@ class MemberController extends Controller
         );
 
         return view('member.dashboard', compact('helper', 'user', 'statistics'));
+    }
+
+    public function package(Request $request) {
+        $helper = Helper::ssl_secured($request);
+        $user = Helper::getCookies();
+
+        if($user == null) {
+            return redirect('/logout');
+        }
+
+        $packages = DB::select("SELECT * FROM quota_reference_table WHERE status = 2;");
+
+        return view('member.package.index', compact('helper', 'user', 'packages'));
     }
 
     public function member_index(Request $request, $type) {
