@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Crypt;
 class ApiController extends Controller
 {
     //
-    public static $host_api = "http://f129bd8d.ngrok.io/";
+    public static $host_api = "http://a4f66aca.ap.ngrok.io/";
 
     public function member_populate($type) {
         $sort_id = 0;

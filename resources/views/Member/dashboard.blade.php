@@ -15,96 +15,165 @@
     </div>
     <!--//banner-->
 
+    <!--pie-chart--->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/numeral.js/1.5.6/numeral.min.js" type="text/javascript"></script>
+    <script src="{{ asset("/plugins/minimal_admin_panel/js/pie-chart.js", $url_secured) }}" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#disk').pieChart({
+                barColor: '#3bb2d0',
+                trackColor: '#eee',
+                lineCap: 'round',
+                lineWidth: 8,
+                onStep: function (from, to, percent) {
+                    $(this.element).find('.pie-value').text(numeral(percent).format('0,0.00') + ' GB');
+                }
+            });
+
+            $('#web').pieChart({
+                barColor: '#fbb03b',
+                trackColor: '#eee',
+                lineCap: 'butt',
+                lineWidth: 8,
+                onStep: function (from, to, percent) {
+                    $(this.element).find('.pie-value').text(Math.round(percent) + '');
+                }
+            });
+
+            $('#mysql').pieChart({
+                barColor: '#ed6498',
+                trackColor: '#eee',
+                lineCap: 'square',
+                lineWidth: 8,
+                onStep: function (from, to, percent) {
+                    $(this.element).find('.pie-value').text(Math.round(percent) + '');
+                }
+            });
+
+            $('#ftp').pieChart({
+                barColor: '#ed6498',
+                trackColor: '#eee',
+                lineCap: 'square',
+                lineWidth: 8,
+                onStep: function (from, to, percent) {
+                    $(this.element).find('.pie-value').text(Math.round(percent) + '');
+                }
+            });
+        });
+    </script>
+    <!--skycons-icons-->
+
     <!--content-->
     <div class="content-top">
 
-        <div class="col-md-4 ">
+        <div class="col-md-6 ">
+
+            <div class="content-top-1">
+                <div class="col-md-6 top-content">
+                    <h5>Disk</h5>
+                    <label>{{ $statistics["Disk"]["Available"] }}<span style="font-size: 15px; font-weight: 200; color: #B0B0B0;"> GB free of <b>{{ $statistics["Disk"]["Quota"] }}</b> GB</span></label>
+                </div>
+                <div class="col-md-6 top-content1">
+                    <div id="disk" class="pie-title-center" data-percent="{{ $statistics["Disk"]["Used"] }}"> <span class="pie-value"></span> </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+
+
             <div class="content-top-1">
                 <div class="col-md-6 top-content">
                     <h5>Website</h5>
                     <label>{{ $statistics["Website"] }}</label>
                 </div>
                 <div class="col-md-6 top-content1">
-                    <div id="demo-pie-1" class="pie-title-center" data-percent="{{ $statistics["Website"] }}"> <span class="pie-value"></span> </div>
+                    <div id="web" class="pie-title-center" data-percent="{{ $statistics["Website"] }}"> <span class="pie-value"></span> </div>
                 </div>
                 <div class="clearfix"> </div>
             </div>
+
+        </div>
+
+        <div class="col-md-6 ">
+
             <div class="content-top-1">
                 <div class="col-md-6 top-content">
                     <h5>MySQL</h5>
                     <label>{{ $statistics["MySQL"] }}</label>
                 </div>
                 <div class="col-md-6 top-content1">
-                    <div id="demo-pie-2" class="pie-title-center" data-percent="{{ $statistics["MySQL"] }}"> <span class="pie-value"></span> </div>
+                    <div id="mysql" class="pie-title-center" data-percent="{{ $statistics["MySQL"] }}"> <span class="pie-value"></span> </div>
                 </div>
                 <div class="clearfix"> </div>
             </div>
+
             <div class="content-top-1">
                 <div class="col-md-6 top-content">
                     <h5>FTP</h5>
                     <label>{{ $statistics["FTP"] }}</label>
                 </div>
                 <div class="col-md-6 top-content1">
-                    <div id="demo-pie-3" class="pie-title-center" data-percent="{{ $statistics["FTP"] }}"> <span class="pie-value"></span> </div>
+                    <div id="ftp" class="pie-title-center" data-percent="{{ $statistics["FTP"] }}"> <span class="pie-value"></span> </div>
                 </div>
                 <div class="clearfix"> </div>
             </div>
+
         </div>
 
-        <div class="col-md-8">
-            <div class="content-top-1">
-                <script type="text/javascript">
-                    $(function () {
-                        Highcharts.chart('container', {
-                            title: {
-                                text: 'Monthly Average Traffic',
-                                x: -20 //center
-                            },
-                            subtitle: {
-                                text: 'Source: CPanel.kpa21.com',
-                                x: -20
-                            },
-                            xAxis: {
-                                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-                            },
-                            yAxis: {
-                                title: {
-                                    text: 'Reports (₱)'
-                                },
-                                plotLines: [{
-                                    value: 0,
-                                    width: 1,
-                                    color: '#808080'
-                                }]
-                            },
-                            tooltip: {
-                                valueSuffix: ' ₱'
-                            },
-                            legend: {
-                                layout: 'vertical',
-                                align: 'right',
-                                verticalAlign: 'middle',
-                                borderWidth: 0
-                            },
-                            series: [{
-                                name: 'Website',
-                                data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-                            }, {
-                                name: 'MySQL',
-                                data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-                            }, {
-                                name: 'FTP',
-                                data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-                            }]
-                        });
-                    });
-                </script>
-                <script src="https://code.highcharts.com/highcharts.js"></script>
-                <script src="https://code.highcharts.com/modules/exporting.js"></script>
-                <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-            </div>
-        </div>
+        {{--<div class="col-md-8">--}}
+            {{--<div class="content-top-1">--}}
+                {{--<script type="text/javascript">--}}
+                    {{--$(function () {--}}
+                        {{--Highcharts.chart('container', {--}}
+                            {{--title: {--}}
+                                {{--text: 'Monthly Average Traffic',--}}
+                                {{--x: -20 //center--}}
+                            {{--},--}}
+                            {{--subtitle: {--}}
+                                {{--text: 'Source: CPanel.kpa21.com',--}}
+                                {{--x: -20--}}
+                            {{--},--}}
+                            {{--xAxis: {--}}
+                                {{--categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',--}}
+                                    {{--'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']--}}
+                            {{--},--}}
+                            {{--yAxis: {--}}
+                                {{--title: {--}}
+                                    {{--text: 'Reports (₱)'--}}
+                                {{--},--}}
+                                {{--plotLines: [{--}}
+                                    {{--value: 0,--}}
+                                    {{--width: 1,--}}
+                                    {{--color: '#808080'--}}
+                                {{--}]--}}
+                            {{--},--}}
+                            {{--tooltip: {--}}
+                                {{--valueSuffix: ' ₱'--}}
+                            {{--},--}}
+                            {{--legend: {--}}
+                                {{--layout: 'vertical',--}}
+                                {{--align: 'right',--}}
+                                {{--verticalAlign: 'middle',--}}
+                                {{--borderWidth: 0--}}
+                            {{--},--}}
+                            {{--series: [{--}}
+                                {{--name: 'Website',--}}
+                                {{--data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]--}}
+                            {{--}, {--}}
+                                {{--name: 'MySQL',--}}
+                                {{--data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]--}}
+                            {{--}, {--}}
+                                {{--name: 'FTP',--}}
+                                {{--data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]--}}
+                            {{--}]--}}
+                        {{--});--}}
+                    {{--});--}}
+                {{--</script>--}}
+                {{--<script src="https://code.highcharts.com/highcharts.js"></script>--}}
+                {{--<script src="https://code.highcharts.com/modules/exporting.js"></script>--}}
+                {{--<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+
         <div class="clearfix"> </div>
     </div>
     <!---->

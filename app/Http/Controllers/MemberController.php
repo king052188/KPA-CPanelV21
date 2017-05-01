@@ -217,7 +217,8 @@ class MemberController extends Controller
 
         $user_status = $user[0]->status;
         $user_uid = $user[0]->Id;
-        $disk = DB::select("SELECT * FROM disk_table WHERE user_id = {$user_uid};");
+        $username = $user[0]->username;
+        $disk = DB::select("SELECT * FROM quota_table WHERE user_id = {$user_uid};");
 
 //        $check_ = MemberBasic::where("uid", "=", $user_uid)->first();
 //        if($check_ == null) {
@@ -234,20 +235,37 @@ class MemberController extends Controller
 //            return redirect('/payment');
 //        }
 
-        $Website_Quota = 0;
-        $MySQL_Quota = Helper::get_total_quota("mysql_database_table", $user[0]->Id);
-        $FTP_Quota = Helper::get_total_quota("ftp_account_table", $user[0]->Id);
-        $statistics = array(
-            "Website" => $Website_Quota,
-            "MySQL" => $MySQL_Quota,
-            "FTP" => $FTP_Quota
-        );
-
         if($user_status > 2) {
             if( COUNT($disk) == 0 ) {
                 return redirect('/create-disk');
             }
         }
+
+        $disk_size = $disk[0]->quota_id;
+        $data_url = "http://a4f66aca.ap.ngrok.io/?todo=QUOTA&account={$username}&size={$disk_size}";
+
+        $data_result = Helper::do_curl($data_url); //Code
+
+        $used = 0;
+        $available = 0;
+        if($data_result["Code"] == 200) {
+            $used = $data_result["Quota_Used"];
+            $available = $data_result["Quota_Availble"];
+        }
+
+        $Website_Quota = 0;
+        $MySQL_Quota = Helper::get_total_quota("mysql_database_table", $user[0]->Id);
+        $FTP_Quota = Helper::get_total_quota("ftp_account_table", $user[0]->Id);
+        $statistics = array(
+            "Disk" => array(
+                "Quota" => number_format($disk_size, 0),
+                "Used" => number_format($used / 1024 / 1024 / 1024, 2),
+                "Available" => number_format($available / 1024 / 1024 / 1024, 2)
+            ),
+            "Website" => $Website_Quota,
+            "MySQL" => $MySQL_Quota,
+            "FTP" => $FTP_Quota
+        );
 
         return view('member.dashboard', compact('helper', 'user', 'statistics'));
     }

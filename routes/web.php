@@ -64,6 +64,9 @@ Route::get('/settings', 'MemberController@settings_index');
 Route::post('/settings/change-password', 'MemberController@settings_change_password');
 
 
+Route::get('/web/create', 'WebController@create_init');
+
+
 Route::get('/mysql/database', 'MySQLController@database_init');
 
 Route::get('/mysql/create-database', 'MySQLController@create_database_init');
