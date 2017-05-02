@@ -16,41 +16,71 @@
         #share_verify_msg table.username_verify_list tbody tr:last-child { background:#ff0000; }
 
         #package_info .col-md-3 .content-top-1:hover {
-            background: #F3F3F3;
+            background: #F2FFEF;
         }
 
         .selected_package {
-            background: #F3F3F3;
+            background: #F2FFEF;
+        }
+
+        .loveit_package {
+            background: #FFEBEB;
+        }
+
+        .likeit_package {
+            background: #EFF4FF;
         }
 
         .selected_checked_icon {
             float: right;
             margin-top: -45px;
             margin-right: -130px;
+            width: 96px;
+            height: 96px;
         }
 
         .selected_checked_icon_2 {
             float: right;
             margin-top: 50px;
             margin-right: -130px;
+            width: 96px;
+            height: 96px;
+        }
+
+        .selected_checked_icon_3 {
+            float: right;
+            margin-top: 60px;
+            margin-right: -130px;
+            width: 96px;
+            height: 96px;
         }
     </style>
     <script>
-        var last_id = 0;
+        var last_id = 0, last_status_id = 0;
         var choose_id = 0;
         function event_click(id) {
-            console.log(id);
+            var status = document.getElementById("package_id" + id).getAttribute("data-status");
             $(document).ready(function() {
                 if(last_id == 0) {
                     last_id = parseInt(id);
+                    last_status_id = parseInt(status);
                 }
                 else {
                     $('#checked_id'+last_id).removeAttr("style");
                     $('#checked_id'+last_id).attr("style", "display: none;");
 
                     $('#package_id'+last_id).removeAttr("class");
-                    $('#package_id'+last_id).attr("class", "content-top-1");
+                    if(last_status_id == 3) {
+                        $('#package_id'+last_id).attr("class", "content-top-1 likeit_package");
+                    }
+                    else if(last_status_id == 4) {
+                        $('#package_id'+last_id).attr("class", "content-top-1 loveit_package");
+                    }
+                    else {
+                        $('#package_id'+last_id).attr("class", "content-top-1");
+                    }
                     last_id = parseInt(id);
+                    last_status_id = parseInt(status);
                 }
                 $('#package_id'+id).removeAttr("class");
                 $('#package_id'+id).attr("class", "content-top-1 selected_package");
@@ -58,7 +88,7 @@
                 $('#checked_id'+id).removeAttr("style");
                 $('#checked_id'+id).attr("style", "display: block;");
 
-                $('#btnContinue').show();
+                $('#divContinue').show();
                 choose_id = parseInt(id);
             })
         }
@@ -91,16 +121,15 @@
             <div class="clearfix"> </div>
 
             <div class="col-md-12 form-group2 group-mail">
-                <label class="control-label">Windows Web Hosting</label>
-                <h3 style="margin: 10px 0 3px 0;">Packages Plan</h3>
-                <p style="font-size: .8em;">Just click one of our packages and it will highlight.</p>
+                <h3 style="margin: 10px 0 3px 0;">Hosting that grows with your business.</h3>
+                <p style="font-size: .8em;">We offer professional grade Windows Web Hosting to organizations, businesses and developers across the Globe. Our fast Windows Hosting plans are equipped with the latest ASP .NET support, Laravel 4 & 5, PHP 5.3 to 7.1 and many more features listed below:</p>
             </div>
 
             <div class="clearfix"> </div>
 
-            <div id="package_info" class="col-md-12 form-group1 group-mail" style="display: none;">
-                <label class="control-label">Package Plan Information</label>
-                <span id="package_info_msg" class="checking"></span>
+            <div class="col-md-12 form-group2 group-mail">
+                <h3 style="margin: 10px 0 3px 0;">Plan Packages</h3>
+                <p style="font-size: .8em;">Just click one of our packages and it will highlight.</p>
             </div>
 
             <div class="clearfix"> </div>
@@ -108,9 +137,22 @@
             <div id="package_info" class="col-md-12 form-group1 group-mail" >
                 @for($i = 0; $i < COUNT($packages); $i++)
                     <div class="col-md-3">
-                        <div id="package_id{{ $packages[$i]->Id }}" onclick="event_click({{ $packages[$i]->Id }})" class="content-top-1">
+                        <?php
+                            $class = "";
+                            if($packages[$i]->status == 3) {
+                                $class = "likeit_package";
+                            }
+                            elseif ($packages[$i]->status  == 4) {
+                                $class = "loveit_package";
+                            }
+                        ?>
+                        <div id="package_id{{ $packages[$i]->Id }}" data-status="{{ $packages[$i]->status }}" onclick="event_click({{ $packages[$i]->Id }})" class="content-top-1 {{ $class }}">
                             <div class="col-md-9 top-content">
                                 @if($packages[$i]->status == 3)
+                                    <img id="most_selected_id{{ $packages[$i]->Id }}" class="selected_checked_icon" src="https://cdn4.iconfinder.com/data/icons/ballicons-2-free/100/like-128.png" alt="Like it!" />
+                                    <img id="checked_id{{ $packages[$i]->Id }}" class="selected_checked_icon_3" style="display: none;" src="http://icons.iconarchive.com/icons/graphicloads/100-flat-2/96/check-1-icon.png" alt="Selected" />
+                                    <h5>Plan Most Like It!</h5>
+                                @elseif($packages[$i]->status == 4)
                                     <img id="most_selected_id{{ $packages[$i]->Id }}" class="selected_checked_icon" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/96/favorite-icon.png" alt="Love it!" />
                                     <img id="checked_id{{ $packages[$i]->Id }}" class="selected_checked_icon_2" style="display: none;" src="http://icons.iconarchive.com/icons/graphicloads/100-flat-2/96/check-1-icon.png" alt="Selected" />
                                     <h5>Plan Most Love It!</h5>
@@ -174,8 +216,8 @@
 
             <div class="clearfix"> </div>
 
-            <div class="col-md-12 form-group">
-                <button type="submit" id="btnContinue" class="btn btn-primary" style="display: none;">Continue</button>
+            <div id="divContinue" class="col-md-12 form-group" style="display: none;">
+                <button type="submit" class="btn btn-primary">Continue</button>
                 <a href="/logout" class="btn btn-default">Cancel</a>
             </div>
 
