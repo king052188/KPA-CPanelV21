@@ -278,7 +278,7 @@ class MemberController extends Controller
             return redirect('/logout');
         }
 
-        $packages = DB::select("SELECT * FROM quota_reference_table WHERE status = 2;");
+        $packages = DB::select("SELECT * FROM quota_reference_table WHERE status > 1;");
 
         return view('member.package.index', compact('helper', 'user', 'packages'));
     }
