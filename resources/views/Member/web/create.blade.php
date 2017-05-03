@@ -27,7 +27,7 @@
 
             <div class="col-md-12 form-group2 group-mail">
                 <label class="control-label">Manage Host (required)</label>
-                <select id="manage" name="manage">
+                <select id="host" name="host">
                     <option value="0">-- Select Account --</option>
                     <optgroup label="Free hostname">Free hostname</optgroup>
                     <option value="cpv21-host.ddns.net">cpv21-host.ddns.net</option>
@@ -56,14 +56,14 @@
 
             <div class="col-md-12 form-group1 group-mail">
                 <label class="control-label">Port number (default is 80)</label>
-                <input type="text" id="account" name="account" placeholder="Port number I.e.: 80 or 8080" >
+                <input type="text" id="port" name="port" placeholder="Port number I.e.: 80 or 8080" >
             </div>
 
             <div class="clearfix"> </div>
 
             <div class="col-md-12 form-group1 group-mail">
                 <label class="control-label">Protocol</label>
-                <input type="text" id="account" name="account" value="HTTP" disabled>
+                <input type="text" id="protocol" name="protocol" value="HTTP" disabled>
             </div>
 
             <div class="clearfix"> </div>
@@ -75,10 +75,17 @@
 
             <div class="clearfix"> </div>
 
-            <div class="col-md-12 form-group">
-                <button type="submit" id="btnSaveDisk" class="btn btn-primary">Save</button>
-                <a href="/ftp/create" class="btn btn-default">Cancel</a>
-            </div>
+            @if($web["available"] > 0)
+                <div class="col-md-12 form-group">
+                    <button type="submit" id="btnWebSite" class="btn btn-primary">Save</button>
+                    <a href="/ftp/create" class="btn btn-default">Cancel</a>
+                </div>
+            @else
+                <div class="col-md-12 form-group">
+                    <span class="btn btn-danger">Oops, No Available Website Credit</span>
+                    <a href="/dashboard" class="btn btn-default">Cancel</a>
+                </div>
+            @endif
 
             <div class="clearfix"> </div>
 
@@ -110,16 +117,16 @@
     @endif
     <script>
         var root_path = "\\{{ $user[0]->username }}\\";
-        var manage ;
+        var host ;
         $(document).ready(function() {
-            $( "#manage" ).change(function() {
-                manage = $( "#manage" ).val();
-                if(manage == "0") {
+            $( "#host" ).change(function() {
+                host = $( "#host" ).val();
+                if(host == "0") {
                     $( "#domain_a" ).hide();
                     $( "#domain_b" ).hide();
                     return false;
                 }
-                if(manage != "1") {
+                if(host != "1") {
                     $( "#domain_a" ).hide();
                     $( "#domain_b" ).show();
                 }
@@ -147,7 +154,7 @@
                 $('#location').val(location_path);
             });
             $('#hostname').on('keyup', function(){
-                var hostname = $('#hostname').val() +"."+ manage;
+                var hostname = $('#hostname').val() +"."+ host;
                 var text = '<p style=" margin: 10px 0 0 0;">';
                 text += '-> Your hostname: <span style=" color: #3FD64B;"><a href="http://' + hostname + '" target="_blank">' + hostname + '</a></span> <br />';
                 text += '-> In the future, you might want to use your own domain. That\'s no problem. <br />';

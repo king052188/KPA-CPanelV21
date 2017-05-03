@@ -186,10 +186,17 @@
                 <input type="password" id="password2" name="password2" placeholder="Re-type password here..."  required>
             </div>
 
-            <div class="col-md-12 form-group">
-                <button type="submit" id="btnSaveFTP" class="btn btn-primary">Save</button>
-                <a href="/ftp/create" class="btn btn-default">Cancel</a>
-            </div>
+            @if($ftp["available"] > 0)
+                <div class="col-md-12 form-group">
+                    <button type="submit" id="btnSaveFTP" class="btn btn-primary">Save</button>
+                    <a href="dashboard" class="btn btn-default">Cancel</a>
+                </div>
+            @else
+                <div class="col-md-12 form-group">
+                    <span class="btn btn-danger">Oops, No Available MySQL Credit</span>
+                    <a href="/dashboard" class="btn btn-default">Cancel</a>
+                </div>
+            @endif
 
             <div class="clearfix"> </div>
 

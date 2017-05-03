@@ -26,7 +26,7 @@
                 lineCap: 'round',
                 lineWidth: 8,
                 onStep: function (from, to, percent) {
-                    $(this.element).find('.pie-value').text(numeral(percent).format('0,0.00') + ' GB');
+                    $(this.element).find('.pie-value').text(numeral(percent).format('0,0.0') + '%');
                 }
             });
 
@@ -36,7 +36,7 @@
                 lineCap: 'butt',
                 lineWidth: 8,
                 onStep: function (from, to, percent) {
-                    $(this.element).find('.pie-value').text(Math.round(percent) + '');
+                    $(this.element).find('.pie-value').text(numeral(percent).format('0,0.0') + '%');
                 }
             });
 
@@ -46,17 +46,17 @@
                 lineCap: 'square',
                 lineWidth: 8,
                 onStep: function (from, to, percent) {
-                    $(this.element).find('.pie-value').text(Math.round(percent) + '');
+                    $(this.element).find('.pie-value').text(numeral(percent).format('0,0.0') + '%');
                 }
             });
 
             $('#ftp').pieChart({
-                barColor: '#ed6498',
+                barColor: '#94EA60',
                 trackColor: '#eee',
                 lineCap: 'square',
                 lineWidth: 8,
                 onStep: function (from, to, percent) {
-                    $(this.element).find('.pie-value').text(Math.round(percent) + '');
+                    $(this.element).find('.pie-value').text(numeral(percent).format('0,0.0') + '%');
                 }
             });
         });
@@ -71,10 +71,14 @@
             <div class="content-top-1">
                 <div class="col-md-6 top-content">
                     <h5>Disk</h5>
-                    <label>{{ $statistics["Disk"]["Available"] }}<span style="font-size: 15px; font-weight: 200; color: #B0B0B0;"> GB free of <b>{{ $statistics["Disk"]["Quota"] }}</b> GB</span></label>
+                    <label>{{ number_format($statistics["Disk"]["Available"], 2) }}<span style="font-size: 15px; font-weight: 200; color: #B0B0B0;"> GB free of <b>{{ $statistics["Disk"]["Quota"] }}</b> GB</span></label>
                 </div>
                 <div class="col-md-6 top-content1">
-                    <div id="disk" class="pie-title-center" data-percent="{{ $statistics["Disk"]["Used"] }}"> <span class="pie-value"></span> </div>
+                    <?php
+                        $p = $statistics["Disk"]["Used"] / $statistics["Disk"]["Quota"];
+                        $p = $p * 100;
+                    ?>
+                    <div id="disk" class="pie-title-center" data-percent="{{ $p }}"> <span class="pie-value"></span> </div>
                 </div>
                 <div class="clearfix"> </div>
             </div>
@@ -83,10 +87,20 @@
             <div class="content-top-1">
                 <div class="col-md-6 top-content">
                     <h5>Website</h5>
-                    <label>{{ $statistics["Website"] }}</label>
+                    <label>{{ $statistics["Website"]["Quota"] }}</label>
                 </div>
                 <div class="col-md-6 top-content1">
-                    <div id="web" class="pie-title-center" data-percent="{{ $statistics["Website"] }}"> <span class="pie-value"></span> </div>
+                    <?php
+                        $used = $statistics["Website"]["Used"];
+                        if($used == 0) {
+                            $p = 0;
+                        }
+                        else {
+                            $p = $used / $statistics["Website"]["Quota"];
+                            $p = $p * 100;
+                        }
+                    ?>
+                    <div id="web" class="pie-title-center" data-percent="{{ $p }}"> <span class="pie-value"></span> </div>
                 </div>
                 <div class="clearfix"> </div>
             </div>
@@ -98,10 +112,20 @@
             <div class="content-top-1">
                 <div class="col-md-6 top-content">
                     <h5>MySQL</h5>
-                    <label>{{ $statistics["MySQL"] }}</label>
+                    <label>{{ $statistics["MySQL"]["Quota"] }}</label>
                 </div>
                 <div class="col-md-6 top-content1">
-                    <div id="mysql" class="pie-title-center" data-percent="{{ $statistics["MySQL"] }}"> <span class="pie-value"></span> </div>
+                    <?php
+                    $used = $statistics["MySQL"]["Used"];
+                    if($used == 0) {
+                        $p = 0;
+                    }
+                    else {
+                        $p = $used / $statistics["MySQL"]["Quota"];
+                        $p = $p * 100;
+                    }
+                    ?>
+                    <div id="mysql" class="pie-title-center" data-percent="{{ $p }}"> <span class="pie-value"></span> </div>
                 </div>
                 <div class="clearfix"> </div>
             </div>
@@ -109,10 +133,20 @@
             <div class="content-top-1">
                 <div class="col-md-6 top-content">
                     <h5>FTP</h5>
-                    <label>{{ $statistics["FTP"] }}</label>
+                    <label>{{ $statistics["FTP"]["Quota"] }}</label>
                 </div>
                 <div class="col-md-6 top-content1">
-                    <div id="ftp" class="pie-title-center" data-percent="{{ $statistics["FTP"] }}"> <span class="pie-value"></span> </div>
+                    <?php
+                    $used = $statistics["FTP"]["Used"];
+                    if($used == 0) {
+                        $p = 0;
+                    }
+                    else {
+                        $p = $used / $statistics["FTP"]["Quota"];
+                        $p = $p * 100;
+                    }
+                    ?>
+                    <div id="ftp" class="pie-title-center" data-percent="{{ $p }}"> <span class="pie-value"></span> </div>
                 </div>
                 <div class="clearfix"> </div>
             </div>

@@ -220,28 +220,20 @@ class MemberController extends Controller
         $username = $user[0]->username;
         $disk = DB::select("SELECT * FROM quota_table WHERE user_id = {$user_uid};");
 
-//        $check_ = MemberBasic::where("uid", "=", $user_uid)->first();
-//        if($check_ == null) {
-//            return redirect('/edit-profile?page=basic');
-//        }
-//
-//        $check_ = MemberBeneficiary::where("uid", "=", $user_uid)->first();
-//        if($check_ == null) {
-//            return redirect('/edit-profile?page=beneficiary');
-//        }
-//
-//        $check_ = DB::select("SELECT * FROM payment_table WHERE uid = {$user_uid} AND status > 0;");
-//        if($check_ == null) {
-//            return redirect('/payment');
-//        }
-
         if($user_status > 2) {
             if( COUNT($disk) == 0 ) {
                 return redirect('/setup/package/plan');
             }
         }
 
-        $disk_size = $disk[0]->quota_id;
+        $package_plan = $disk[0]->quota_id;
+
+        $packages = DB::select("SELECT * FROM quota_reference_table WHERE Id = {$package_plan} AND status > 1;");
+        if( COUNT($packages) == 0 ) {
+            return view('layout.404', compact('helper', 'user'));
+        }
+
+        $disk_size = $packages[0]->disk;
         $data_url = "http://a4f66aca.ap.ngrok.io/?todo=QUOTA&account={$username}&size={$disk_size}";
 
         $data_result = Helper::do_curl($data_url); //Code
@@ -253,18 +245,35 @@ class MemberController extends Controller
             $available = $data_result["Quota_Availble"];
         }
 
-        $Website_Quota = 0;
-        $MySQL_Quota = Helper::get_total_quota("mysql_database_table", $user[0]->Id);
-        $FTP_Quota = Helper::get_total_quota("ftp_account_table", $user[0]->Id);
+        $Website_Quota = $packages[0]->web;;
+        $MySQL_Quota = $packages[0]->mysql;;
+        $FTP_Quota = $packages[0]->ftp;
+
+        $website_used = Helper::get_total_used("web_table", $user_uid);
+        $mysql_used = Helper::get_total_used("mysql_database_table", $user_uid);
+        $ftp_used = Helper::get_total_used("ftp_account_table", $user_uid);
+
         $statistics = array(
             "Disk" => array(
-                "Quota" => number_format($disk_size, 0),
-                "Used" => number_format($used / 1024 / 1024 / 1024, 2),
-                "Available" => number_format($available / 1024 / 1024 / 1024, 2)
+                "Quota" => (double)$disk_size,
+                "Used" => ($used / 1024 / 1024 / 1024),
+                "Available" => ($available / 1024 / 1024 / 1024)
             ),
-            "Website" => $Website_Quota,
-            "MySQL" => $MySQL_Quota,
-            "FTP" => $FTP_Quota
+            "Website" => array(
+                "Quota" => $Website_Quota,
+                "Used" => $website_used,
+                "Available" => $Website_Quota
+            ),
+            "MySQL" => array(
+                "Quota" => $MySQL_Quota,
+                "Used" => $mysql_used,
+                "Available" => $MySQL_Quota
+            ),
+            "FTP" => array(
+                "Quota" => $FTP_Quota,
+                "Used" => $ftp_used,
+                "Available" => $FTP_Quota
+            )
         );
 
         return view('member.dashboard', compact('helper', 'user', 'statistics'));
@@ -278,9 +287,30 @@ class MemberController extends Controller
             return redirect('/logout');
         }
 
+        $user_status = $user[0]->status;
+        $user_uid = $user[0]->Id;
+        $disk = DB::select("SELECT * FROM quota_table WHERE user_id = {$user_uid};");
+
+        if($user_status > 2) {
+            if( COUNT($disk) > 0 ) {
+                return redirect('/dashboard');
+            }
+        }
+
         $packages = DB::select("SELECT * FROM quota_reference_table WHERE status > 1;");
 
         return view('member.package.index', compact('helper', 'user', 'packages'));
+    }
+
+    public function package_plan_completed(Request $request) {
+        $helper = Helper::ssl_secured($request);
+        $user = Helper::getCookies();
+
+        if($user == null) {
+            return redirect('/logout');
+        }
+
+        return view('layout.createdAccount', compact('helper', 'user'));
     }
 
     public function member_index(Request $request, $type) {

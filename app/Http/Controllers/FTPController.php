@@ -30,8 +30,10 @@ class FTPController extends Controller
 
         $web = WebSite::where("Id", "=", $user[0]->Id)
             ->orWhere("status", "=", 2)->get()->toArray();
-        
-        return view('member.ftp.create', compact('helper', 'user', 'web'));
+
+        $ftp = Helper::get_available_quota($user, "mysql_database_table");
+
+        return view('member.ftp.create', compact('helper', 'user', 'web', 'ftp'));
     }
 
 

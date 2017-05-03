@@ -50,7 +50,9 @@ class MySQLController extends Controller
         $account = MySQLAccount::where("user_id", "=", $user_uid)->orderBy("username")->get()->toArray();
 //        $database = MySQLDatabase::where("user_id", "=", $user_uid)->orderBy("database_name")->get()->toArray();
 
-        return view('member.mysql.create', compact('helper', 'user', 'account'));
+        $mysql = Helper::get_available_quota($user, "mysql_database_table");
+
+        return view('member.mysql.create', compact('helper', 'user', 'account', 'mysql'));
     }
 
     public function create_database_execute(Request $request) {

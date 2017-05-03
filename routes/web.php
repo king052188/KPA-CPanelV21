@@ -48,6 +48,8 @@ Route::get('/dashboard', 'MemberController@dashboard_index');
 
 Route::get('/setup/package/plan', 'MemberController@package');
 
+Route::get('/package/plan/completed', 'MemberController@package_plan_completed');
+
 //Route::get('/create-disk', 'FTPController@create_disk_init');
 
 Route::get('/edit-profile', 'MemberController@edit_profile_index');

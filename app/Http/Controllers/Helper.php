@@ -277,14 +277,35 @@ class Helper extends Controller
         return $total[0]->total_conntected;
     }
 
-    public static function get_total_quota($table, $uid) {
+    public static function get_total_used($table, $uid) {
         $total = DB::select("
-                  SELECT COUNT(*) AS total_quota
+                  SELECT COUNT(*) AS total_used
                   FROM {$table} 
                   WHERE user_id = {$uid} AND status = 2;
         ");
 
-        return $total[0]->total_quota;
+        return $total[0]->total_used;
+    }
+
+    public static function get_available_quota($users, $table) {
+        $user_status = $users[0]->status;
+        $user_uid = $users[0]->Id;
+        $disk = DB::select("SELECT * FROM quota_table WHERE user_id = {$user_uid};");
+
+        if($user_status > 2) {
+            if( COUNT($disk) == 0 ) {
+                return array("available" => 0);
+            }
+        }
+
+        $package_plan = $disk[0]->quota_id;
+        $packages = DB::select("SELECT * FROM quota_reference_table WHERE Id = {$package_plan} AND status > 1;");
+        if( COUNT($packages) == 0 ) {
+            return array("available" => 0);
+        }
+
+        $website_used = Helper::get_total_used($table, $user_uid);
+        return array("available" => $packages[0]->web - $website_used);
     }
 
     public static function get_total_members($type) {
