@@ -125,7 +125,68 @@
                 <p style="font-size: .8em;">We offer professional grade Windows Web Hosting to organizations, businesses and developers across the Globe. Our fast Web Hosting plans are equipped with the latest Laravel & .NET support and many more features listed below:</p>
             </div>
 
+            <div class="col-md-12 form-group2 group-mail">
+                <h3 style="margin: 10px 0 3px 0;"><a href="#demo" class="btn btn-info" data-toggle="collapse">More Features</a></h3>
+
+            </div>
+
             <div class="clearfix"> </div>
+
+            <div id="demo" class="col-md-12 form-group2 group-mail collapse">
+                <div class="col-md-12">
+                    <div class="content-top-1">
+
+                        <div class="col-md-6 top-content">
+                            <h5>Professional</h5>
+                            <label>Laravel & .NET <span style="font-size: 18px; font-weight: 200; color: #B0B0B0;"><b>Framework</b> Web Hosting</span></label>
+                        </div>
+                        <div class="col-md-3 top-content1">
+                            <h3>Top Features</h3>
+                            <ul>
+                                <li>100% Uptime Guarantee</li>
+                                <li>Latest ASP .NET support</li>
+                                <li>Latest Laravel support</li>
+                                <li>Latest PHP support</li>
+                                <li>FREE Hostname</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3 top-content1">
+                            <h3>Support Features</h3>
+                            <ul>
+                                <li>Composer Installed</li>
+                                <li>.NET 2|3|3.5|4|4.5.2</li>
+                                <li>Laravel 4|5|5.1|5.2|5.3|5.4</li>
+                                <li>PHP 5.3|5.4|5.5|5.6 & 7</li>
+                                <li>MySQL Stored Procedures</li>
+                                <li>MySQL Remote Access</li>
+                                <li>MS ACCESS Support</li>
+                            </ul>
+                        </div>
+                        <div class="clearfix"> </div>
+
+                    </div>
+
+                    <div class="content-top-1">
+
+                        <div class="col-md-6 top-content">
+                            <h5>Professional</h5>
+                            <label>Laravel & .NET <span style="font-size: 18px; font-weight: 200; color: #B0B0B0;"><b>Framework</b> Web Hosting</span></label>
+                        </div>
+                        <div class="col-md-4 top-content1">
+                            <h3>Top Features</h3>
+                            <ul>
+                                <li>100% Uptime Guarantee</li>
+                                <li>Latest ASP .NET support</li>
+                                <li>Latest Laravel support</li>
+                                <li>Latest PHP support</li>
+                                <li>FREE Hostname</li>
+                            </ul>
+                        </div>
+                        <div class="clearfix"> </div>
+
+                    </div>
+                </div>
+            </div>
 
             <div class="col-md-12 form-group2 group-mail">
                 <h3 style="margin: 10px 0 3px 0;">Plan Packages</h3>
