@@ -86,7 +86,6 @@
 
     </div>
     <!--//grid-->
-
     <style>
         .notifyjs-container div span {
             font-weight: 200;
@@ -99,10 +98,8 @@
         }
         #share_verify_msg table.username_verify_list tbody tr:last-child { background:#ff0000; }
     </style>
-
     <!-- Jquery Core Js -->
     <script src="//rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
-
     @if (session('message'))
         <script>
             var error_message = "{{ session('message') }}";
@@ -111,14 +108,10 @@
             })
         </script>
     @endif
-
     <script>
-
         var root_path = "\\{{ $user[0]->username }}\\";
         var manage ;
-
         $(document).ready(function() {
-
             $( "#manage" ).change(function() {
                 manage = $( "#manage" ).val();
                 if(manage == "0") {
@@ -126,7 +119,6 @@
                     $( "#domain_b" ).hide();
                     return false;
                 }
-
                 if(manage != "1") {
                     $( "#domain_a" ).hide();
                     $( "#domain_b" ).show();
@@ -136,7 +128,6 @@
                     $( "#domain_b" ).hide();
                 }
             });
-
             $('#domain').on('keyup', function(){
                 var domain = $(this).val();
                 if(!validateDomain(domain)){
@@ -144,49 +135,38 @@
                     $('#span_domain').empty().prepend('<p style=" margin: 10px 0 0 0;"><span style="color: #DD3A3A;">-> Invalid domain, Please a valid domain.</span></p>');
                 }else{
                     $('#span_domain').show();
-
                     var text = '<p style=" margin: 10px 0 0 0;">';
                     text += '-> Your default domain: <span style=" color: #3FD64B;"><a href="http://' + domain + '" target="_blank">' + domain + '</a></span> <span style="color: #B3AEAE;">|</span> <span style=" color: #3FD64B;"><a href="http://www.' + domain + '" target="_blank">www.' + domain + '</a></span></span> <br />';
-                    text += '-> NOTE: Please create HOST <span style=" color: #3FD64B;">A</span> RECORD <span style="color: #B3AEAE;">in your DNS pointed to this IP Address: </span> <span style=" color: #3FD64B;">69.4.84.226</span></span> <br />';
-                    text += '-> Ex.: <span style=" color: #3FD64B;">' + domain + '</span> <span style="color: #B3AEAE;"> = </span> <span style=" color: #3FD64B;">69.4.84.226</span></span> and ';
-                    text += '<span style=" color: #3FD64B;">www.' + domain + '</span> <span style="color: #B3AEAE;"> = </span> <span style=" color: #3FD64B;">69.4.84.226</span></span>';
+                    text += '-> NOTE: Please create a <span style=" color: #3FD64B;">CNAME</span> record <span style="color: #B3AEAE;">in your DNS and point this hostname: </span> <span style=" color: #3FD64B;">cpv21-host.ddns.net</span></span> <br />';
+                    text += '-> Ex.: <span style=" color: #3FD64B;">' + domain + '</span> <span style="color: #B3AEAE;"> value is </span> <span style=" color: #3FD64B;">cpv21-host.ddns.net</span></span> and ';
+                    text += '<span style=" color: #3FD64B;">www.' + domain + '</span> <span style="color: #B3AEAE;"> value is </span> <span style=" color: #3FD64B;">cpv21-host.ddns.net</span></span>';
                     text += '</p>';
-
                     $('#span_domain').empty().prepend(text);
                 }
                 var location_path = root_path + domain + "\\wwwroot\\public"
-
                 $('#location').val(location_path);
             });
-
             $('#hostname').on('keyup', function(){
-
                 var hostname = $('#hostname').val() +"."+ manage;
-
                 var text = '<p style=" margin: 10px 0 0 0;">';
                 text += '-> Your hostname: <span style=" color: #3FD64B;"><a href="http://' + hostname + '" target="_blank">' + hostname + '</a></span> <br />';
-                text += '-> In the future, you might want to use your own domain. No problem. <br />';
-                text += '-> Just create a <span style=" color: #3FD64B;">CNAME</span> RECORD <span style="color: #B3AEAE;">in your DNS pointed to this hostname: </span> <span style=" color: #3FD64B;">' + hostname + '</span></span>';
+                text += '-> In the future, you might want to use your own domain. That\'s no problem. <br />';
+                text += '-> Just create a <span style=" color: #3FD64B;">CNAME</span> record <span style="color: #B3AEAE;">in your DNS and point this hostname: </span> <span style=" color: #3FD64B;">' + hostname + '</span></span><br />';
+                text += '-> Ex.: <span style=" color: #3FD64B;">YOUR-DOMAIN.com</span> <span style="color: #B3AEAE;"> value is </span> <span style=" color: #3FD64B;">cpv21-host.ddns.net</span></span> and ';
+                text += '<span style=" color: #3FD64B;">www.YOUR-DOMAIN.com</span> <span style="color: #B3AEAE;"> value is </span> <span style=" color: #3FD64B;">cpv21-host.ddns.net</span></span>';
                 text += '</p>';
-
                 $('#span_hostname').show();
                 $('#span_hostname').empty().prepend(text);
-
                 var location_path = root_path + hostname + "\\wwwroot\\public";
-
                 $('#location').val(location_path);
             });
-
             function validateDomain(the_domain)
             {
-                // strip off "http://" and/or "www."
                 the_domain = the_domain.replace("http://","");
                 the_domain = the_domain.replace("www.","");
-
                 var reg = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}$/;
                 return reg.test(the_domain);
-            } // end validateDomain()
+            }
         })
     </script>
-
 @endsection

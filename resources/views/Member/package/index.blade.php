@@ -34,7 +34,7 @@
         .selected_checked_icon {
             float: right;
             margin-top: -45px;
-            margin-right: -130px;
+            margin-right: -85px;
             width: 96px;
             height: 96px;
         }
@@ -42,7 +42,7 @@
         .selected_checked_icon_2 {
             float: right;
             margin-top: 50px;
-            margin-right: -130px;
+            margin-right: -95px;
             width: 96px;
             height: 96px;
         }
@@ -50,7 +50,7 @@
         .selected_checked_icon_3 {
             float: right;
             margin-top: 60px;
-            margin-right: -130px;
+            margin-right: -95px;
             width: 96px;
             height: 96px;
         }
@@ -115,14 +115,14 @@
 
             <div class="col-md-12 form-group1 group-mail">
                 <label class="control-label">Account Name</label>
-                <input type="text" id="account" name="account" value="{{ $user[0]->username }}" disabled>
+                <input type="text" id="account" name="account" value="{{ $user[0]->username }}">
             </div>
 
             <div class="clearfix"> </div>
 
             <div class="col-md-12 form-group2 group-mail">
                 <h3 style="margin: 10px 0 3px 0;">Hosting that grows with your business.</h3>
-                <p style="font-size: .8em;">We offer professional grade Windows Web Hosting to organizations, businesses and developers across the Globe. Our fast Windows Hosting plans are equipped with the latest ASP .NET support, Laravel 4 & 5, PHP 5.3 to 7.1 and many more features listed below:</p>
+                <p style="font-size: .8em;">We offer professional grade Windows Web Hosting to organizations, businesses and developers across the Globe. Our fast Web Hosting plans are equipped with the latest Laravel & .NET support and many more features listed below:</p>
             </div>
 
             <div class="clearfix"> </div>
@@ -147,7 +147,7 @@
                             }
                         ?>
                         <div id="package_id{{ $packages[$i]->Id }}" data-status="{{ $packages[$i]->status }}" onclick="event_click({{ $packages[$i]->Id }})" class="content-top-1 {{ $class }}">
-                            <div class="col-md-9 top-content">
+                            <div class="col-md-11 top-content">
                                 @if($packages[$i]->status == 3)
                                     <img id="most_selected_id{{ $packages[$i]->Id }}" class="selected_checked_icon" src="https://cdn4.iconfinder.com/data/icons/ballicons-2-free/100/like-128.png" alt="Like it!" />
                                     <img id="checked_id{{ $packages[$i]->Id }}" class="selected_checked_icon_3" style="display: none;" src="http://icons.iconarchive.com/icons/graphicloads/100-flat-2/96/check-1-icon.png" alt="Selected" />
@@ -170,8 +170,7 @@
                                 <p>{{ number_format($packages[$i]->disk, 0) }} GB <span style="font-size: 1em; color: #7E7E7E; font-family: 'tahoma';">storage</span></p>
                                 <p>Unmetered <span style="font-size: 1em; color: #7E7E7E; font-family: 'tahoma';">traffic</span></p>
                                 <p>DDoS <span style="font-size: 1em; color: #7E7E7E; font-family: 'tahoma';">protected</span></p>
-                                <p>FREE <span style="font-size: 1em; color: #7E7E7E; font-family: 'tahoma';">sub-domain</span></p>
-                                <p>{{ number_format($packages[$i]->price_ph, 2) }}</p>
+                                <p>{{ $packages[$i]->web }} FREE <span style="font-size: 1em; color: #7E7E7E; font-family: 'tahoma';">hostname<br /><i style="font-size: .8em; color: #ef6c0f;">i.e.: YOUR-APP-NAME.cpv21-host.ddns.net</i></span></p>
                             </div>
                             <div class="clearfix"> </div>
                         </div>
