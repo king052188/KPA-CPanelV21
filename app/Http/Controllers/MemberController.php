@@ -312,57 +312,7 @@ class MemberController extends Controller
 
         return view('layout.createdAccount', compact('helper', 'user'));
     }
-
-    public function member_index(Request $request, $type) {
-        $helper = Helper::ssl_secured($request);
-        $user = Helper::getCookies();
-
-        if($user == null) {
-            return redirect('/logout');
-        }
-
-        if($user[0]->role == 1) {
-            return view('layout.404', compact('helper'));
-        }
-
-        $sort_id = 0;
-
-        $sort_name = "Pending";
-
-        if($type == "activated") {
-            $sort_id = 3;
-            $sort_name = "Activated";
-        }
-        else if ($type == "on-processed") {
-            $sort_id = 2;
-            $sort_name = "On-Processed";
-        }
-        else {
-            $sort_id = 1;
-            $sort_name = "Pending";
-        }
-
-        if( IsSet($request->search) ) {
-
-            $keyword = "SELECT * FROM member_table WHERE ";
-            $keyword .= "(first_name LIKE '%". $request->search ."%' OR ";
-            $keyword .= "middle_name LIKE '%". $request->search ."%' OR ";
-            $keyword .= "last_name LIKE '%". $request->search ."%' OR ";
-            $keyword .= "email LIKE '%". $request->search ."%' OR ";
-            $keyword .= "mobile LIKE '%". $request->search ."%') AND ";
-            $keyword .= "status = {$sort_id} ORDER BY created_at ASC;";
-
-            $members = DB::select($keyword);
-        }
-        else {
-            $members = DB::select("SELECT * FROM member_table WHERE status = {$sort_id} ORDER BY created_at ASC;");
-        }
-
-        $sort_type = ["name" => $sort_name];
-
-        return view('member.members', compact('helper', 'user', 'members', 'sort_type'));
-    }
-
+    
     public function edit_profile_index(Request $request) {
         $helper = Helper::ssl_secured($request);
 

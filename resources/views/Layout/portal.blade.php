@@ -123,9 +123,9 @@ $url_secured = $helper["status"];
                                         .on_processed { background: #F65A0C; color: #ffffff; }
                                         .pending { background: #EF0F7B; color: #ffffff; }
                                     </style>
-                                    <li><a href="/members/activated" class=" hvr-bounce-to-right"> <i class="fa fa-users nav_icon"></i>Activated <span class="m_counts activated"> {{ number_format($activated, 0) }} </span></a></li>
-                                    <li><a href="/members/on-processed" class=" hvr-bounce-to-right"> <i class="fa fa-users nav_icon"></i>On-Processed <span class="m_counts on_processed"> {{ number_format($on_processed, 0) }} </span></a></li>
-                                    <li><a href="/members/pending" class=" hvr-bounce-to-right"> <i class="fa fa-users nav_icon"></i>Pending <span class="m_counts pending"> {{ number_format($pending, 0) }} </span></a></li>
+                                    <li><a href="/clients/activated" class=" hvr-bounce-to-right"> <i class="fa fa-users nav_icon"></i>Activated <span class="m_counts activated"> {{ number_format($activated, 0) }} </span></a></li>
+                                    <li><a href="/clients/on-processed" class=" hvr-bounce-to-right"> <i class="fa fa-users nav_icon"></i>On-Processed <span class="m_counts on_processed"> {{ number_format($on_processed, 0) }} </span></a></li>
+                                    <li><a href="/clients/pending" class=" hvr-bounce-to-right"> <i class="fa fa-users nav_icon"></i>Pending <span class="m_counts pending"> {{ number_format($pending, 0) }} </span></a></li>
                                 </ul>
                             </li>
                         @endif
@@ -134,6 +134,7 @@ $url_secured = $helper["status"];
                         <li>
                             <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-inbox nav_icon"></i> <span class="nav-label">Website</span><span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                                <li><a href="/web/site" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Sites</a></li>
                                 <li><a href="/web/create" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Create</a></li>
                             </ul>
                         </li>

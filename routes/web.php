@@ -55,6 +55,8 @@ Route::get('/package/plan/completed', 'MemberController@package_plan_completed')
 Route::get('/edit-profile', 'MemberController@edit_profile_index');
 Route::post('/edit-profile/{type}/execute', 'MemberController@edit_profile_execute');
 
+
+// administrator
 Route::get('/activate/account/{uid}', 'MemberController@activate_account');
 
 Route::get('/verify/account/{username}', 'MemberController@verify_database_username');
@@ -62,14 +64,18 @@ Route::get('/verify/account/{username}', 'MemberController@verify_database_usern
 Route::get('/payment', 'MemberController@payment_index');
 Route::post('/payment/execute', 'MemberController@payment_execute');
 
-Route::get('/members/{type}', 'MemberController@member_index');
+Route::get('/clients/{type}', 'AdminController@clients_index');
+
+Route::get('/clients/view/{type}/{hash}', 'AdminController@clients_view_index');
+
+// end administrator
 
 Route::get('/settings', 'MemberController@settings_index');
 Route::post('/settings/change-password', 'MemberController@settings_change_password');
 
 
+Route::get('/web/site', 'WebController@site_init');
 Route::get('/web/create', 'WebController@create_init');
-
 
 Route::get('/mysql/database', 'MySQLController@database_init');
 
