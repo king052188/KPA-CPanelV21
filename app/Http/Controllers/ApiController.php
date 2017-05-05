@@ -360,4 +360,22 @@ class ApiController extends Controller
     }
 
 
+    //
+
+    public function web_state_update(Request $request) {
+        $user_cookies = Helper::getCookies();
+        if($user_cookies == null) {
+            $data = array(
+                "code" => 404,
+                "message" => "Fail"
+            );
+            return $data;
+        }
+        $hostname = $request->domain;
+        $state = $request->status;
+        $data = "?todo=SITE-STATE&hostname={$hostname}&state={$state}";
+        $json = Helper::do_curl(ApiController::$host_api . $data);
+        return $json;
+    }
+
 }

@@ -4,7 +4,10 @@
     <?php
     $url_secured = $helper["status"];
     ?>
-
+    <script>
+        var state_hostname = null;
+        var state_status = 0;
+    </script>
     <!--banner-->
     <div class="banner">
         <h2>
@@ -115,41 +118,81 @@
             <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
 
-                    {{--// activate account --}}
+                    {{--// binding account --}}
 
-                    <div id="share" class="modal-content">
+                    <div id="binding" class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h2 id="share_noti" class="text-center"><img src="http://icons.iconarchive.com/icons/graphicloads/100-flat-2/128/signal-icon.png" class="img-circle"><br />Confirming</h2>
+                            <h2 id="binding_noti" class="text-center"><img src="http://icons.iconarchive.com/icons/graphicloads/100-flat-2/128/signal-icon.png" class="img-circle"><br />Confirming</h2>
                         </div>
                         <div class="modal-body row">
-                            <div id="share_msg"> </div>
+                            <div id="binding_msg"> </div>
                             <div style="text-align: center; margin: 9px 0 0 0;">
-                                To: <input type="text" id="u_name" name="u_name" placeholder="Enter username here..." style="padding: 5px; font-size: .9em;" required>
-                                <button type="submit" id="btnVerifyUsername" class="btn btn-primary">Verify</button>
+                                <table class="username_verify_list" cellspacing="0" cellpadding="0" style="margin: 0 auto; width: 570px; border: 1px solid gray;">
+                                    <thead>
+                                        <tr>
+                                            <th style="padding: 5px; text-align: center; font-size: .9em; border-top: 1px solid gray; border-left: 1px solid gray;">Type</th>
+                                            <th style="padding: 5px; text-align: center; font-size: .9em; border-top: 1px solid gray; border-left: 1px solid gray;">Host Name</th>
+                                            <th style="padding: 5px; text-align: center; font-size: .9em; border-top: 1px solid gray; border-left: 1px solid gray;">IP</th>
+                                            <th style="padding: 5px; text-align: center; font-size: .9em; border-top: 1px solid gray; border-left: 1px solid gray;">Port</th>
+                                            <th style="padding: 5px; text-align: center; font-size: .9em; border-top: 1px solid gray; border-left: 1px solid gray;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding: 5px; text-align: center; font-size: .8em; border-top: 1px solid gray; border-left: 1px solid gray;">HTTP</td>
+                                            <td style="padding: 5px; text-align: center; font-size: .8em; border-top: 1px solid gray; border-left: 1px solid gray;">paopao.com</td>
+                                            <td style="padding: 5px; text-align: center; font-size: .8em; border-top: 1px solid gray; border-left: 1px solid gray;">127.0.0.1</td>
+                                            <td style="padding: 5px; text-align: center; font-size: .8em; border-top: 1px solid gray; border-left: 1px solid gray;">8000</td>
+                                            <td style="padding: 5px; text-align: center; font-size: .8em; border-top: 1px solid gray; border-left: 1px solid gray;">
+                                                <button type="submit" id="btnVerifyUsername" class="btn btn-danger">DEL</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td style="padding: 5px; text-align: center; font-size: .8em; border-top: 1px solid gray; border-left: 1px solid gray;">
+                                                <select name="binding_type" id="binding_type" style="padding: 5px;">
+                                                    <option value="1">HTTP</option>
+                                                    <option value="2">HTTPS</option>
+                                                </select>
+                                            </td>
+                                            <td style="padding: 5px; text-align: center; font-size: .8em; border-top: 1px solid gray; border-left: 1px solid gray;">
+                                                <input type="text" name="binding_hostname" id="binding_hostname" placeholder="Hostname" style="width: 180px; padding: 5px;" />
+                                            </td>
+                                            <td style="padding: 5px; text-align: center; font-size: .8em; border-top: 1px solid gray; border-left: 1px solid gray;">127.0.0.1</td>
+                                            <td style="padding: 5px; text-align: center; font-size: .8em; border-top: 1px solid gray; border-left: 1px solid gray;">
+                                                <input type="text" name="binding_port" id="binding_port" placeholder="Port" style="width: 70px; padding: 5px;" />
+                                            </td>
+                                            <td style="padding: 5px; text-align: center; font-size: .8em; border-top: 1px solid gray; border-left: 1px solid gray;">
+                                                <button type="submit" id="btnBinding" class="btn btn-primary">ADD</button>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
                                 <div id="share_verify_msg" style="text-align: center; margin: 15px 0 0 0;"></div>
                             </div>
+                            <div><h5 style="text-align: center; font-size: .8em; color: #E91E63;">We are sorry, SSL Certification is not supported at this time,<br />but you can still use HTTPS without SSL Certification.</h5></div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" id="btnApproveShareDatabase" class="btn btn-primary" disabled>Approve</button>
-                            <button type="submit" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                            <button type="submit" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
                         </div>
                     </div>
 
-                    {{--// reset password --}}
+                    {{--// state account --}}
 
-                    <div id="drop" class="modal-content" style="display: none;">
+                    <div id="state" class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h2 id="drop_noti" class="text-center"><img src="http://icons.iconarchive.com/icons/graphicloads/100-flat-2/128/signal-icon.png" class="img-circle"><br />Confirming</h2>
+                            <h2 id="state_noti" class="text-center"><img src="http://icons.iconarchive.com/icons/graphicloads/100-flat-2/128/signal-icon.png" class="img-circle"><br />Confirming</h2>
                         </div>
                         <div class="modal-body row">
-                            <div id="drop_msg">
-                            </div>
+                            <div id="state_msg"> </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" id="btnSave" class="btn btn-primary">Yes</button>
-                            <button type="submit" id="btnNo" class="btn btn-default" data-dismiss="modal" aria-hidden="true">No</button>
+                            <div id="state_loader_fb" class="uil-facebook-css" style="display: none;"><div></div><div></div><div></div></div>
+                            <button type="button" id="btnStateYes" class="btn btn-primary">Yes</button>
+                            <button type="button" id="btnNo" class="btn btn-default" data-dismiss="modal" aria-hidden="true">No</button>
                         </div>
                     </div>
 
@@ -162,7 +205,7 @@
                 $(document).ready(function() {
                     $('.footable').footable();
                     var _uid = 0;
-
+                    
                     $("#database_dt > tbody  > tr").change(function(){
                         var selected =      $(this).find('select:first');
                         var value =         selected.val();
@@ -171,32 +214,54 @@
                         switch (values[1]) {
                             case "binding" :
                                 if(values.length > 2) {
-                                    $('#share_msg').empty().prepend("<h5 class='text-center' style='line-height: 20px;'>Would you like to add binding to <span style='color: #E91E63;'>( " + values[2] + " )</span>?</h5>");
+                                    $('#binding_msg').empty().prepend("<h5 class='text-center' style='line-height: 20px;'>Your default host name: <span style='color: #E91E63;'>( " + values[2] + " )</span></h5>");
                                 }
                                 d_name = values[2];
-                                $('#share').show();
-                                $('#drop').hide();
+                                $('#binding').show();
+                                $('#state').hide();
                                 $('#modal_event').click();
                                 break;
                             case "restart" :
                                 if(values.length > 2) {
-                                    $('#drop_msg').empty().prepend("<h5 class='text-center' style='line-height: 20px;'>Are you sure you want to RESTART<br /><span style='color: #E91E63;'>( " + values[2] + " )</span> web site?<br /></h5>");
+                                    state_status = 1;
+                                    state_hostname = values[2];
+                                    $('#state_msg').empty().prepend("<h5 class='text-center' style='line-height: 20px;'>Are you sure you want to RESTART<br /><span style='color: #E91E63;'>( " + values[2] + " )</span> web site?<br /></h5>");
                                 }
-                                $('#share').hide();
-                                $('#drop').show();
+                                $('#state').show();
+                                $('#binding').hide();
                                 $('#modal_event').click();
                                 break;
                             case "stop" :
                                 if(values.length > 2) {
-                                    $('#drop_msg').empty().prepend("<h5 class='text-center' style='line-height: 20px;'>Are you sure you want to STOP<br /><span style='color: #E91E63;'>( " + values[2] + " )</span> web site?<br /.</h5>");
+                                    state_status = 2;
+                                    state_hostname = values[2];
+                                    $('#state_msg').empty().prepend("<h5 class='text-center' style='line-height: 20px;'>Are you sure you want to STOP<br /><span style='color: #E91E63;'>( " + values[2] + " )</span> web site?<br /.</h5>");
                                 }
-                                $('#share').hide();
-                                $('#drop').show();
+                                $('#state').show();
+                                $('#binding').hide();
                                 $('#modal_event').click();
                                 break;
                         }
                     });
 
+                    $( "#binding_port" ).val("80");
+                    $( "#binding_type" ).change(function() {
+                        var binding_type = $( "#binding_type" ).val();
+                        if( parseInt(binding_type) > 1) {
+                            $( "#binding_port" ).val("443");
+                        }
+                        else {
+                            $( "#binding_port" ).val("80");
+                        }
+                    });
+
+                    $( "#btnBinding" ).click(function() {
+                        var binding_type = $( "#binding_type" ).val();
+                        var binding_hostname = $( "#binding_hostname" ).val();
+                        var binding_port = $( "#binding_port" ).val();
+                        var data = { type: binding_type, hostname: binding_hostname, port: binding_port };
+                        console.log(data);
+                    });
                 } );
 
                 function ajax_execute(data, url, button_id) {

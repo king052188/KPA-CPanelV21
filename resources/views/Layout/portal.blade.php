@@ -10,6 +10,7 @@ $url_secured = $helper["status"];
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="icon" href="{{ asset('images/k-icon.png', $url_secured) }}" type="image/x-icon">
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <link href="{{ asset("/js/loader-fb.css", $url_secured) }}" rel='stylesheet' type='text/css' />
     <link href="{{ asset("/plugins/minimal_admin_panel/css/bootstrap.min.css", $url_secured) }}" rel='stylesheet' type='text/css' />
     <!-- Custom Theme files -->
     <link href="{{ asset("/plugins/minimal_admin_panel/css/style.css", $url_secured) }}" rel='stylesheet' type='text/css' />

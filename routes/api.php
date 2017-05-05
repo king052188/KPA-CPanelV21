@@ -28,4 +28,6 @@ Route::post('/disk/create', 'ApiController@create_disk');
 
 Route::post('/web/create', 'ApiController@create_web');
 
+Route::post('/web/site/state', 'ApiController@web_state_update');
+
 Route::post('/ftp/create', 'ApiController@create_ftp');
