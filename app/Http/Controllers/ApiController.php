@@ -13,6 +13,9 @@ use App\WebSite;
 use App\FTP;
 use DB;
 
+use Composer\Console\Application;
+use Symfony\Component\Console\Input\ArrayInput;
+
 use Illuminate\Support\Facades\Crypt;
 
 class ApiController extends Controller
