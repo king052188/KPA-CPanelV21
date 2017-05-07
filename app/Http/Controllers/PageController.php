@@ -40,11 +40,21 @@ class PageController extends Controller
         return view('layout.200', compact('helper'));
     }
 
-
     public function reset_password_completed(Request $request) {
         $helper = Helper::ssl_secured($request);
         Helper::flushCookies();
         Helper::flushCookies("endorsement_session");
         return view('layout.200_reset_password', compact('helper'));
+    }
+
+    public function compose_init(Request $request) {
+        $helper = Helper::ssl_secured($request);
+        $user = Helper::getCookies();
+
+        if($user == null) {
+            return redirect('/logout');
+        }
+
+        return view('member.tools.composer', compact('helper', 'user'));
     }
 }

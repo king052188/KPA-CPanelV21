@@ -81,7 +81,7 @@ var defineGlobal = function (id, ref) {
   define(id, [], function () { return ref; });
 };
 /*jsc
-["tinymce/inlite/Theme","global!tinymce.ThemeManager","global!tinymce.util.Delay","tinymce/inlite/ui/Panel","tinymce/inlite/ui/Buttons","tinymce/inlite/core/SkinLoader","tinymce/inlite/core/SelectionMatcher","tinymce/inlite/core/ElementMatcher","tinymce/inlite/core/Matcher","tinymce/inlite/alien/Arr","tinymce/inlite/core/PredicateId","global!tinymce.util.Tools","global!tinymce.ui.Factory","global!tinymce.DOM","tinymce/inlite/ui/Toolbar","tinymce/inlite/ui/Forms","tinymce/inlite/core/Measure","tinymce/inlite/core/Layout","tinymce/inlite/file/Conversions","tinymce/inlite/file/Picker","tinymce/inlite/core/Actions","global!tinymce.EditorManager","global!tinymce.util.Promise","tinymce/inlite/alien/Uuid","tinymce/inlite/alien/Unlink","tinymce/inlite/core/UrlType","global!tinymce.geom.Rect","tinymce/inlite/core/Convert","tinymce/inlite/alien/Bookmark","global!tinymce.dom.TreeWalker","global!tinymce.dom.RangeUtils"]
+["tinymce/inlite/Theme","global!tinymce.ThemeManager","global!tinymce.util.Delay","tinymce/inlite/ui/Panel","tinymce/inlite/ui/Buttons","tinymce/inlite/core/SkinLoader","tinymce/inlite/core/SelectionMatcher","tinymce/inlite/core/ElementMatcher","tinymce/inlite/core/Matcher","tinymce/inlite/alien/Arr","tinymce/inlite/core/PredicateId","global!tinymce.util.tools","global!tinymce.ui.Factory","global!tinymce.DOM","tinymce/inlite/ui/Toolbar","tinymce/inlite/ui/Forms","tinymce/inlite/core/Measure","tinymce/inlite/core/Layout","tinymce/inlite/file/Conversions","tinymce/inlite/file/Picker","tinymce/inlite/core/Actions","global!tinymce.EditorManager","global!tinymce.util.Promise","tinymce/inlite/alien/Uuid","tinymce/inlite/alien/Unlink","tinymce/inlite/core/UrlType","global!tinymce.geom.Rect","tinymce/inlite/core/Convert","tinymce/inlite/alien/Bookmark","global!tinymce.dom.TreeWalker","global!tinymce.dom.RangeUtils"]
 jsc*/
 defineGlobal("global!tinymce.ThemeManager", tinymce.ThemeManager);
 defineGlobal("global!tinymce.util.Delay", tinymce.util.Delay);
@@ -99,7 +99,7 @@ defineGlobal("global!tinymce.DOM", tinymce.DOM);
  */
 
 define('tinymce/inlite/ui/Toolbar', [
-	'global!tinymce.util.Tools',
+	'global!tinymce.util.tools',
 	'global!tinymce.ui.Factory'
 ], function (Tools, Factory) {
 	var setActiveItem = function (item, name) {
@@ -402,7 +402,7 @@ defineGlobal("global!tinymce.dom.RangeUtils", tinymce.dom.RangeUtils);
  */
 define("tinymce/inlite/alien/Unlink", [
 	'tinymce/inlite/alien/Bookmark',
-	'global!tinymce.util.Tools',
+	'global!tinymce.util.tools',
 	'global!tinymce.dom.TreeWalker',
 	'global!tinymce.dom.RangeUtils'
 ], function (Bookmark, Tools, TreeWalker, RangeUtils) {
@@ -615,7 +615,7 @@ define('tinymce/inlite/core/UrlType', [
  */
 
 define('tinymce/inlite/ui/Forms', [
-	'global!tinymce.util.Tools',
+	'global!tinymce.util.tools',
 	'global!tinymce.ui.Factory',
 	'global!tinymce.util.Promise',
 	'tinymce/inlite/core/Actions',
@@ -915,7 +915,7 @@ define('tinymce/inlite/core/Layout', [
  */
 
 define('tinymce/inlite/ui/Panel', [
-	'global!tinymce.util.Tools',
+	'global!tinymce.util.tools',
 	'global!tinymce.ui.Factory',
 	'global!tinymce.DOM',
 	'tinymce/inlite/ui/Toolbar',
@@ -1502,7 +1502,7 @@ define('tinymce/inlite/alien/Arr', [
  */
 
 define('tinymce/inlite/core/PredicateId', [
-	'global!tinymce.util.Tools'
+	'global!tinymce.util.tools'
 ], function (Tools) {
 	var create = function (id, predicate) {
 		return {

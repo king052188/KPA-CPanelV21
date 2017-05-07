@@ -3710,10 +3710,10 @@ define("tinymce/util/Arr", [], function() {
 	};
 });
 
-// Included from: js/tinymce/classes/util/Tools.js
+// Included from: js/tinymce/classes/util/tools.js
 
 /**
- * Tools.js
+ * tools.js
  *
  * Released under LGPL License.
  * Copyright (c) 1999-2015 Ephox Corp. All rights reserved
@@ -4191,7 +4191,7 @@ define("tinymce/util/Tools", [
 define("tinymce/dom/DomQuery", [
 	"tinymce/dom/EventUtils",
 	"tinymce/dom/Sizzle",
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/Env"
 ], function(EventUtils, Sizzle, Tools, Env) {
 	var doc = document, push = Array.prototype.push, slice = Array.prototype.slice;
@@ -6251,7 +6251,7 @@ define("tinymce/dom/TreeWalker", [], function() {
  * @class tinymce.dom.Range
  */
 define("tinymce/dom/Range", [
-	"tinymce/util/Tools"
+	"tinymce/util/tools"
 ], function(Tools) {
 	// Range constructor
 	function Range(dom) {
@@ -7043,7 +7043,7 @@ define("tinymce/dom/Range", [
  * @version 3.4
  */
 define("tinymce/html/Entities", [
-	"tinymce/util/Tools"
+	"tinymce/util/tools"
 ], function(Tools) {
 	var makeMap = Tools.makeMap;
 
@@ -7310,7 +7310,7 @@ define("tinymce/html/Entities", [
  * @private
  */
 define("tinymce/dom/StyleSheetLoader", [
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/util/Delay"
 ], function(Tools, Delay) {
 	"use strict";
@@ -7516,7 +7516,7 @@ define("tinymce/dom/DOMUtils", [
 	"tinymce/dom/Range",
 	"tinymce/html/Entities",
 	"tinymce/Env",
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/dom/StyleSheetLoader"
 ], function(Sizzle, $, Styles, EventUtils, TreeWalker, Range, Entities, Env, Tools, StyleSheetLoader) {
 	// Shorten names
@@ -9381,7 +9381,7 @@ define("tinymce/dom/DOMUtils", [
  */
 define("tinymce/dom/ScriptLoader", [
 	"tinymce/dom/DOMUtils",
-	"tinymce/util/Tools"
+	"tinymce/util/tools"
 ], function(DOMUtils, Tools) {
 	var DOM = DOMUtils.DOM;
 	var each = Tools.each, grep = Tools.grep;
@@ -9621,7 +9621,7 @@ define("tinymce/dom/ScriptLoader", [
  */
 define("tinymce/AddOnManager", [
 	"tinymce/dom/ScriptLoader",
-	"tinymce/util/Tools"
+	"tinymce/util/tools"
 ], function(ScriptLoader, Tools) {
 	var each = Tools.each;
 
@@ -10199,7 +10199,7 @@ define("tinymce/caret/CaretContainer", [
  * @class tinymce.dom.RangeUtils
  */
 define("tinymce/dom/RangeUtils", [
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/dom/TreeWalker",
 	"tinymce/dom/NodeType",
 	"tinymce/dom/Range",
@@ -11505,7 +11505,7 @@ define("tinymce/html/Node", [], function() {
  * @version 3.4
  */
 define("tinymce/html/Schema", [
-	"tinymce/util/Tools"
+	"tinymce/util/tools"
 ], function(Tools) {
 	var mapCache = {}, dummyObj = {};
 	var makeMap = Tools.makeMap, each = Tools.each, extend = Tools.extend, explode = Tools.explode, inArray = Tools.inArray;
@@ -12542,7 +12542,7 @@ define("tinymce/html/Schema", [
 define("tinymce/html/SaxParser", [
 	"tinymce/html/Schema",
 	"tinymce/html/Entities",
-	"tinymce/util/Tools"
+	"tinymce/util/tools"
 ], function(Schema, Entities, Tools) {
 	var each = Tools.each;
 
@@ -12990,7 +12990,7 @@ define("tinymce/html/DomParser", [
 	"tinymce/html/Node",
 	"tinymce/html/Schema",
 	"tinymce/html/SaxParser",
-	"tinymce/util/Tools"
+	"tinymce/util/tools"
 ], function(Node, Schema, SaxParser, Tools) {
 	var makeMap = Tools.makeMap, each = Tools.each, explode = Tools.explode, extend = Tools.extend;
 
@@ -13813,7 +13813,7 @@ define("tinymce/html/DomParser", [
  */
 define("tinymce/html/Writer", [
 	"tinymce/html/Entities",
-	"tinymce/util/Tools"
+	"tinymce/util/tools"
 ], function(Entities, Tools) {
 	var makeMap = Tools.makeMap;
 
@@ -14177,7 +14177,7 @@ define("tinymce/dom/Serializer", [
 	"tinymce/html/Node",
 	"tinymce/html/Schema",
 	"tinymce/Env",
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/text/Zwsp"
 ], function(DOMUtils, DomParser, SaxParser, Entities, Serializer, Node, Schema, Env, Tools, Zwsp) {
 	var each = Tools.each, trim = Tools.trim;
@@ -15231,7 +15231,7 @@ define("tinymce/util/VK", [
  */
 define("tinymce/dom/ControlSelection", [
 	"tinymce/util/VK",
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/util/Delay",
 	"tinymce/Env",
 	"tinymce/dom/NodeType"
@@ -16914,7 +16914,7 @@ define('tinymce/caret/CaretBookmark', [
  */
 define("tinymce/dom/BookmarkManager", [
 	"tinymce/Env",
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/caret/CaretContainer",
 	"tinymce/caret/CaretBookmark",
 	"tinymce/caret/CaretPosition",
@@ -17383,7 +17383,7 @@ define("tinymce/dom/Selection", [
 	"tinymce/dom/BookmarkManager",
 	"tinymce/dom/NodeType",
 	"tinymce/Env",
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/caret/CaretPosition"
 ], function(TreeWalker, TridentSelection, ControlSelection, RangeUtils, BookmarkManager, NodeType, Env, Tools, CaretPosition) {
 	var each = Tools.each, trim = Tools.trim;
@@ -18395,7 +18395,7 @@ define("tinymce/dom/Selection", [
  */
 define("tinymce/dom/ElementUtils", [
 	"tinymce/dom/BookmarkManager",
-	"tinymce/util/Tools"
+	"tinymce/util/tools"
 ], function(BookmarkManager, Tools) {
 	var each = Tools.each;
 
@@ -18518,7 +18518,7 @@ define("tinymce/dom/ElementUtils", [
  * @class tinymce.fmt.Preview
  */
 define("tinymce/fmt/Preview", [
-	"tinymce/util/Tools"
+	"tinymce/util/tools"
 ], function(Tools) {
 	var each = Tools.each;
 
@@ -18750,7 +18750,7 @@ define("tinymce/Formatter", [
 	"tinymce/dom/RangeUtils",
 	"tinymce/dom/BookmarkManager",
 	"tinymce/dom/ElementUtils",
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/fmt/Preview",
 	"tinymce/fmt/Hooks"
 ], function(TreeWalker, RangeUtils, BookmarkManager, ElementUtils, Tools, Preview, Hooks) {
@@ -22917,7 +22917,7 @@ define("tinymce/caret/CaretWalker", [
  * @private
  */
 define("tinymce/InsertList", [
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/caret/CaretWalker",
 	"tinymce/caret/CaretPosition"
 ], function(Tools, CaretWalker, CaretPosition) {
@@ -23099,7 +23099,7 @@ define("tinymce/InsertList", [
  */
 define("tinymce/InsertContent", [
 	"tinymce/Env",
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/html/Serializer",
 	"tinymce/caret/CaretWalker",
 	"tinymce/caret/CaretPosition",
@@ -23483,7 +23483,7 @@ define("tinymce/InsertContent", [
  */
 define("tinymce/EditorCommands", [
 	"tinymce/Env",
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/dom/RangeUtils",
 	"tinymce/dom/TreeWalker",
 	"tinymce/InsertContent"
@@ -24238,7 +24238,7 @@ define("tinymce/EditorCommands", [
  * @class tinymce.util.URI
  */
 define("tinymce/util/URI", [
-	"tinymce/util/Tools"
+	"tinymce/util/tools"
 ], function(Tools) {
 	var each = Tools.each, trim = Tools.trim;
 	var queryParts = "source protocol authority userInfo user password host port relative path directory file query anchor".split(' ');
@@ -24680,7 +24680,7 @@ define("tinymce/util/URI", [
  * * Defaults settings
  */
 define("tinymce/util/Class", [
-	"tinymce/util/Tools"
+	"tinymce/util/tools"
 ], function(Tools) {
 	var each = Tools.each, extend = Tools.extend;
 
@@ -24850,7 +24850,7 @@ define("tinymce/util/Class", [
  *  eventDispatcher.fire('click', {data: 123});
  */
 define("tinymce/util/EventDispatcher", [
-	"tinymce/util/Tools"
+	"tinymce/util/tools"
 ], function(Tools) {
 	var nativeEvents = Tools.makeMap(
 		"focus blur focusin focusout click dblclick mousedown mouseup mousemove mouseover beforepaste paste cut copy selectionchange " +
@@ -25359,7 +25359,7 @@ define("tinymce/data/ObservableObject", [
 	"tinymce/data/Binding",
 	"tinymce/util/Observable",
 	"tinymce/util/Class",
-	"tinymce/util/Tools"
+	"tinymce/util/tools"
 ], function(Binding, Observable, Class, Tools) {
 	function isNode(node) {
 		return node.nodeType > 0;
@@ -25928,7 +25928,7 @@ define("tinymce/ui/Selector", [
  * @class tinymce.ui.Collection
  */
 define("tinymce/ui/Collection", [
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/ui/Selector",
 	"tinymce/util/Class"
 ], function(Tools, Selector, Class) {
@@ -26366,7 +26366,7 @@ define("tinymce/ui/Collection", [
  * @class tinymce.ui.DomUtils
  */
 define("tinymce/ui/DomUtils", [
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/dom/DOMUtils"
 ], function(Tools, DOMUtils) {
 	"use strict";
@@ -26595,7 +26595,7 @@ define("tinymce/ui/BoxUtils", [
  * @class tinymce.ui.ClassList
  */
 define("tinymce/ui/ClassList", [
-	"tinymce/util/Tools"
+	"tinymce/util/tools"
 ], function(Tools) {
 	"use strict";
 
@@ -26832,7 +26832,7 @@ define("tinymce/ui/ReflowQueue", [
  */
 define("tinymce/ui/Control", [
 	"tinymce/util/Class",
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/util/EventDispatcher",
 	"tinymce/data/ObservableObject",
 	"tinymce/ui/Collection",
@@ -28662,7 +28662,7 @@ define("tinymce/ui/Container", [
 	"tinymce/ui/Selector",
 	"tinymce/ui/Factory",
 	"tinymce/ui/KeyboardNavigation",
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/dom/DomQuery",
 	"tinymce/ui/ClassList",
 	"tinymce/ui/ReflowQueue"
@@ -31870,7 +31870,7 @@ define("tinymce/util/Quirks", [
 	"tinymce/html/Node",
 	"tinymce/html/Entities",
 	"tinymce/Env",
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/util/Delay",
 	"tinymce/caret/CaretContainer",
 	"tinymce/caret/CaretPosition",
@@ -33644,7 +33644,7 @@ define("tinymce/util/Quirks", [
 define("tinymce/EditorObservable", [
 	"tinymce/util/Observable",
 	"tinymce/dom/DOMUtils",
-	"tinymce/util/Tools"
+	"tinymce/util/tools"
 ], function(Observable, DOMUtils, Tools) {
 	var DOM = DOMUtils.DOM, customEventRootDelegates;
 
@@ -33946,7 +33946,7 @@ define("tinymce/Mode", [], function() {
  * editor.shortcuts.add('access+a', function() {}); // "access" maps to ctrl+alt on Mac and shift+alt on PC
  */
 define("tinymce/Shortcuts", [
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/Env"
 ], function(Tools, Env) {
 	var each = Tools.each, explode = Tools.explode;
@@ -34175,7 +34175,7 @@ define("tinymce/Shortcuts", [
  */
 define("tinymce/file/Uploader", [
 	"tinymce/util/Promise",
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/util/Fun"
 ], function(Promise, Tools, Fun) {
 	return function(uploadStatus, settings) {
@@ -36868,7 +36868,7 @@ define("tinymce/Editor", [
 	"tinymce/html/DomParser",
 	"tinymce/util/Quirks",
 	"tinymce/Env",
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/util/Delay",
 	"tinymce/EditorObservable",
 	"tinymce/Mode",
@@ -39426,7 +39426,7 @@ define("tinymce/EditorManager", [
 	"tinymce/dom/DOMUtils",
 	"tinymce/util/URI",
 	"tinymce/Env",
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/util/Promise",
 	"tinymce/util/Observable",
 	"tinymce/util/I18n",
@@ -40168,7 +40168,7 @@ define("tinymce/EditorManager", [
  */
 define("tinymce/LegacyInput", [
 	"tinymce/EditorManager",
-	"tinymce/util/Tools"
+	"tinymce/util/tools"
 ], function(EditorManager, Tools) {
 	var each = Tools.each, explode = Tools.explode;
 
@@ -40266,7 +40266,7 @@ define("tinymce/LegacyInput", [
  */
 define("tinymce/util/XHR", [
 	"tinymce/util/Observable",
-	"tinymce/util/Tools"
+	"tinymce/util/tools"
 ], function(Observable, Tools) {
 	var XHR = {
 		/**
@@ -40501,7 +40501,7 @@ define("tinymce/util/JSON", [], function() {
 define("tinymce/util/JSONRequest", [
 	"tinymce/util/JSON",
 	"tinymce/util/XHR",
-	"tinymce/util/Tools"
+	"tinymce/util/tools"
 ], function(JSON, XHR, Tools) {
 	var extend = Tools.extend;
 
@@ -40854,7 +40854,7 @@ define("tinymce/Compat", [
 	"tinymce/dom/EventUtils",
 	"tinymce/dom/ScriptLoader",
 	"tinymce/AddOnManager",
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/Env"
 ], function(DOMUtils, EventUtils, ScriptLoader, AddOnManager, Tools, Env) {
 	var tinymce = window.tinymce;
@@ -40941,7 +40941,7 @@ define("tinymce/Compat", [
  */
 define("tinymce/ui/Layout", [
 	"tinymce/util/Class",
-	"tinymce/util/Tools"
+	"tinymce/util/tools"
 ], function(Class, Tools) {
 	"use strict";
 
@@ -42920,7 +42920,7 @@ define("tinymce/ui/FormItem", [
 define("tinymce/ui/Form", [
 	"tinymce/ui/Container",
 	"tinymce/ui/FormItem",
-	"tinymce/util/Tools"
+	"tinymce/util/tools"
 ], function(Container, FormItem, Tools) {
 	"use strict";
 
@@ -43132,7 +43132,7 @@ define("tinymce/ui/FieldSet", [
  */
 define("tinymce/ui/FilePicker", [
 	"tinymce/ui/ComboBox",
-	"tinymce/util/Tools"
+	"tinymce/util/tools"
 ], function(ComboBox, Tools) {
 	"use strict";
 
@@ -43569,7 +43569,7 @@ define("tinymce/ui/FormatControls", [
 	"tinymce/ui/Control",
 	"tinymce/ui/Widget",
 	"tinymce/ui/FloatPanel",
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/EditorManager",
 	"tinymce/Env"
 ], function(Control, Widget, FloatPanel, Tools, EditorManager, Env) {
@@ -45471,7 +45471,7 @@ define("tinymce/ui/Menu", [
 	"tinymce/ui/FloatPanel",
 	"tinymce/ui/MenuItem",
 	"tinymce/ui/Throbber",
-	"tinymce/util/Tools"
+	"tinymce/util/tools"
 ], function(FloatPanel, MenuItem, Throbber, Tools) {
 	"use strict";
 
@@ -46695,7 +46695,7 @@ define("tinymce/ui/TabPanel", [
  */
 define("tinymce/ui/TextBox", [
 	"tinymce/ui/Widget",
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/ui/DomUtils"
 ], function(Widget, Tools, DomUtils) {
 	return Widget.extend({
@@ -46918,5 +46918,5 @@ define("tinymce/Register", [
 	return {};
 });
 
-expose(["tinymce/geom/Rect","tinymce/util/Promise","tinymce/util/Delay","tinymce/Env","tinymce/dom/EventUtils","tinymce/dom/Sizzle","tinymce/util/Tools","tinymce/dom/DomQuery","tinymce/html/Styles","tinymce/dom/TreeWalker","tinymce/html/Entities","tinymce/dom/DOMUtils","tinymce/dom/ScriptLoader","tinymce/AddOnManager","tinymce/dom/RangeUtils","tinymce/html/Node","tinymce/html/Schema","tinymce/html/SaxParser","tinymce/html/DomParser","tinymce/html/Writer","tinymce/html/Serializer","tinymce/dom/Serializer","tinymce/util/VK","tinymce/dom/ControlSelection","tinymce/dom/BookmarkManager","tinymce/dom/Selection","tinymce/Formatter","tinymce/UndoManager","tinymce/EditorCommands","tinymce/util/URI","tinymce/util/Class","tinymce/util/EventDispatcher","tinymce/util/Observable","tinymce/ui/Selector","tinymce/ui/Collection","tinymce/ui/ReflowQueue","tinymce/ui/Control","tinymce/ui/Factory","tinymce/ui/KeyboardNavigation","tinymce/ui/Container","tinymce/ui/DragHelper","tinymce/ui/Scrollable","tinymce/ui/Panel","tinymce/ui/Movable","tinymce/ui/Resizable","tinymce/ui/FloatPanel","tinymce/ui/Window","tinymce/ui/MessageBox","tinymce/WindowManager","tinymce/ui/Tooltip","tinymce/ui/Widget","tinymce/ui/Progress","tinymce/ui/Notification","tinymce/NotificationManager","tinymce/EditorObservable","tinymce/Shortcuts","tinymce/Editor","tinymce/util/I18n","tinymce/FocusManager","tinymce/EditorManager","tinymce/util/XHR","tinymce/util/JSON","tinymce/util/JSONRequest","tinymce/util/JSONP","tinymce/util/LocalStorage","tinymce/Compat","tinymce/ui/Layout","tinymce/ui/AbsoluteLayout","tinymce/ui/Button","tinymce/ui/ButtonGroup","tinymce/ui/Checkbox","tinymce/ui/ComboBox","tinymce/ui/ColorBox","tinymce/ui/PanelButton","tinymce/ui/ColorButton","tinymce/util/Color","tinymce/ui/ColorPicker","tinymce/ui/Path","tinymce/ui/ElementPath","tinymce/ui/FormItem","tinymce/ui/Form","tinymce/ui/FieldSet","tinymce/ui/FilePicker","tinymce/ui/FitLayout","tinymce/ui/FlexLayout","tinymce/ui/FlowLayout","tinymce/ui/FormatControls","tinymce/ui/GridLayout","tinymce/ui/Iframe","tinymce/ui/InfoBox","tinymce/ui/Label","tinymce/ui/Toolbar","tinymce/ui/MenuBar","tinymce/ui/MenuButton","tinymce/ui/MenuItem","tinymce/ui/Throbber","tinymce/ui/Menu","tinymce/ui/ListBox","tinymce/ui/Radio","tinymce/ui/ResizeHandle","tinymce/ui/SelectBox","tinymce/ui/Slider","tinymce/ui/Spacer","tinymce/ui/SplitButton","tinymce/ui/StackLayout","tinymce/ui/TabPanel","tinymce/ui/TextBox"]);
+expose(["tinymce/geom/Rect","tinymce/util/Promise","tinymce/util/Delay","tinymce/Env","tinymce/dom/EventUtils","tinymce/dom/Sizzle","tinymce/util/tools","tinymce/dom/DomQuery","tinymce/html/Styles","tinymce/dom/TreeWalker","tinymce/html/Entities","tinymce/dom/DOMUtils","tinymce/dom/ScriptLoader","tinymce/AddOnManager","tinymce/dom/RangeUtils","tinymce/html/Node","tinymce/html/Schema","tinymce/html/SaxParser","tinymce/html/DomParser","tinymce/html/Writer","tinymce/html/Serializer","tinymce/dom/Serializer","tinymce/util/VK","tinymce/dom/ControlSelection","tinymce/dom/BookmarkManager","tinymce/dom/Selection","tinymce/Formatter","tinymce/UndoManager","tinymce/EditorCommands","tinymce/util/URI","tinymce/util/Class","tinymce/util/EventDispatcher","tinymce/util/Observable","tinymce/ui/Selector","tinymce/ui/Collection","tinymce/ui/ReflowQueue","tinymce/ui/Control","tinymce/ui/Factory","tinymce/ui/KeyboardNavigation","tinymce/ui/Container","tinymce/ui/DragHelper","tinymce/ui/Scrollable","tinymce/ui/Panel","tinymce/ui/Movable","tinymce/ui/Resizable","tinymce/ui/FloatPanel","tinymce/ui/Window","tinymce/ui/MessageBox","tinymce/WindowManager","tinymce/ui/Tooltip","tinymce/ui/Widget","tinymce/ui/Progress","tinymce/ui/Notification","tinymce/NotificationManager","tinymce/EditorObservable","tinymce/Shortcuts","tinymce/Editor","tinymce/util/I18n","tinymce/FocusManager","tinymce/EditorManager","tinymce/util/XHR","tinymce/util/JSON","tinymce/util/JSONRequest","tinymce/util/JSONP","tinymce/util/LocalStorage","tinymce/Compat","tinymce/ui/Layout","tinymce/ui/AbsoluteLayout","tinymce/ui/Button","tinymce/ui/ButtonGroup","tinymce/ui/Checkbox","tinymce/ui/ComboBox","tinymce/ui/ColorBox","tinymce/ui/PanelButton","tinymce/ui/ColorButton","tinymce/util/Color","tinymce/ui/ColorPicker","tinymce/ui/Path","tinymce/ui/ElementPath","tinymce/ui/FormItem","tinymce/ui/Form","tinymce/ui/FieldSet","tinymce/ui/FilePicker","tinymce/ui/FitLayout","tinymce/ui/FlexLayout","tinymce/ui/FlowLayout","tinymce/ui/FormatControls","tinymce/ui/GridLayout","tinymce/ui/Iframe","tinymce/ui/InfoBox","tinymce/ui/Label","tinymce/ui/Toolbar","tinymce/ui/MenuBar","tinymce/ui/MenuButton","tinymce/ui/MenuItem","tinymce/ui/Throbber","tinymce/ui/Menu","tinymce/ui/ListBox","tinymce/ui/Radio","tinymce/ui/ResizeHandle","tinymce/ui/SelectBox","tinymce/ui/Slider","tinymce/ui/Spacer","tinymce/ui/SplitButton","tinymce/ui/StackLayout","tinymce/ui/TabPanel","tinymce/ui/TextBox"]);
 })(this);

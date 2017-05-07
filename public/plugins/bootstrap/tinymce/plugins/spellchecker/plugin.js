@@ -603,7 +603,7 @@ define("tinymce/spellcheckerplugin/DomTextMatcher", [], function() {
 define("tinymce/spellcheckerplugin/Plugin", [
 	"tinymce/spellcheckerplugin/DomTextMatcher",
 	"tinymce/PluginManager",
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/ui/Menu",
 	"tinymce/dom/DOMUtils",
 	"tinymce/util/XHR",

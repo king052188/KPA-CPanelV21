@@ -99,6 +99,9 @@ Route::get('/ftp/create', 'FTPController@create_init');
 Route::post('/ftp/create-execute', 'PageController@temp');
 
 
+Route::get('/tool/composer', 'PageController@compose_init');
+
+
 Route::get('/logout', 'MemberController@member_sign_out_process');
 
 Route::get('/robot/create/new-hash-code', 'TestController@re_create_hash_code');

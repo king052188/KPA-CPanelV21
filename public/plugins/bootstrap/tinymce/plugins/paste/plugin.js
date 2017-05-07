@@ -115,7 +115,7 @@
  * @class tinymce.pasteplugin.Utils
  */
 define("tinymce/pasteplugin/Utils", [
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/html/DomParser",
 	"tinymce/html/Schema"
 ], function(Tools, DomParser, Schema) {
@@ -261,7 +261,7 @@ define("tinymce/pasteplugin/Utils", [
  * @private
  */
 define("tinymce/pasteplugin/SmartPaste", [
-	"tinymce/util/Tools"
+	"tinymce/util/tools"
 ], function (Tools) {
 	var isAbsoluteUrl = function (url) {
 		return /^https?:\/\/[\w\?\-\/+=.&%]+$/i.test(url);
@@ -1061,7 +1061,7 @@ define("tinymce/pasteplugin/Clipboard", [
  * @private
  */
 define("tinymce/pasteplugin/WordFilter", [
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/html/DomParser",
 	"tinymce/html/Schema",
 	"tinymce/html/Serializer",
@@ -1567,7 +1567,7 @@ define("tinymce/pasteplugin/WordFilter", [
  */
 define("tinymce/pasteplugin/Quirks", [
 	"tinymce/Env",
-	"tinymce/util/Tools",
+	"tinymce/util/tools",
 	"tinymce/pasteplugin/WordFilter",
 	"tinymce/pasteplugin/Utils"
 ], function(Env, Tools, WordFilter, Utils) {
