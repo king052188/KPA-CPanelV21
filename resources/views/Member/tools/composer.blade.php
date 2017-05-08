@@ -2,7 +2,8 @@
 
 @section("content")
     <?php
-    $url_secured = $helper["status"];
+        $url_secured = $helper["status"];
+        $user_id = $user[0]->Id
     ?>
     <!--banner-->
     <div class="banner">
@@ -20,7 +21,7 @@
         <div class="validation-form">
 
             <h3> Composer </h3>
-            <iframe src="http://127.0.0.1:8083" target="_parent" style="border:none; width: 100%; height: 600px;"></iframe>
+            <iframe src="http://127.0.0.1:8083/?uid={{ $user_id }}" target="_parent" style="border:none; width: 100%; height: 600px;"></iframe>
 
         </div>
 
