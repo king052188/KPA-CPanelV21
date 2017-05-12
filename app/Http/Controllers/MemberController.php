@@ -234,7 +234,7 @@ class MemberController extends Controller
         }
 
         $disk_size = $packages[0]->disk;
-        $data_url = "http://a4f66aca.ap.ngrok.io/?todo=QUOTA&account={$username}&size={$disk_size}";
+        $data_url = "http://0a4f76f3.ap.ngrok.io/?todo=QUOTA&account={$username}&size={$disk_size}";
 
         $data_result = Helper::do_curl($data_url); //Code
 
