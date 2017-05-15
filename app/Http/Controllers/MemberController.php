@@ -165,9 +165,7 @@ class MemberController extends Controller
                       "username" => $temp_username
                   )
                 );
-
-//            $h = Helper::post_password_email_send($request->first_name, $request->email, $user_hash_code, $password_code["new_password"]);
-
+            
             $h = Helper::welcome_email_send_mailgun($request->first_name, $request->email, $password_code["new_password"]);
 
 //            if($h["Status"] == 200) {
@@ -219,8 +217,8 @@ class MemberController extends Controller
         $user_uid = $user[0]->Id;
         $username = $user[0]->username;
         $disk = DB::select("SELECT * FROM quota_table WHERE user_id = {$user_uid};");
-
-        if($user_status > 2) {
+        
+        if($user_status >= 2) {
             if( COUNT($disk) == 0 ) {
                 return redirect('/setup/package/plan');
             }
@@ -232,11 +230,10 @@ class MemberController extends Controller
         if( COUNT($packages) == 0 ) {
             return view('layout.404', compact('helper', 'user'));
         }
-
         $disk_size = $packages[0]->disk;
-        $data_url = "http://0a4f76f3.ap.ngrok.io/?todo=QUOTA&account={$username}&size={$disk_size}";
 
-        $data_result = Helper::do_curl($data_url); //Code
+        $api = new ApiController();
+        $data_result = $api->get_disk_statistic($request, $username, $disk_size);
 
         $used = 0;
         $available = 0;

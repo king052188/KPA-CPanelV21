@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Crypt;
 class ApiController extends Controller
 {
     //
-    public static $host_api = "http://0a4f76f3.ap.ngrok.io/";
+    public static $host_api = "http://cpanelv21-engine.kpa21.info/";
 
     public function member_populate($type) {
         $sort_id = 0;
@@ -362,8 +362,24 @@ class ApiController extends Controller
         return $json;
     }
 
-
     //
+
+    public function get_disk_statistic(Request $request, $username, $disk_size) {
+        $user_cookies = Helper::getCookies();
+        if($user_cookies == null) {
+            $data = array(
+                "code" => 404,
+                "message" => "Fail"
+            );
+            return $data;
+        }
+
+        $data = "?todo=QUOTA&account={$username}&size={$disk_size}";
+
+        $json = Helper::do_curl(ApiController::$host_api . $data);
+
+        return $json;
+    }
 
     public function web_state_update(Request $request) {
         $user_cookies = Helper::getCookies();
