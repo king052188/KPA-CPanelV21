@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Crypt;
 class ApiController extends Controller
 {
     //
-    public static $host_api = "http://cpanelv21-engine.kpa21.info/";
+    public static $host_api = "http://69.4.84.226:21001/";
 
     public function member_populate($type) {
         $sort_id = 0;
