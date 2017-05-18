@@ -21,6 +21,17 @@ class PageController extends Controller
         return view('member.package.index', compact('helper', 'user'));
     }
 
+    public function setup_server(Request $request) {
+        $helper = Helper::ssl_secured($request);
+        $user = Helper::getCookies();
+
+        if($user == null) {
+            return redirect('/logout');
+        }
+
+        return view('member.package.setup', compact('helper', 'user'));
+    }
+
     public function temp(Request $request) {
         $helper = Helper::ssl_secured($request);
 

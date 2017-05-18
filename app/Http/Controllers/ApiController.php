@@ -397,4 +397,40 @@ class ApiController extends Controller
         return $json;
     }
 
+    public function get_package_status(Request $request) {
+        $user_cookies = Helper::getCookies();
+        if($user_cookies == null) {
+            $data = array(
+                "code" => 404,
+                "message" => "Fail."
+            );
+            return $data;
+        }
+        $package_id = (int)$request->package_id;
+        $account = (int)$request->account;
+
+        $db = DB::select("SELECT * FROM quota_reference_table WHERE Id = {$package_id};");
+        if( COUNT($db) == 0) {
+            $data = array(
+                "code" => 404,
+                "message" => "Package did not found."
+            );
+            return $data;
+        }
+
+        if($db[0]->status > 2) {
+            $data = array(
+                "code" => 401,
+                "message" => "Sorry, your selected package is not applicable at this moment."
+            );
+            return $data;
+        }
+
+        $data = array(
+            "code" => 200,
+            "message" => "Success."
+        );
+        return $data;
+    }
+
 }

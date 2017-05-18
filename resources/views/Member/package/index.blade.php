@@ -13,7 +13,7 @@
             font-weight: 200;
             color: #B3AEAE;
         }
-        #share_verify_msg table.username_verify_list tbody tr:last-child { background:#ff0000; }
+        #share_verify_msg table.username_verify_list tbody tr:last-child { background: #ff0000; }
 
         #package_info .col-md-3 .content-top-1:hover {
             background: #F2FFEF;
@@ -208,20 +208,20 @@
                     <div class="col-md-3">
                         <?php
                             $class = "";
-                            if($packages[$i]->status == 3) {
+                            if($packages[$i]->type == 3) {
                                 $class = "likeit_package";
                             }
-                            elseif ($packages[$i]->status  == 4) {
+                            elseif ($packages[$i]->type  == 4) {
                                 $class = "loveit_package";
                             }
                         ?>
-                        <div id="package_id{{ $packages[$i]->Id }}" data-status="{{ $packages[$i]->status }}" onclick="event_click({{ $packages[$i]->Id }})" class="content-top-1 {{ $class }}">
+                        <div id="package_id{{ $packages[$i]->Id }}" data-status="{{ $packages[$i]->type }}" onclick="event_click({{ $packages[$i]->Id }})" class="content-top-1 {{ $class }}">
                             <div class="col-md-11 top-content">
-                                @if($packages[$i]->status == 3)
+                                @if($packages[$i]->type == 3)
                                     <img id="most_selected_id{{ $packages[$i]->Id }}" class="selected_checked_icon" src="https://cdn4.iconfinder.com/data/icons/ballicons-2-free/100/like-128.png" alt="Like it!" />
                                     <img id="checked_id{{ $packages[$i]->Id }}" class="selected_checked_icon_3" style="display: none;" src="http://icons.iconarchive.com/icons/graphicloads/100-flat-2/96/check-1-icon.png" alt="Selected" />
                                     <h5>Plan Most Like It!</h5>
-                                @elseif($packages[$i]->status == 4)
+                                @elseif($packages[$i]->type == 4)
                                     <img id="most_selected_id{{ $packages[$i]->Id }}" class="selected_checked_icon" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/96/favorite-icon.png" alt="Love it!" />
                                     <img id="checked_id{{ $packages[$i]->Id }}" class="selected_checked_icon_2" style="display: none;" src="http://icons.iconarchive.com/icons/graphicloads/100-flat-2/96/check-1-icon.png" alt="Selected" />
                                     <h5>Plan Most Love It!</h5>
@@ -255,7 +255,7 @@
 
                                 <br />
                                 <p>{{ $packages[$i]->web }} <span style="font-size: 1em; color: #7E7E7E; font-family: 'tahoma';">{{ $packages[$i]->web > 1 ? "websites" : "website" }}</span></p>
-                                    <p>{{ number_format($packages[$i]->disk, 0) }} GB <span style="font-size: 1em; color: #7E7E7E; font-family: 'tahoma';">storage</span></p>
+                                <p>{{ number_format($packages[$i]->disk, 0) }} GB <span style="font-size: 1em; color: #7E7E7E; font-family: 'tahoma';">storage</span></p>
                                 <p>{{ $packages[$i]->mysql }} <span style="font-size: 1em; color: #7E7E7E; font-family: 'tahoma';">{{ $packages[$i]->mysql > 1 ? "databases" : "database" }}</span></p>
                                 <p>{{ $packages[$i]->ftp }} <span style="font-size: 1em; color: #7E7E7E; font-family: 'tahoma';">{{ $packages[$i]->ftp > 1 ? "ftp accounts" : "ftp account" }}</span></p>
 
@@ -279,8 +279,14 @@
             <div class="clearfix"> </div>
 
             <div id="divContinue" class="col-md-12 form-group" style="display: none;">
-                <button id="btnPackagePlan" type="submit" class="btn btn-primary">Continue</button>
+                <button id="btnContinue" type="submit" class="btn btn-primary">Continue</button>
                 <a href="/logout" class="btn btn-default">Cancel</a>
+            </div>
+
+            <div class="clearfix"> </div>
+
+            <div id="divMessage" class="col-md-12 form-group" style="display: none; background: #FFEBEB;">
+                <p id="msg_error" style="color: red; font-size: .9em; padding: 10px;"></p>
             </div>
 
             <div class="clearfix"> </div>
@@ -315,6 +321,38 @@
                     $( "#price_usd_" + i ).show();
                     $( "#price_php_" + i ).hide();
                 }
+            });
+            $( "#btnContinue" ).click(function() {
+                var package_id = $('#package').val();
+                var account_name = $('#account').val();
+                if(parseInt(package_id) > 0) {
+                    var data = { package_id : package_id, account : account_name };
+                    $.ajax({
+                        dataType: 'json',
+                        type:'POST',
+                        url: '/api/package/plan/verify',
+                        data: data,
+                        beforeSend: function () {
+                            $("#btnContinue").text("Please wait....");
+                            $("#divMessage").hide();
+                            $("#msg_error").text("***");
+                        }
+                    }).done(function(data){
+                        console.log(data);
+                        if (data.code != 200) {
+                            $("#divMessage").show();
+                            $("#msg_error").text(data.message);
+                        }
+                        else {
+                            window.location.href="/setup/package/"+package_id+"/configure";
+                        }
+                        $("#btnContinue").text("Continue");
+                    });
+                    return false;
+                }
+
+                $("#divMessage").show();
+                $("#msg_error").text("Please select one of our packages.");
             });
         })
     </script>

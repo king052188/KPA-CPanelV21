@@ -24,6 +24,8 @@ Route::post('/request/token', 'ApiController@cookies');
 
 Route::post('/package/plan/create', 'ApiController@create_package_plan');
 
+Route::post('/package/plan/verify', 'ApiController@get_package_status');
+
 Route::post('/disk/create', 'ApiController@create_disk');
 
 Route::post('/web/create', 'ApiController@create_web');

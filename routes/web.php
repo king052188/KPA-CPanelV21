@@ -48,6 +48,8 @@ Route::get('/dashboard', 'MemberController@dashboard_index');
 
 Route::get('/setup/package/plan', 'MemberController@package');
 
+Route::get('/setup/package/{package_id}/configure', 'MemberController@setup_server');
+
 Route::get('/package/plan/completed', 'MemberController@package_plan_completed');
 
 //Route::get('/create-disk', 'FTPController@create_disk_init');
@@ -57,6 +59,7 @@ Route::post('/edit-profile/{type}/execute', 'MemberController@edit_profile_execu
 
 
 // administrator
+
 Route::get('/activate/account/{uid}', 'MemberController@activate_account');
 
 Route::get('/verify/account/{username}', 'MemberController@verify_database_username');

@@ -299,6 +299,21 @@ class MemberController extends Controller
         return view('member.package.index', compact('helper', 'user', 'packages'));
     }
 
+    public function setup_server(Request $request, $package_id) {
+        $helper = Helper::ssl_secured($request);
+        $user = Helper::getCookies();
+
+        if($user == null) {
+            return redirect('/logout');
+        }
+
+        $servers = DB::select("SELECT * FROM servers_table WHERE status > 1;");
+
+        $package = ["id" => (int)$package_id];
+
+        return view('member.package.setup', compact('helper', 'user', 'servers', 'package'));
+    }
+
     public function package_plan_completed(Request $request) {
         $helper = Helper::ssl_secured($request);
         $user = Helper::getCookies();
