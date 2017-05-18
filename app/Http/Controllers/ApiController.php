@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Crypt;
 class ApiController extends Controller
 {
     //
-    public static $host_api = "http://69.4.84.226:21001/";
+    public static $host_api = "http://107.180.69.59:21001/";
 
     public function member_populate($type) {
         $sort_id = 0;
@@ -101,8 +101,11 @@ class ApiController extends Controller
 
         $user = Crypt::decrypt($user_cookies);
         $user_uid = $user[0]->Id;
-        $package_plan = (int)$request->package_plan;
-        $packages = DB::select("SELECT * FROM quota_reference_table WHERE Id = {$package_plan} AND status > 1;");
+        $package_id = (int)$request->package;
+        $server_id = (int)$request->region;
+        $password = (int)$request->password;
+
+        $packages = DB::select("SELECT * FROM quota_reference_table WHERE Id = {$package_id} AND status > 1;");
 
         if( COUNT($packages) == 0 ) {
             $data = array(
@@ -112,7 +115,7 @@ class ApiController extends Controller
             return $data;
         }
 
-        if($packages[0]->status != 3) {
+        if($packages[0]->type != 3) {
             $data = array(
                 "code" => 200,
                 "message" => "success",
@@ -123,10 +126,11 @@ class ApiController extends Controller
         else {
             $disk_json = $this->disk_create($user, (double)$packages[0]->disk);
             if($disk_json["Code"] == 200) {
-                $ftp_json = $this->ftp_create($user, null, null, null, null);
+                $ftp_json = $this->ftp_create($user, null, null, null, $password);
                 if($ftp_json["Code"] == 200) {
                     $quota = new Quota();
-                    $quota->quota_id = $package_plan;
+                    $quota->server_id = $server_id;
+                    $quota->quota_id = $package_id;
                     $quota->user_id = $user_uid;
                     $quota->status = 2;
                     $r = $quota->save();
@@ -140,7 +144,7 @@ class ApiController extends Controller
                     }
                     $data = array(
                         "code" => 501,
-                        "message" => "Oops, something went wrong.",
+                        "message" => "Oops, something went wrong. On DB",
                         "url" => "/package/plan/completed"
                     );
                     return $data;
@@ -151,6 +155,13 @@ class ApiController extends Controller
                 );
                 return $data;
             }
+
+            $data = array(
+                "code" => 501,
+                "message" => "Oops, something went wrong. On FTP",
+                "url" => "/package/plan/completed"
+            );
+            return $data;
         }
     }
 
@@ -327,21 +338,31 @@ class ApiController extends Controller
 
     public function ftp_create($users, $app, $sub, $username, $password) {
         $account = $users[0]->username;
-        $random = Helper::get_random_password($password);
-        $password = $random["new_password"];
 
+        if($password == null) {
+            $random = Helper::get_random_password($password);
+            $password = $random["new_password"];
+        }
+
+        $new_app = $app;
         if($app == null && $username == null) {
-            $app = $account;
+            $new_app = $account;
             $username = $account;
         }
         else if($app == null) {
-            $app = $account;
+            $new_app = $account;
         }
 
-        $data = "FTP.aspx?account={$account}&app={$app}&ub={$sub}&username={$username}&password={$password}";
+        $data = "FTP.aspx?account={$account}&app={$new_app}&ub={$sub}&username={$username}&password={$password}";
         $json = Helper::do_curl(ApiController::$host_api . $data);
 
-        $root = "/". $account ."/". $app ."/". $sub;
+        $root = "/". $account;
+        if($app != null) {
+            $root = "/". $account ."/". $app;
+            if($sub != null) {
+                $root = "/". $account ."/". $app ."/". $sub;
+            }
+        }
 
         if($json["Code"] == 200) {
             $body = "Your FTP Account Created Automatically, Please check below:";

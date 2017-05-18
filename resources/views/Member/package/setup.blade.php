@@ -145,14 +145,14 @@
 
             <div class="col-md-12 form-group1 group-mail">
                 <label class="control-label">Password</label>
-                <input type="text" id="account" name="account" placeholder="Password" />
+                <input type="password" id="password" name="password" placeholder="Password" />
             </div>
 
             <div class="clearfix"> </div>
 
             <div class="col-md-12 form-group1 group-mail">
                 <label class="control-label">Confirm Password</label>
-                <input type="text" id="account" name="account" placeholder="Confirm Password" />
+                <input type="password" id="password2" name="password2" placeholder="Confirm Password" />
             </div>
 
             <div class="clearfix"> </div>
