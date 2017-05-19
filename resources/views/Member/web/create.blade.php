@@ -167,12 +167,26 @@
                 var location_path = root_path + hostname + "\\wwwroot\\public";
                 $('#location').val(location_path);
             });
-            function validateDomain(the_domain)
+            function validateDomain_1(the_domain)
             {
                 the_domain = the_domain.replace("http://","");
                 the_domain = the_domain.replace("www.","");
                 var reg = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}$/;
                 return reg.test(the_domain);
+            }
+            function validateDomain(the_domain)
+            {
+                var val = the_domain;
+                if (/^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+$/.test(val)){
+                    // alert("Valid Domain Name");
+                    return true;
+                }
+                else
+                {
+                    // alert("Enter Valid Domain Name");
+                    val.name.focus();
+                    return false;
+                }
             }
         })
     </script>

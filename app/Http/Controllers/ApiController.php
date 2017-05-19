@@ -224,7 +224,7 @@ class ApiController extends Controller
         $protocol = $request->protocol;
 
         $web = DB::select("SELECT * FROM web_table WHERE binding_hostname = '{$hostname}';");
-        if( COUNT($web) == 0 ) {
+        if( COUNT($web) > 0 ) {
             $data = array(
                 "code" => 401,
                 "message" => $hostname . " already exists."
