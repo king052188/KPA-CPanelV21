@@ -30,9 +30,9 @@
                 <select id="host" name="host">
                     <option value="0">-- Select Account --</option>
                     <optgroup label="Free hostname">Free hostname</optgroup>
-                    <option value="cpv21-host.ddns.net">cpv21-host.ddns.net</option>
-                    <option value="cpv21-host.servehttp.com">cpv21-host.servehttp.com</option>
-                    <option value="cpv21-host.freedynamicdns.org">cpv21-host.freedynamicdns.org</option>
+                    @for($i = 0; $i < COUNT($configs["IIS_Hosts"]); $i++)
+                        <option value="{{ $configs["IIS_Hosts"][$i] }}">{{ $configs["IIS_Hosts"][$i] }}</option>
+                    @endfor
                     <optgroup label="Use my own domain">Use my own domain</optgroup>
                     <option value="1">Use My Own Domain</option>
                 </select>
@@ -117,7 +117,8 @@
     @endif
     <script>
         var root_path = "\\{{ $user[0]->username }}\\";
-        var host ;
+        var host;
+        var cname = "{{ $configs["CName"] }}";
         $(document).ready(function() {
             $( "#host" ).change(function() {
                 host = $( "#host" ).val();
@@ -144,9 +145,9 @@
                     $('#span_domain').show();
                     var text = '<p style=" margin: 10px 0 0 0;">';
                     text += '-> Your default domain: <span style=" color: #3FD64B;"><a href="http://' + domain + '" target="_blank">' + domain + '</a></span> <span style="color: #B3AEAE;">|</span> <span style=" color: #3FD64B;"><a href="http://www.' + domain + '" target="_blank">www.' + domain + '</a></span></span> <br />';
-                    text += '-> NOTE: Please create a <span style=" color: #3FD64B;">CNAME</span> record <span style="color: #B3AEAE;">in your DNS and point this hostname: </span> <span style=" color: #3FD64B;">cpv21-host.ddns.net</span></span> <br />';
-                    text += '-> Ex.: <span style=" color: #3FD64B;">' + domain + '</span> <span style="color: #B3AEAE;"> value is </span> <span style=" color: #3FD64B;">cpv21-host.ddns.net</span></span> and ';
-                    text += '<span style=" color: #3FD64B;">www.' + domain + '</span> <span style="color: #B3AEAE;"> value is </span> <span style=" color: #3FD64B;">cpv21-host.ddns.net</span></span>';
+                    text += '-> NOTE: Please create a <span style=" color: #3FD64B;">CNAME</span> record <span style="color: #B3AEAE;">in your DNS and point this hostname: </span> <span style=" color: #3FD64B;">'+cname+'</span></span> <br />';
+                    text += '-> Ex.: <span style=" color: #3FD64B;">' + domain + '</span> <span style="color: #B3AEAE;"> value is </span> <span style=" color: #3FD64B;">'+cname+'</span></span> and ';
+                    text += '<span style=" color: #3FD64B;">www.' + domain + '</span> <span style="color: #B3AEAE;"> value is </span> <span style=" color: #3FD64B;">'+cname+'</span></span>';
                     text += '</p>';
                     $('#span_domain').empty().prepend(text);
                 }
@@ -159,8 +160,8 @@
                 text += '-> Your hostname: <span style=" color: #3FD64B;"><a href="http://' + hostname + '" target="_blank">' + hostname + '</a></span> <br />';
                 text += '-> In the future, you might want to use your own domain. That\'s no problem. <br />';
                 text += '-> Just create a <span style=" color: #3FD64B;">CNAME</span> record <span style="color: #B3AEAE;">in your DNS and point this hostname: </span> <span style=" color: #3FD64B;">' + hostname + '</span></span><br />';
-                text += '-> Ex.: <span style=" color: #3FD64B;">YOUR-DOMAIN.com</span> <span style="color: #B3AEAE;"> value is </span> <span style=" color: #3FD64B;">cpv21-host.ddns.net</span></span> and ';
-                text += '<span style=" color: #3FD64B;">www.YOUR-DOMAIN.com</span> <span style="color: #B3AEAE;"> value is </span> <span style=" color: #3FD64B;">cpv21-host.ddns.net</span></span>';
+                text += '-> Ex.: <span style=" color: #3FD64B;">YOUR-DOMAIN.com</span> <span style="color: #B3AEAE;"> value is </span> <span style=" color: #3FD64B;">'+cname+'</span></span> and ';
+                text += '<span style=" color: #3FD64B;">www.YOUR-DOMAIN.com</span> <span style="color: #B3AEAE;"> value is </span> <span style=" color: #3FD64B;">'+cname+'</span></span>';
                 text += '</p>';
                 $('#span_hostname').show();
                 $('#span_hostname').empty().prepend(text);

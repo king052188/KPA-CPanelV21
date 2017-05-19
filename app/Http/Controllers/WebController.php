@@ -4,12 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\Config;
 
 class WebController extends Controller
 {
     //
-
-
     public function site_init(Request $request) {
         $helper = Helper::ssl_secured($request);
         $user = Helper::getCookies();
@@ -35,6 +34,9 @@ class WebController extends Controller
 
         $web = Helper::get_available_quota($user, "web_table");
 
-        return view('member.web.create', compact('helper', 'user', 'web'));
+        $configs = Config::get('laradnet_config');
+
+
+        return view('member.web.create', compact('helper', 'user', 'web', 'configs'));
     }
 }
