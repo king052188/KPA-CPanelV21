@@ -4,7 +4,11 @@
     <?php
     $url_secured = $helper["status"];
     ?>
-    <script>var u_name = null, u_role = 0, d_name = null, s_uid = 0;</script>
+    <script>
+        var u_name = null, u_role = 0, d_name = null, s_uid = 0;
+        var mysql_hostname = "{{ $configs["MySQL_Hosts"]["hostname"] }}";
+        var mysql_ip_address = "{{ $configs["MySQL_Hosts"]["ip_address"] }}";
+    </script>
     <style>
         input#referral_link, span.referral_label {
             color: #B3AEAE;
@@ -25,7 +29,7 @@
         }
 
         .kpa_custom_mysql button {
-            width: 160px;;
+            width: 180px;;
         }
 
         @media  only screen and (max-width: 505px) {
@@ -60,7 +64,7 @@
             <div class="kpa_custom">
                 <div class="kpa_custom_mysql">
                     <input type="checkbox" id="ip_checkbox" /> Use IP |
-                    <input type="text" id="mysqlConnection" value="mysql.ckt.kpa21.com" style="border: 0px;" disabled />
+                    <input type="text" id="mysqlConnection" style="border: 0px;" disabled />
                     <button id="btnCopy" class="btn btn-default">COPY MySQL Host</button>
                     <script>
                         var copyTextareaBtn = document.querySelector('#btnCopy');
@@ -73,19 +77,23 @@
                                 var successful = document.execCommand('copy');
                                 var msg = successful ? 'successful' : 'unsuccessful';
                                 console.log('Copying text command was ' + msg);
+
+                                $('#btnCopy').text("COPIED MySQL HOST");
                             } catch (err) {
                                 console.log('Oops, unable to copy');
+                                $('#btnCopy').text("COPY MySQL HOST");
                             }
 
                             $('#mysqlConnection').attr("disabled","disabled");
                         });
 
                         $(document).ready(function() {
+                            $('#mysqlConnection').val(mysql_hostname);
                             $('#ip_checkbox').click(function(){
                                 if($(this).prop('checked')){
-                                    $('#mysqlConnection').val("69.4.84.226");
+                                    $('#mysqlConnection').val(mysql_ip_address);
                                 }else{
-                                    $('#mysqlConnection').val("mysql-ckt.kpa21.com");
+                                    $('#mysqlConnection').val(mysql_hostname);
                                 }
                             });
 

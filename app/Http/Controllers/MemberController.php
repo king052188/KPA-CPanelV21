@@ -259,17 +259,17 @@ class MemberController extends Controller
             "Website" => array(
                 "Quota" => $Website_Quota,
                 "Used" => $website_used,
-                "Available" => $Website_Quota
+                "Available" => ($Website_Quota - $website_used)
             ),
             "MySQL" => array(
                 "Quota" => $MySQL_Quota,
                 "Used" => $mysql_used,
-                "Available" => $MySQL_Quota
+                "Available" => ($MySQL_Quota - $mysql_used)
             ),
             "FTP" => array(
                 "Quota" => $FTP_Quota,
                 "Used" => $ftp_used,
-                "Available" => $FTP_Quota
+                "Available" => ($FTP_Quota - $ftp_used)
             )
         );
 

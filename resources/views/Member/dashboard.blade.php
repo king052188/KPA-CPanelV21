@@ -71,7 +71,7 @@
             <div class="content-top-1">
                 <div class="col-md-6 top-content">
                     <h5>Disk</h5>
-                    <label>{{ number_format($statistics["Disk"]["Available"], 2) }}<span style="font-size: 15px; font-weight: 200; color: #B0B0B0;"> GB free of <b>{{ $statistics["Disk"]["Quota"] }}</b> GB</span></label>
+                    <label>{{ number_format($statistics["Disk"]["Available"], 2) }} <span style="font-size: 15px; font-weight: 200; color: #B0B0B0;">GB free</span></label>
                 </div>
                 <div class="col-md-6 top-content1">
                     <?php
@@ -87,7 +87,7 @@
             <div class="content-top-1">
                 <div class="col-md-6 top-content">
                     <h5>Website</h5>
-                    <label>{{ $statistics["Website"]["Quota"] }}</label>
+                    <label>{{ $statistics["Website"]["Available"] }} <span style="font-size: 15px; font-weight: 200; color: #B0B0B0;">free</span></label>
                 </div>
                 <div class="col-md-6 top-content1">
                     <?php
@@ -112,7 +112,7 @@
             <div class="content-top-1">
                 <div class="col-md-6 top-content">
                     <h5>MySQL</h5>
-                    <label>{{ $statistics["MySQL"]["Quota"] }}</label>
+                    <label>{{ $statistics["MySQL"]["Available"] }} <span style="font-size: 15px; font-weight: 200; color: #B0B0B0;">free</span></label>
                 </div>
                 <div class="col-md-6 top-content1">
                     <?php
@@ -133,7 +133,7 @@
             <div class="content-top-1">
                 <div class="col-md-6 top-content">
                     <h5>FTP</h5>
-                    <label>{{ $statistics["FTP"]["Quota"] }}</label>
+                    <label>{{ $statistics["FTP"]["Available"] }} <span style="font-size: 15px; font-weight: 200; color: #B0B0B0;">free</span></label>
                 </div>
                 <div class="col-md-6 top-content1">
                     <?php

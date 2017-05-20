@@ -175,16 +175,15 @@
                 var reg = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}$/;
                 return reg.test(the_domain);
             }
-            function validateDomain(the_domain)
-            {
+            function validateDomain(the_domain) {
                 var val = the_domain;
+                val = the_domain.replace("http://","");
+                val = the_domain.replace("www.","");
                 if (/^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+$/.test(val)){
-                    // alert("Valid Domain Name");
                     return true;
                 }
                 else
                 {
-                    // alert("Enter Valid Domain Name");
                     val.name.focus();
                     return false;
                 }

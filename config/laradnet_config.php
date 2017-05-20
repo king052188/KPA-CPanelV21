@@ -8,7 +8,7 @@ return [
 
     'ApplicationRootFolder' => 'C:\\KPA_www\\',
 
-    'CName' => 'cname.lesterdigital.com',
+    'CName' => 'cname.lesterdigital.com', // 'cname.lesterdigital.com',
 
     // you can set unlimited host name
     // all hostnames will be used as freely by your customers
@@ -32,6 +32,7 @@ return [
         'hostname' => 'ftp-connection.kpa21.com',
         'ip_address' => '127.0.0.1',
     ],
+
 ];
 
 

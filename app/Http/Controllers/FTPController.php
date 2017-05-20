@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\WebSite;
+use Illuminate\Support\Facades\Config;
 
 class FTPController extends Controller
 {
@@ -33,7 +34,9 @@ class FTPController extends Controller
 
         $ftp = Helper::get_available_quota($user, "mysql_database_table");
 
-        return view('member.ftp.create', compact('helper', 'user', 'web', 'ftp'));
+        $configs = Config::get('laradnet_config');
+
+        return view('member.ftp.create', compact('helper', 'user', 'web', 'ftp', 'configs'));
     }
 
 

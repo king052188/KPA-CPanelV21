@@ -36,7 +36,6 @@ class WebController extends Controller
 
         $configs = Config::get('laradnet_config');
 
-
         return view('member.web.create', compact('helper', 'user', 'web', 'configs'));
     }
 }

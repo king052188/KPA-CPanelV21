@@ -6,7 +6,7 @@
     ?>
     <script>
         var state_hostname = null;
-        var state_status = 0;
+        var state_status = "restart";
     </script>
     <!--banner-->
     <div class="banner">
@@ -192,7 +192,7 @@
                         <div class="modal-footer">
                             <div id="state_loader_fb" class="uil-facebook-css" style="display: none;"><div></div><div></div><div></div></div>
                             <button type="button" id="btnStateYes" class="btn btn-primary">Yes</button>
-                            <button type="button" id="btnNo" class="btn btn-default" data-dismiss="modal" aria-hidden="true">No</button>
+                            <button type="button" id="btnStateNo" class="btn btn-default" data-dismiss="modal" aria-hidden="true">No</button>
                         </div>
                     </div>
 
@@ -211,6 +211,9 @@
                         var value =         selected.val();
                         var values =        value.split(':');
                         _uid = parseInt(values[0]);
+
+                        $("#btnStateYes").text("Yes").show();
+                        $("#btnStateNo").text("No").show();
                         switch (values[1]) {
                             case "binding" :
                                 if(values.length > 2) {
@@ -223,7 +226,7 @@
                                 break;
                             case "restart" :
                                 if(values.length > 2) {
-                                    state_status = 1;
+                                    state_status = "restart";
                                     state_hostname = values[2];
                                     $('#state_msg').empty().prepend("<h5 class='text-center' style='line-height: 20px;'>Are you sure you want to RESTART<br /><span style='color: #E91E63;'>( " + values[2] + " )</span> web site?<br /></h5>");
                                 }
@@ -233,7 +236,7 @@
                                 break;
                             case "stop" :
                                 if(values.length > 2) {
-                                    state_status = 2;
+                                    state_status = "stop";
                                     state_hostname = values[2];
                                     $('#state_msg').empty().prepend("<h5 class='text-center' style='line-height: 20px;'>Are you sure you want to STOP<br /><span style='color: #E91E63;'>( " + values[2] + " )</span> web site?<br /.</h5>");
                                 }

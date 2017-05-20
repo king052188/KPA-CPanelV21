@@ -4,6 +4,11 @@
     <?php
     $url_secured = $helper["status"];
     ?>
+    <script>
+        var u_name = null, u_role = 0, d_name = null, s_uid = 0;
+        var ftp_hostname = "{{ $configs["FTP_Hosts"]["hostname"] }}";
+        var ftp_ip_address = "{{ $configs["FTP_Hosts"]["ip_address"] }}";
+    </script>
     <style>
         input#referral_link, span.referral_label {
             color: #B3AEAE;
@@ -73,6 +78,7 @@
                                 var successful = document.execCommand('copy');
                                 var msg = successful ? 'successful' : 'unsuccessful';
                                 console.log('Copying text command was ' + msg);
+                                $('#btnCopy').text("COPIED FTP HOST");
                             } catch (err) {
                                 console.log('Oops, unable to copy');
                             }
@@ -85,11 +91,12 @@
                         var sub_name = "";
 
                         $(document).ready(function() {
+                            $('#mysqlConnection').val(ftp_hostname);
                             $('#ip_checkbox').click(function(){
                                 if($(this).prop('checked')){
-                                    $('#mysqlConnection').val("69.4.84.226");
+                                    $('#mysqlConnection').val(ftp_ip_address);
                                 }else{
-                                    $('#mysqlConnection').val("ftp.ckt.kpa21.com");
+                                    $('#mysqlConnection').val(ftp_hostname);
                                 }
                             });
 

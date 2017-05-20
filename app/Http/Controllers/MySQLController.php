@@ -12,6 +12,7 @@ use App\MySQLDatabase;
 use App\MySQLAccountPrivileges;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Config;
 
 class MySQLController extends Controller
 {
@@ -35,7 +36,9 @@ class MySQLController extends Controller
         $user_uid = $user[0]->Id;
         $database = MySQLDatabase::where("user_id", "=", $user_uid)->orderBy("database_name")->get()->toArray();
 
-        return view('member.mysql.database', compact('helper', 'user', 'database'));
+        $configs = Config::get('laradnet_config');
+
+        return view('member.mysql.database', compact('helper', 'user', 'database', 'configs'));
     }
 
     public function create_database_init(Request $request) {

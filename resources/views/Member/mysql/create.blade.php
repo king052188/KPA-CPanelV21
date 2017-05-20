@@ -57,47 +57,6 @@
             <a href="/login">Home</a>
             <i class="fa fa-angle-right"></i>
             <span>Database Lists</span>
-            <div class="kpa_custom">
-                <div class="kpa_custom_mysql">
-                    <input type="checkbox" id="ip_checkbox" /> Use IP |
-                    <input type="text" id="mysqlConnection" value="mysql.ckt.kpa21.com" style="border: 0px;" disabled />
-                    <button id="btnCopy" class="btn btn-default">COPY MySQL Host</button>
-                    <script>
-                        var copyTextareaBtn = document.querySelector('#btnCopy');
-                        copyTextareaBtn.addEventListener('click', function(event) {
-                            $('#mysqlConnection').removeAttr("disabled");
-
-                            var copyTextarea = document.querySelector('#mysqlConnection');
-                            copyTextarea.select();
-                            try {
-                                var successful = document.execCommand('copy');
-                                var msg = successful ? 'successful' : 'unsuccessful';
-                                console.log('Copying text command was ' + msg);
-                            } catch (err) {
-                                console.log('Oops, unable to copy');
-                            }
-
-                            $('#mysqlConnection').attr("disabled","disabled");
-                        });
-
-                        $(document).ready(function() {
-                            $('#ip_checkbox').click(function(){
-                                if($(this).prop('checked')){
-                                    $('#mysqlConnection').val("69.4.84.226");
-                                }else{
-                                    $('#mysqlConnection').val("mysql-ckt.kpa21.com");
-                                }
-                            });
-
-                            $( "#database" ).keyup(function() {
-                                var m = $( "#database" ).val();
-                                $( "#database_prefixes" ).val(db_prefix + m);
-                            });
-                        })
-                    </script>
-                </div>
-            </div>
-
         </h2>
     </div>
     <!--//banner-->
