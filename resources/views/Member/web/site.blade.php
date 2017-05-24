@@ -5,6 +5,7 @@
     $url_secured = $helper["status"];
     ?>
     <script>
+        var main_lists = [];
         var state_hostname = null;
         var state_status = "restart";
         function get_states(web, control_id) {
@@ -108,7 +109,11 @@
                                 </td>
                                 <td>
                                     <div id="states_status{{ $web[$i]->Id }}">******</div>
-                                    <script>get_states("{{ $web[$i]->binding_hostname }}", "states_status{{ $web[$i]->Id  }}");</script>
+                                    <script>
+                                        var lists = ["{{ $web[$i]->binding_hostname }}", "states_status{{ $web[$i]->Id  }}"];
+                                        main_lists.push(lists);
+                                        get_states("{{ $web[$i]->binding_hostname }}", "states_status{{ $web[$i]->Id  }}");
+                                    </script>
                                 </td>
                                 <td>
                                     <select class="select_ddl">
@@ -121,6 +126,14 @@
                                 </td>
                             </tr>
                         @endfor
+                        <script>
+                            setInterval(reload_sites, 10000);
+                            function reload_sites() {
+                                for(var i = 0; i < main_lists.length; i++) {
+                                    get_states(main_lists[i][0], main_lists[i][1]);
+                                }
+                            }
+                        </script>
                     @else
                         <tr> <td colspan="7" style="text-align: center;"> No Records </td> </tr>
                     @endif
