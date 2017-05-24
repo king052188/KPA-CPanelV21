@@ -71,7 +71,7 @@
             <div class="content-top-1">
                 <div class="col-md-6 top-content">
                     <h5>Disk</h5>
-                    <label>{{ number_format($statistics["Disk"]["Available"], 2) }} <span style="font-size: 15px; font-weight: 200; color: #B0B0B0;">GB free</span></label>
+                    <label>{{ number_format($statistics["Disk"]["Available"], 2) }} GB <span style="font-size: 15px; font-weight: 200; color: #B0B0B0;">/ {{ number_format($statistics["Disk"]["Quota"], 2) }} GB</span></label>
                 </div>
                 <div class="col-md-6 top-content1">
                     <?php
@@ -87,7 +87,7 @@
             <div class="content-top-1">
                 <div class="col-md-6 top-content">
                     <h5>Website</h5>
-                    <label>{{ $statistics["Website"]["Available"] }} <span style="font-size: 15px; font-weight: 200; color: #B0B0B0;">free</span></label>
+                    <label>{{ $statistics["Website"]["Available"] }} <span style="font-size: 15px; font-weight: 200; color: #B0B0B0;">/ {{ $statistics["Website"]["Quota"] }}</span></label>
                 </div>
                 <div class="col-md-6 top-content1">
                     <?php
@@ -112,7 +112,7 @@
             <div class="content-top-1">
                 <div class="col-md-6 top-content">
                     <h5>MySQL</h5>
-                    <label>{{ $statistics["MySQL"]["Available"] }} <span style="font-size: 15px; font-weight: 200; color: #B0B0B0;">free</span></label>
+                    <label>{{ $statistics["MySQL"]["Available"] }} <span style="font-size: 15px; font-weight: 200; color: #B0B0B0;">/ {{ $statistics["MySQL"]["Quota"] }}</span></label>
                 </div>
                 <div class="col-md-6 top-content1">
                     <?php
@@ -133,7 +133,7 @@
             <div class="content-top-1">
                 <div class="col-md-6 top-content">
                     <h5>FTP</h5>
-                    <label>{{ $statistics["FTP"]["Available"] }} <span style="font-size: 15px; font-weight: 200; color: #B0B0B0;">free</span></label>
+                    <label>{{ $statistics["FTP"]["Available"] }} <span style="font-size: 15px; font-weight: 200; color: #B0B0B0;">/ {{ $statistics["FTP"]["Quota"] }}</span></label>
                 </div>
                 <div class="col-md-6 top-content1">
                     <?php

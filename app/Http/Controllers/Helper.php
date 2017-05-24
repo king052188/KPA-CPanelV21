@@ -346,7 +346,7 @@ class Helper extends Controller
     public static function post_password_email_send($name, $email, $username, $password) {
         $message =      "<h3>We would like to personally welcome you to our community.</h3>";
         $message .=     "Your Login Information<br />";
-        $message .=     "Login: http://cpanelv21.kpa21.com/login<br />";
+        $message .=     "Login: http://cpanelv21.lesterdigital.com/login<br />";
         $message .=     "Your Hash-Code: {$username} | you can use your email<br />";
         $message .=     "Your Password: {$password}<br />";
 

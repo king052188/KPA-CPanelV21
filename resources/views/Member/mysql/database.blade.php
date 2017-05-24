@@ -96,11 +96,6 @@
                                     $('#mysqlConnection').val(mysql_hostname);
                                 }
                             });
-
-                            $( "#database" ).keyup(function() {
-                                var m = $( "#database" ).val();
-                                $( "#database_prefixes" ).val(db_prefix + m);
-                            });
                         })
                     </script>
                 </div>

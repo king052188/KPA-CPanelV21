@@ -50,6 +50,14 @@
             }
         }
     </style>
+    <script>
+        $(document).ready(function() {
+            $( "#database" ).keyup(function() {
+                var m = $( "#database" ).val();
+                $( "#database_prefixes" ).val(db_prefix + m);
+            });
+        })
+    </script>
 
     <!--banner-->
     <div class="banner">

@@ -7,6 +7,32 @@
     <script>
         var state_hostname = null;
         var state_status = "restart";
+        function get_states(web, control_id) {
+            $(document).ready(function() {
+                $.ajax({
+                    dataType: 'json',
+                    type:'POST',
+                    url: '/api/web/site/status',
+                    data: { domain : web },
+                    beforeSend: function () {
+                        $("#"+control_id).empty().prepend('<label style="color:#767676; font-weight: 600;">checking</label>');
+                    }
+                }).done(function(data){
+                    if(data.Code == 200) {
+                        var msg = parseInt(data.Message);
+                        if(msg > 0) {
+                            $("#"+control_id).empty().prepend('<label style="color:#53C350; font-weight: 600;">running</label>');
+                        }
+                        else {
+                            $("#"+control_id).empty().prepend('<label style="color:#D12525; font-weight: 600;">stopped</label>');
+                        }
+                    }
+                    else {
+                        $("#"+control_id).empty().prepend('<label style="color:#D12525; font-weight: 600;">reload</label>');
+                    }
+                });
+            })
+        }
     </script>
     <!--banner-->
     <div class="banner">
@@ -35,22 +61,17 @@
                 padding: 5px;
                 border: 0;
             }
-
             ._wrapper .show_ select, ._wrapper .search_ input {
                 border-bottom: 1px solid darkgray;
                 border-bottom: 1px solid darkgray;
             }
-
             ._wrapper .show_ {
                 float: left;
             }
-
             ._wrapper .search_ {
                 float: right;
             }
-
             table.clients_dt tbody tr td { padding: 5px; }
-
             .select_ddl { padding: 5px; }
         </style>
 
@@ -64,7 +85,8 @@
                     <th>Host Name</th>
                     <th style="width: 120px;">IP</th>
                     <th style="width: 100px;">Port</th>
-                    <th style="width: 250px;">Created</th>
+                    <th style="width: 240px;">Created</th>
+                    <th style="width: 120px;">States</th>
                     <th style="width: 150px;">Action</th>
                 </tr>
                 </thead>
@@ -74,7 +96,7 @@
                             <tr>
                                 <td>{{ $i + 1 }}</td>
                                 <td><b>{{ $web[$i]->binding_type == 1 ? "HTTP" : "HTTPS" }}</b></td>
-                                <td><b>{{ $web[$i]->binding_hostname }}</b></td>
+                                <td><b> <a href="{{ $web[$i]->binding_type == 1 ? "HTTP" : "HTTPS" }}://{{ $web[$i]->binding_hostname }}" target="_blank">{{ $web[$i]->binding_hostname }}</a> </b></td>
                                 <td><b>{{ $web[$i]->binding_ip }}</b></td>
                                 <td><b>{{ $web[$i]->binding_port }}</b></td>
                                 <td>
@@ -85,8 +107,13 @@
                                     {{ $date }}
                                 </td>
                                 <td>
+                                    <div id="states_status{{ $web[$i]->Id }}">******</div>
+                                    <script>get_states("{{ $web[$i]->binding_hostname }}", "states_status{{ $web[$i]->Id  }}");</script>
+                                </td>
+                                <td>
                                     <select class="select_ddl">
                                         <option value="{{ $web[$i]->Id }}:select">-- select --</option>
+                                        <option value="{{ $web[$i]->Id }}:view:{{ $web[$i]->binding_hostname }}">view</option>
                                         <option value="{{ $web[$i]->Id }}:binding:{{ $web[$i]->binding_hostname }}">binding</option>
                                         <option value="{{ $web[$i]->Id }}:restart:{{ $web[$i]->binding_hostname }}">restart</option>
                                         <option value="{{ $web[$i]->Id }}:stop:{{ $web[$i]->binding_hostname }}">stop</option>
@@ -107,9 +134,7 @@
                     <a href="/web/create" id="btnCreateDatabase" class="btn btn-primary">Add WebSite</a>
                 </div>
                 <div class="search_">
-
                     <p>Total Active WebSite: <b>{{ COUNT($web) }}</b></p>
-
                 </div>
             </div>
 
@@ -215,6 +240,13 @@
                         $("#btnStateYes").text("Yes").show();
                         $("#btnStateNo").text("No").show();
                         switch (values[1]) {
+                            case "view" :
+                                if(values.length > 2) {
+                                    var url="http://"+values[2];
+                                    var win = window.open(url, '_blank');
+                                    win.focus();
+                                }
+                                break;
                             case "binding" :
                                 if(values.length > 2) {
                                     $('#binding_msg').empty().prepend("<h5 class='text-center' style='line-height: 20px;'>Your default host name: <span style='color: #E91E63;'>( " + values[2] + " )</span></h5>");
@@ -266,7 +298,6 @@
                         console.log(data);
                     });
                 } );
-
                 function ajax_execute(data, url, button_id) {
                     $(document).ready(function() {
                         $.ajax({

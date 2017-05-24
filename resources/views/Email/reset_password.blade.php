@@ -14,7 +14,7 @@
                         <h3>Dear {{ $NAME }},</h3>
                         <p style="margin: 10px 0 0 0;">Password has been updated in the database. See below</p>
                         <p style="margin: 20px 0 0 0; font-weight: 600;">Your New Login Information:</p>
-                        <p style="margin: 5px 0 0 0;"><b>Log on:</b> http://cpanelv21.kpa21.com/login</p>
+                        <p style="margin: 5px 0 0 0;"><b>Log on:</b> http://cpanelv21.lesterdigital.com/login</p>
                         <p style="margin: 5px 0 0 0;"><b>Your Hash-Code:</b> {{ $EMAIL }}</p>
                         <p style="margin: 5px 0 50px 0;"><b>Your New Password:</b> {{ $PASSWORD }}</p>
                     </td>

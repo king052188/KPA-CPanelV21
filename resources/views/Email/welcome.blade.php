@@ -14,7 +14,7 @@
                         <h3>Dear {{ $NAME }},</h3>
                         <p style="margin: 10px 0 0 0;">We would like to personally welcome you to our community.</p>
                         <p style="margin: 20px 0 0 0; font-weight: 600;">Your Login Information:</p>
-                        <p style="margin: 5px 0 0 0;"><b>Log on:</b> http://cpanelv21.kpa21.com/login</p>
+                        <p style="margin: 5px 0 0 0;"><b>Log on:</b> http://cpanelv21.lesterdigital.com/login</p>
                         <p style="margin: 5px 0 0 0;"><b>Your Hash-Code:</b> {{ $EMAIL }}</p>
                         <p style="margin: 5px 0 50px 0;"><b>Your Password:</b> {{ $PASSWORD }}</p>
                     </td>

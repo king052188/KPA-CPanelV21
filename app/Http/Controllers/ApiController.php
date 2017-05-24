@@ -79,7 +79,7 @@ class ApiController extends Controller
         $user_id = $user[0]->Id;
 
         Helper::flushCookies("LaradnetServer");
-        $cookies = Helper::do_curl("http://localhost:61512/TokenRequest.aspx?app_id={$app_id}&app_name={$app_name}&uid={$user_id}&first={$feed}");
+        $cookies = Helper::do_curl(ApiController::$host_api . "TokenRequest.aspx?app_id={$app_id}&app_name={$app_name}&uid={$user_id}&first={$feed}");
         $guid = $cookies["Token_GUID"];
         $hashed = $cookies["Token_Hashed"];
         return response($data)
@@ -266,7 +266,7 @@ class ApiController extends Controller
 
         if($json["Code"] == 200) {
             $body = "We have received a request that you create an FTP Account for the following:";
-            $body .= "<br /><br /><b>Hostname:</b> ftp.ckt.kpa21.com";
+            $body .= "<br /><br /><b>Hostname:</b> ftp.lesterdigital.com";
             $body .= "<br /><b>Port:</b> 21";
             $body .= "<br /><b>Path:</b> {$root}";
             $body .= "<br /><b>Username:</b> {$username}";
@@ -366,7 +366,7 @@ class ApiController extends Controller
 
         if($json["Code"] == 200) {
             $body = "Your FTP Account Created Automatically, Please check below:";
-            $body .= "<br /><br /><b>Hostname:</b> ftp.ckt.kpa21.com";
+            $body .= "<br /><br /><b>Hostname:</b> ftp.lesterdigital.com";
             $body .= "<br /><b>Port:</b> 21";
             $body .= "<br /><b>Username:</b> {$account}";
             $body .= "<br /><b>Password:</b> {$password}";
@@ -414,6 +414,21 @@ class ApiController extends Controller
         $hostname = $request->domain;
         $state = $request->status;
         $data = "?todo=SITE-STATE&hostname={$hostname}&state={$state}";
+        $json = Helper::do_curl(ApiController::$host_api . $data);
+        return $json;
+    }
+
+    public function get_state_status(Request $request) {
+        $user_cookies = Helper::getCookies();
+        if($user_cookies == null) {
+            $data = array(
+                "Code" => 404,
+                "Message" => "Fail"
+            );
+            return $data;
+        }
+        $hostname = $request->domain;
+        $data = "?todo=STATE-STATUS&hostname={$hostname}";
         $json = Helper::do_curl(ApiController::$host_api . $data);
         return $json;
     }
