@@ -97,6 +97,8 @@ Route::post('/mysql/share/database/{database}', 'MySQLController@share_database'
 
 Route::get('/mysql/phpmyadmin', 'MySQLController@phpmyadmin_init');
 
+Route::get('/ftp/lists', 'FTPController@init');
+
 Route::get('/ftp/create', 'FTPController@create_init');
 
 Route::post('/ftp/create-execute', 'PageController@temp');

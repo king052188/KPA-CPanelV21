@@ -112,7 +112,7 @@
                                     <script>
                                         var lists = ["{{ $web[$i]->binding_hostname }}", "states_status{{ $web[$i]->Id  }}"];
                                         main_lists.push(lists);
-                                        get_states("{{ $web[$i]->binding_hostname }}", "states_status{{ $web[$i]->Id  }}");
+                                        get_states(lists[0], lists[1]);
                                     </script>
                                 </td>
                                 <td>
@@ -127,7 +127,7 @@
                             </tr>
                         @endfor
                         <script>
-                            setInterval(reload_sites, 10000);
+                            setInterval(reload_sites, (1000 * 60) * 5);
                             function reload_sites() {
                                 for(var i = 0; i < main_lists.length; i++) {
                                     get_states(main_lists[i][0], main_lists[i][1]);
@@ -347,7 +347,6 @@
 
     </div>
     <!--//faq-->
-
     <style>
         .notifyjs-container div span {
             font-weight: 200;
