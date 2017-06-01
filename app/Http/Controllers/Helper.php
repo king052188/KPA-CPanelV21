@@ -326,7 +326,7 @@ class Helper extends Controller
         return $members[0]->total_count;
     }
 
-    public static function post_email_send($uid = 2, $temp = "KPA.Notification", $arr = array()) {
+    public static function post_email_send($uid = 2, $temp = "CPV21.Temp", $arr = array()) {
         if( count($arr) == 0) {
             return false;
         }
@@ -336,7 +336,7 @@ class Helper extends Controller
         $subject = str_replace(" ", "%20", $arr["subject"]);
         $message = str_replace(" ", "%20", $arr["message"]);
 
-        $query = "http://107.180.71.242:2100/mail/post/email?id={$uid}&name={$name}&email={$to}&subject={$subject}&temp_name={$temp}&message={$message}";
+        $query = "http://postmail.kpa21.info/mail/post/email?id={$uid}&name={$name}&email={$to}&subject={$subject}&temp_name={$temp}&message={$message}";
 
         $result = Helper::do_curl($query);
 

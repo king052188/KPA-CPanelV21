@@ -11,7 +11,6 @@ use App\MemberBeneficiary;
 use App\Payment;
 use DB;
 
-
 class MemberController extends Controller
 {
     // login processing
