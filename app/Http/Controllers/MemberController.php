@@ -11,7 +11,6 @@ use App\MemberBeneficiary;
 use App\Payment;
 use DB;
 
-
 class MemberController extends Controller
 {
     // login processing
@@ -40,7 +39,7 @@ class MemberController extends Controller
             );
 
             if($r) {
-                $h = Helper::reset_password_email_send_mailgun($u->first_name, $u->email, $p);
+                $h = Helper::reset_password_email_send($u->first_name, $u->email, $p);
                 if($h) {
                     return redirect('/reset-password/completed');
                 }
@@ -166,15 +165,13 @@ class MemberController extends Controller
                   )
                 );
             
-            $h = Helper::welcome_email_send_mailgun($request->first_name, $request->email, $password_code["new_password"]);
-
-//            if($h["Status"] == 200) {
+            $h = Helper::post_welcome_email_send($request->first_name, $request->email, $password_code["new_password"]);
 
             if($h) {
                 return redirect('/sign-up/verification');
             }
 
-            return redirect('/sign-up')->with('message', 'Oops, Error sending your account information, Please contact info@CPanelV21.kpa21.com.');
+            return redirect('/sign-up')->with('message', 'Oops, Error sending your account information, Please contact me@kpa21.info');
 
         }
         return redirect('/sign-up')->with('message', 'Oops, Something went wrong. Please try again');
@@ -225,15 +222,12 @@ class MemberController extends Controller
         }
 
         $package_plan = $disk[0]->quota_id;
-
         $packages = DB::select("SELECT * FROM quota_reference_table WHERE Id = {$package_plan} AND status > 0;");
-
         if( COUNT($packages) == 0 ) {
             return view('layout.404', compact('helper', 'user'));
         }
         
         $disk_size = $packages[0]->disk;
-
         $api = new ApiController();
         $data_result = $api->get_disk_statistic($request, $username, $disk_size);
 

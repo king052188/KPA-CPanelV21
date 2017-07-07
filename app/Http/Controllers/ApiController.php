@@ -272,7 +272,7 @@ class ApiController extends Controller
             $body .= "<br /><b>Username:</b> {$username}";
             $body .= "<br /><b>Password:</b> {$password}";
 
-            Helper::notification_email_send_mailgun($user[0]->first_name, $user[0]->email, "FTP Account Created", $body);
+            Helper::post_generic_email_send($user[0]->first_name, $user[0]->email, "FTP Account Created", $body);
             $ftp = new FTP();
             $ftp->user_id = $user_uid;
             $ftp->username = $username;
@@ -299,7 +299,7 @@ class ApiController extends Controller
             $body .= "<br /><br /><b>Disk Name:</b> {$account}";
             $body .= "<br /><b>Disk Size:</b> {$size} GB";
 
-            Helper::notification_email_send_mailgun($users[0]->first_name, $users[0]->email, "Disk Created", $body);
+            Helper::post_generic_email_send($users[0]->first_name, $users[0]->email, "Disk Created", $body);
 
             $disk = new Disk();
             $disk->user_id = $users[0]->Id;
@@ -319,7 +319,7 @@ class ApiController extends Controller
             $body .= "<br /><br /><b>Hostname:</b> {$hostname}";
             $body .= "<br /><b>Port:</b> {$port}";
 
-            Helper::notification_email_send_mailgun($users[0]->first_name, $users[0]->email, "Website Created", $body);
+            Helper::post_generic_email_send($users[0]->first_name, $users[0]->email, "Website Created", $body);
 
             $root = "/". $account ."/". $hostname ."/wwwroot/public";
             $web = new WebSite();
@@ -370,7 +370,7 @@ class ApiController extends Controller
             $body .= "<br /><b>Port:</b> 21";
             $body .= "<br /><b>Username:</b> {$account}";
             $body .= "<br /><b>Password:</b> {$password}";
-            Helper::notification_email_send_mailgun($users[0]->first_name, $users[0]->email, "FTP Account Created", $body);
+            Helper::post_generic_email_send($users[0]->first_name, $users[0]->email, "FTP Account Created", $body);
 
             $ftp = new FTP();
             $ftp->user_id = $users[0]->Id;

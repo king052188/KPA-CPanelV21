@@ -1,0 +1,14 @@
+{
+    "name": "kpa/postmail",
+    "description": "Postmail is a helper tool for sending bulk emails",
+    "type": "library",
+    "license": "open source",
+    "authors": [
+        {
+            "name": "King Paulo Aquino",
+            "email": "me@kpa21.info"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}

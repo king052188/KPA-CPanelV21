@@ -110,7 +110,7 @@ class MySQLController extends Controller
 
 //            $this->post_notification_email_send("Database Added", $user[0]->first_name, $user[0]->email, $body);
             
-            Helper::notification_email_send_mailgun($user[0]->first_name, $user[0]->email, "New database has been added", $body);
+            Helper::post_generic_email_send($user[0]->first_name, $user[0]->email, "New database has been added", $body);
 
             return array(
                 "code" => 200,
@@ -185,7 +185,7 @@ class MySQLController extends Controller
 
 //            $this->post_notification_email_send("Database Account Added", $user[0]->first_name, $user[0]->email, $body);
 
-            Helper::notification_email_send_mailgun($user[0]->first_name, $user[0]->email, "New database account has been added", $body);
+            Helper::post_generic_email_send($user[0]->first_name, $user[0]->email, "New database account has been added", $body);
 
             return array(
                 "code" => 200,
@@ -259,7 +259,7 @@ class MySQLController extends Controller
             $body .= "<br /><br /><b>Database:</b> {$database}";
             $body .= "<br /><b>Username:</b> {$username}";
 
-            Helper::notification_email_send_mailgun($user[0]->first_name, $user[0]->email, "User privilege has been added to a database", $body);
+            Helper::post_generic_email_send($user[0]->first_name, $user[0]->email, "User privilege has been added to a database", $body);
 
             return array(
                 "code" => 200,
@@ -331,14 +331,14 @@ class MySQLController extends Controller
             $body .= "<br /><br /><b>Database:</b> {$database}";
             $body .= "<br /><b>Username:</b> {$username}";
 
-            Helper::notification_email_send_mailgun($user[0]->first_name, $user[0]->email, "Database shared to other account", $body);
+            Helper::post_generic_email_send($user[0]->first_name, $user[0]->email, "Database shared to other account", $body);
 
             $g = $account->gender == 1 ? "his" : "her";
             $body = $user[0]->first_name .", has shared ". $g ." database with your account for the following:";
             $body .= "<br /><br /><b>Database:</b> {$database}";
             $body .= "<br /><b>Your Username:</b> {$username}";
 
-            Helper::notification_email_send_mailgun($account->first_name, $account->email, "Database shared to one of your account", $body);
+            Helper::post_generic_email_send($account->first_name, $account->email, "Database shared to one of your account", $body);
 
             return array(
                 "code" => 200,
