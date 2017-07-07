@@ -226,10 +226,12 @@ class MemberController extends Controller
 
         $package_plan = $disk[0]->quota_id;
 
-        $packages = DB::select("SELECT * FROM quota_reference_table WHERE Id = {$package_plan} AND status > 1;");
+        $packages = DB::select("SELECT * FROM quota_reference_table WHERE Id = {$package_plan} AND status > 0;");
+
         if( COUNT($packages) == 0 ) {
             return view('layout.404', compact('helper', 'user'));
         }
+        
         $disk_size = $packages[0]->disk;
 
         $api = new ApiController();
