@@ -71,26 +71,49 @@
             <div class="content-top-1">
                 <div class="col-md-6 top-content">
                     <h5>Disk</h5>
-                    <label>{{ number_format($statistics["Disk"]["Available"], 2) }} GB <span style="font-size: 15px; font-weight: 200; color: #B0B0B0;">/ {{ number_format($statistics["Disk"]["Quota"], 2) }} GB</span></label>
+                    <label>
+                        @if((double)$statistics["Disk"]["Quota"] > 0)
+                            {{ number_format($statistics["Disk"]["Available"], 2) }} GB <span style="font-size: 15px; font-weight: 200; color: #B0B0B0;">/ {{ number_format($statistics["Disk"]["Quota"], 2) }} GB</span>
+                        @else
+                            Unlimited GB
+                        @endif
+                    </label>
                 </div>
                 <div class="col-md-6 top-content1">
                     <?php
-                        $p = $statistics["Disk"]["Used"] / $statistics["Disk"]["Quota"];
-                        $p = $p * 100;
+                    if($statistics["Disk"]["Quota"] > 0) {
+                        $used = $statistics["Disk"]["Used"];
+                        if($used == 0) {
+                            $p = 0;
+                        }
+                        else {
+                            $p = $used / $statistics["Disk"]["Quota"];
+                            $p = $p * 100;
+                        }
+                    }
+                    else {
+                        $p = $statistics["Disk"]["Used"];
+                    }
                     ?>
                     <div id="disk" class="pie-title-center" data-percent="{{ $p }}"> <span class="pie-value"></span> </div>
                 </div>
                 <div class="clearfix"> </div>
             </div>
 
-
             <div class="content-top-1">
                 <div class="col-md-6 top-content">
                     <h5>Website</h5>
-                    <label>{{ $statistics["Website"]["Available"] }} <span style="font-size: 15px; font-weight: 200; color: #B0B0B0;">/ {{ $statistics["Website"]["Quota"] }}</span></label>
+                    <label>
+                        @if((double)$statistics["Website"]["Quota"] > 0)
+                            {{ $statistics["Website"]["Available"] }} <span style="font-size: 15px; font-weight: 200; color: #B0B0B0;">/ {{ $statistics["Website"]["Quota"] }}</span>
+                        @else
+                            Unlimited
+                        @endif
+                    </label>
                 </div>
                 <div class="col-md-6 top-content1">
                     <?php
+                    if($statistics["Website"]["Quota"] > 0) {
                         $used = $statistics["Website"]["Used"];
                         if($used == 0) {
                             $p = 0;
@@ -99,6 +122,10 @@
                             $p = $used / $statistics["Website"]["Quota"];
                             $p = $p * 100;
                         }
+                    }
+                    else {
+                        $p = $statistics["Website"]["Used"];
+                    }
                     ?>
                     <div id="web" class="pie-title-center" data-percent="{{ $p }}"> <span class="pie-value"></span> </div>
                 </div>
@@ -112,17 +139,28 @@
             <div class="content-top-1">
                 <div class="col-md-6 top-content">
                     <h5>MySQL</h5>
-                    <label>{{ $statistics["MySQL"]["Available"] }} <span style="font-size: 15px; font-weight: 200; color: #B0B0B0;">/ {{ $statistics["MySQL"]["Quota"] }}</span></label>
+                    <label>
+                    @if((double)$statistics["MySQL"]["Quota"] > 0)
+                        {{ $statistics["MySQL"]["Available"] }} <span style="font-size: 15px; font-weight: 200; color: #B0B0B0;">/ {{ $statistics["MySQL"]["Quota"] }}</span>
+                    @else
+                        Unlimited
+                    @endif
+                    </label>
                 </div>
                 <div class="col-md-6 top-content1">
                     <?php
-                    $used = $statistics["MySQL"]["Used"];
-                    if($used == 0) {
-                        $p = 0;
+                    if($statistics["MySQL"]["Quota"] > 0) {
+                        $used = $statistics["MySQL"]["Used"];
+                        if($used == 0) {
+                            $p = 0;
+                        }
+                        else {
+                            $p = $used / $statistics["MySQL"]["Quota"];
+                            $p = $p * 100;
+                        }
                     }
                     else {
-                        $p = $used / $statistics["MySQL"]["Quota"];
-                        $p = $p * 100;
+                        $p = $statistics["MySQL"]["Used"];
                     }
                     ?>
                     <div id="mysql" class="pie-title-center" data-percent="{{ $p }}"> <span class="pie-value"></span> </div>
@@ -133,17 +171,28 @@
             <div class="content-top-1">
                 <div class="col-md-6 top-content">
                     <h5>FTP</h5>
-                    <label>{{ $statistics["FTP"]["Available"] }} <span style="font-size: 15px; font-weight: 200; color: #B0B0B0;">/ {{ $statistics["FTP"]["Quota"] }}</span></label>
+                    <label>
+                    @if((double)$statistics["FTP"]["Quota"] > 0)
+                        {{ $statistics["FTP"]["Available"] }} <span style="font-size: 15px; font-weight: 200; color: #B0B0B0;">/ {{ $statistics["FTP"]["Quota"] }}</span>
+                    @else
+                        Unlimited
+                    @endif
+                    </label>
                 </div>
                 <div class="col-md-6 top-content1">
                     <?php
-                    $used = $statistics["FTP"]["Used"];
-                    if($used == 0) {
-                        $p = 0;
+                    if($statistics["FTP"]["Quota"] > 0) {
+                        $used = $statistics["FTP"]["Used"];
+                        if($used == 0) {
+                            $p = 0;
+                        }
+                        else {
+                            $p = $used / $statistics["FTP"]["Quota"];
+                            $p = $p * 100;
+                        }
                     }
                     else {
-                        $p = $used / $statistics["FTP"]["Quota"];
-                        $p = $p * 100;
+                        $p = $statistics["FTP"]["Used"];
                     }
                     ?>
                     <div id="ftp" class="pie-title-center" data-percent="{{ $p }}"> <span class="pie-value"></span> </div>
@@ -152,61 +201,6 @@
             </div>
 
         </div>
-
-        {{--<div class="col-md-8">--}}
-            {{--<div class="content-top-1">--}}
-                {{--<script type="text/javascript">--}}
-                    {{--$(function () {--}}
-                        {{--Highcharts.chart('container', {--}}
-                            {{--title: {--}}
-                                {{--text: 'Monthly Average Traffic',--}}
-                                {{--x: -20 //center--}}
-                            {{--},--}}
-                            {{--subtitle: {--}}
-                                {{--text: 'Source: CPanel.kpa21.com',--}}
-                                {{--x: -20--}}
-                            {{--},--}}
-                            {{--xAxis: {--}}
-                                {{--categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',--}}
-                                    {{--'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']--}}
-                            {{--},--}}
-                            {{--yAxis: {--}}
-                                {{--title: {--}}
-                                    {{--text: 'Reports (₱)'--}}
-                                {{--},--}}
-                                {{--plotLines: [{--}}
-                                    {{--value: 0,--}}
-                                    {{--width: 1,--}}
-                                    {{--color: '#808080'--}}
-                                {{--}]--}}
-                            {{--},--}}
-                            {{--tooltip: {--}}
-                                {{--valueSuffix: ' ₱'--}}
-                            {{--},--}}
-                            {{--legend: {--}}
-                                {{--layout: 'vertical',--}}
-                                {{--align: 'right',--}}
-                                {{--verticalAlign: 'middle',--}}
-                                {{--borderWidth: 0--}}
-                            {{--},--}}
-                            {{--series: [{--}}
-                                {{--name: 'Website',--}}
-                                {{--data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]--}}
-                            {{--}, {--}}
-                                {{--name: 'MySQL',--}}
-                                {{--data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]--}}
-                            {{--}, {--}}
-                                {{--name: 'FTP',--}}
-                                {{--data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]--}}
-                            {{--}]--}}
-                        {{--});--}}
-                    {{--});--}}
-                {{--</script>--}}
-                {{--<script src="https://code.highcharts.com/highcharts.js"></script>--}}
-                {{--<script src="https://code.highcharts.com/modules/exporting.js"></script>--}}
-                {{--<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
 
         <div class="clearfix"> </div>
     </div>

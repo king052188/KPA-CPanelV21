@@ -1,17 +1,17 @@
 <?php
 
 
-return array(
-    'driver' => 'mailgun',
-    'host' => 'smtp.mailgun.org',
-    'port' => 465,
-    'from' => array('address' => 'donotreply@mail.cpanelV21.kpa21.com', 'name' => 'donotreply@mail.cpanelV21.kpa21.com'),
-    'encryption' => 'ssl',
-    'username' => 'donotreply@mail.cpanelV21.kpa21.com',
-    'password' => 'ABC12abc',
-    'sendmail' => '/usr/sbin/sendmail -bs',
-    'pretend' => false,
-);
+//return array(
+//    'driver' => 'mailgun',
+//    'host' => 'smtp.mailgun.org',
+//    'port' => 465,
+//    'from' => array('address' => 'donotreply@mail.cpanelV21.kpa21.com', 'name' => 'donotreply@mail.cpanelV21.kpa21.com'),
+//    'encryption' => 'ssl',
+//    'username' => 'donotreply@mail.cpanelV21.kpa21.com',
+//    'password' => 'ABC12abc',
+//    'sendmail' => '/usr/sbin/sendmail -bs',
+//    'pretend' => false,
+//);
 
 //return [
 //

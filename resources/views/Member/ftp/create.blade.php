@@ -200,7 +200,7 @@
                 </div>
             @else
                 <div class="col-md-12 form-group">
-                    <span class="btn btn-danger">Oops, No Available MySQL Credit</span>
+                    <span class="btn btn-danger">Oops, No Available FTP Credits</span>
                     <a href="/dashboard" class="btn btn-default">Cancel</a>
                 </div>
             @endif

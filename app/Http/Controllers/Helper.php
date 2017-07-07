@@ -299,13 +299,34 @@ class Helper extends Controller
         }
 
         $package_plan = $disk[0]->quota_id;
-        $packages = DB::select("SELECT * FROM quota_reference_table WHERE Id = {$package_plan} AND status > 1;");
+        $packages = DB::select("SELECT * FROM quota_reference_table WHERE Id = {$package_plan} AND status > 0;");
         if( COUNT($packages) == 0 ) {
             return array("available" => 0);
         }
 
-        $website_used = Helper::get_total_used($table, $user_uid);
-        return array("available" => $packages[0]->web - $website_used);
+        if($packages[0]->type == 21) {
+            return array("available" => 21);
+        }
+
+        $package_ = 0;
+        if($table == "disk_table") {
+            $package_ = $packages[0]->disk;
+        }
+
+        if($table == "web_table") {
+            $package_ = $packages[0]->web;
+        }
+
+        if($table == "mysql_database_table") {
+            $package_ = $packages[0]->mysql;
+        }
+
+        if($table == "ftp_account_table") {
+            $package_ = $packages[0]->ftp;
+        }
+
+        $_used = Helper::get_total_used($table, $user_uid);
+        return array("available" => $package_ - $_used);
     }
 
     public static function get_total_members($type) {
@@ -343,24 +364,41 @@ class Helper extends Controller
         return $result;
     }
 
-    public static function post_password_email_send($name, $email, $username, $password) {
+    public static function post_welcome_email_send($name, $email, $password) {
         $message =      "<h3>We would like to personally welcome you to our community.</h3>";
         $message .=     "Your Login Information<br />";
-        $message .=     "Login: http://cpanelv21.lesterdigital.com/login<br />";
-        $message .=     "Your Hash-Code: {$username} | you can use your email<br />";
+        $message .=     "Login: http://cpanelv21.kpa21.com/login<br />";
+        $message .=     "Your Email: {$email}<br />";
         $message .=     "Your Password: {$password}<br />";
 
         $data = array(
             "name" => $name,
             "to" => $email,
-            "subject" => "CPanelV21 Verification and Account Details",
+            "subject" => "Verification and Account Details",
             "message" => $message
         );
 
-        return Helper::post_email_send(2, "KPA.Notification", $data);
+        return Helper::post_email_send(2, "CPV21.Welcome", $data);
     }
 
-    public static function post_generic_email_send($name, $email, $message, $subject) {
+    public static function reset_password_email_send($name, $email, $password) {
+        $message =      "<h3>We have reset your password.</h3>";
+        $message .=     "Your Login Information<br />";
+        $message .=     "Login: http://cpanelv21.kpa21.com/login<br />";
+        $message .=     "Your Email: {$email}<br />";
+        $message .=     "Your New Password: {$password}<br />";
+
+        $data = array(
+            "name" => $name,
+            "to" => $email,
+            "subject" => "Account Password Reset",
+            "message" => $message
+        );
+
+        return Helper::post_email_send(2, "CPV21.Password", $data);
+    }
+
+    public static function post_generic_email_send($name, $email, $subject, $message) {
 
         $data = array(
             "name" => $name,
@@ -369,78 +407,76 @@ class Helper extends Controller
             "message" => $message
         );
 
-        return Helper::post_email_send(2, "KPA.Notification", $data);
+        return Helper::post_email_send(2, "CPV21.Alert", $data);
     }
 
 
     // Email Sending using MailGun API
 
-    public static function welcome_email_send_mailgun($name, $email, $password) {
-        $data = [
-            "TO" => $email,
-            "NAME" => $name,
-            "SUBJECT_MESSAGE" => "Welcome Email and Account Information",
-            "EMAIL" => $email,
-            "PASSWORD" => $password,
-            "COMPANY_NAME" => "CPanelV21 Team"
-        ];
-
-        Mail::send('email.welcome', $data, function($message) use ($data) {
-            $message->to($data["TO"]);
-            $message->subject($data["SUBJECT_MESSAGE"]);
-        });
-
-        if( count(Mail::failures()) > 0 ) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    public static function reset_password_email_send_mailgun($name, $email, $password) {
-        $data = [
-            "TO" => $email,
-            "NAME" => $name,
-            "SUBJECT_MESSAGE" => "Password Reset Information",
-            "EMAIL" => $email,
-            "PASSWORD" => $password,
-            "COMPANY_NAME" => "CPanelV21 Team"
-        ];
-
-        Mail::send('email.reset_password', $data, function($message) use ($data) {
-            $message->to($data["TO"]);
-            $message->subject($data["SUBJECT_MESSAGE"]);
-        });
-
-        if( count(Mail::failures()) > 0 ) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    public static function notification_email_send_mailgun($name, $email, $subject, $message) {
-        $data = [
-            "TO" => $email,
-            "NAME" => $name,
-            "SUBJECT_MESSAGE" => "Status Alert: ". $subject,
-            "BODY_MESSAGE" => $message,
-            "COMPANY_NAME" => "CPanelV21 Team"
-        ];
-
-        Mail::send('email.notification', $data, function($message) use ($data) {
-            $message->to($data["TO"]);
-            $message->subject($data["SUBJECT_MESSAGE"]);
-        });
-
-        if( count(Mail::failures()) > 0 ) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-
+//    public static function welcome_email_send_mailgun($name, $email, $password) {
+//        $data = [
+//            "TO" => $email,
+//            "NAME" => $name,
+//            "SUBJECT_MESSAGE" => "Welcome Email and Account Information",
+//            "EMAIL" => $email,
+//            "PASSWORD" => $password,
+//            "COMPANY_NAME" => "CPanelV21 Team"
+//        ];
+//
+//        Mail::send('email.welcome', $data, function($message) use ($data) {
+//            $message->to($data["TO"]);
+//            $message->subject($data["SUBJECT_MESSAGE"]);
+//        });
+//
+//        if( count(Mail::failures()) > 0 ) {
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
+//
+//    public static function reset_password_email_send_mailgun($name, $email, $password) {
+//        $data = [
+//            "TO" => $email,
+//            "NAME" => $name,
+//            "SUBJECT_MESSAGE" => "Password Reset Information",
+//            "EMAIL" => $email,
+//            "PASSWORD" => $password,
+//            "COMPANY_NAME" => "CPanelV21 Team"
+//        ];
+//
+//        Mail::send('email.reset_password', $data, function($message) use ($data) {
+//            $message->to($data["TO"]);
+//            $message->subject($data["SUBJECT_MESSAGE"]);
+//        });
+//
+//        if( count(Mail::failures()) > 0 ) {
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
+//
+//    public static function notification_email_send_mailgun($name, $email, $subject, $message) {
+//        $data = [
+//            "TO" => $email,
+//            "NAME" => $name,
+//            "SUBJECT_MESSAGE" => "Status Alert: ". $subject,
+//            "BODY_MESSAGE" => $message,
+//            "COMPANY_NAME" => "CPanelV21 Team"
+//        ];
+//
+//        Mail::send('email.notification', $data, function($message) use ($data) {
+//            $message->to($data["TO"]);
+//            $message->subject($data["SUBJECT_MESSAGE"]);
+//        });
+//
+//        if( count(Mail::failures()) > 0 ) {
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
 
 
     // Method to send Get request to url
