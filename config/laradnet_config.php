@@ -8,6 +8,8 @@ return [
 
     'ApplicationRootFolder' => 'C:\\KPA_www\\',
 
+    'RemoteEngineApi' => 'http://69.4.84.226:21001/',
+
     'CName' => 'cname.lesterdigital.com', // 'cname.lesterdigital.com',
 
     // you can set unlimited host name

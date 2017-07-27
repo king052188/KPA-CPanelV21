@@ -36,3 +36,5 @@ Route::post('/web/site/state', 'ApiController@web_state_update');
 Route::post('/web/site/status', 'ApiController@get_state_status');
 
 Route::post('/ftp/create', 'ApiController@create_ftp');
+
+Route::get('/remote/engine', 'ApiController@get_remote_engine_api');

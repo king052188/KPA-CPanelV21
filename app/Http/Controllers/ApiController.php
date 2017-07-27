@@ -17,11 +17,24 @@ use Composer\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Config;
 
 class ApiController extends Controller
 {
     //
-    public static $host_api = "http://107.180.69.59:21001/";
+    public static $host_api = "";
+
+    public function __construct()
+    {
+        $configs = Config::get('laradnet_config');
+
+        ApiController::$host_api = $configs["RemoteEngineApi"];
+    }
+
+    public function get_remote_engine_api() {
+
+        dd(ApiController::$host_api);
+    }
 
     public function member_populate($type) {
         $sort_id = 0;
