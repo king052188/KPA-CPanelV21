@@ -240,6 +240,36 @@ class ApiController extends Controller
         return $data;
     }
 
+    public function install_webApp(Request $request) {
+        $user_cookies = Helper::getCookies();
+        if($user_cookies == null) {
+            $data = array(
+                "code" => 404,
+                "message" => "Fail"
+            );
+            return $data;
+        }
+
+        $user = Crypt::decrypt($user_cookies);
+        $hostname = $request->hostname;
+
+        $web = DB::select("SELECT * FROM web_table WHERE binding_hostname = '{$hostname}';");
+        if( COUNT($web) == 0 ) {
+            $data = array(
+                "code" => 401,
+                "message" => $hostname . " did not found."
+            );
+            return $data;
+        }
+
+        $json = $this->app_install($user, $web);
+        $data = array(
+            "code" => $json["Code"],
+            "message" => $json["Message"]
+        );
+        return $data;
+    }
+
     public function create_ftp(Request $request) {
         $user_cookies = Helper::getCookies();
         if($user_cookies == null) {
@@ -332,6 +362,21 @@ class ApiController extends Controller
             $web->binding_hostname = $hostname;
             $web->status = 2;
             $r = $web->save();
+        }
+        return $json;
+    }
+
+    public function app_install($users, $web, $app = "INSTALL-WORDPRESS") {
+        $account = $users[0]->username;
+        $hostname = $web[0]->binding_hostname;
+        $data = "?todo={$app}&account={$account}&hostname={$hostname}";
+        $json = Helper::do_curl(ApiController::$host_api . $data);
+
+        if($json["Code"] == 200) {
+            $body = "Your WordPress Web App has installed successfully, Please check details below:";
+            $body .= "<br /><br /><b>Hostname:</b> {$hostname}";
+
+            Helper::post_generic_email_send($users[0]->first_name, $users[0]->email, "Website Created", $body);
         }
         return $json;
     }

@@ -27,6 +27,8 @@ Route::post('/package/plan/verify', 'ApiController@get_package_status');
 
 Route::post('/disk/create', 'ApiController@create_disk');
 
+Route::post('/web/app/install', 'ApiController@install_webApp');
+
 Route::post('/web/create', 'ApiController@create_web');
 
 Route::post('/web/site/state', 'ApiController@web_state_update');

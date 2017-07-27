@@ -133,7 +133,14 @@ $url_secured = $helper["status"];
 
                         @if($member[0]->status > 2)
                         <li>
-                            <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-inbox nav_icon"></i> <span class="nav-label">Website</span><span class="fa arrow"></span></a>
+                            <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-inbox nav_icon"></i> <span class="nav-label">WebApp</span><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="/app/wordpress" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>WordPress</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-inbox nav_icon"></i> <span class="nav-label">WebSite</span><span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li><a href="/web/site" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Sites</a></li>
                                 <li><a href="/web/create" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Create</a></li>
@@ -157,6 +164,7 @@ $url_secured = $helper["status"];
                                 <li><a href="/ftp/create" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Create Account</a></li>
                             </ul>
                         </li>
+
                         <li>
                             <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-inbox nav_icon"></i> <span class="nav-label">Tool</span><span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">

@@ -77,8 +77,12 @@ Route::get('/settings', 'MemberController@settings_index');
 Route::post('/settings/change-password', 'MemberController@settings_change_password');
 
 
+Route::get('/app/wordpress', 'WebController@app_install_wordpress');
+
+
 Route::get('/web/site', 'WebController@site_init');
 Route::get('/web/create', 'WebController@create_init');
+
 
 Route::get('/mysql/database', 'MySQLController@database_init');
 

@@ -38,4 +38,23 @@ class WebController extends Controller
 
         return view('member.web.create', compact('helper', 'user', 'web', 'configs'));
     }
+
+    public function app_install_wordpress(Request $request) {
+        $helper = Helper::ssl_secured($request);
+        $user = Helper::getCookies();
+
+        if($user == null) {
+            return redirect('/logout');
+        }
+
+        $user_id = $user[0]->Id;
+
+        $web = DB::select("SELECT * FROM web_table WHERE user_id = {$user_id} AND status > 1;");
+
+//        dd($web);
+
+        $configs = Config::get('laradnet_config');
+
+        return view('member.app.wordpress', compact('helper', 'user', 'web', 'configs'));
+    }
 }
