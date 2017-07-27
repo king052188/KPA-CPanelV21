@@ -20,8 +20,8 @@
         <a href="#" id="modal_event" class="btn btn-blue btn-lg btn-huge lato" data-toggle="modal" data-target="#myModal" style="display: none;"></a>
 
         <!-- FooTable -->
-        <link href="{{ asset('/css/footable.core.css')}}" rel="stylesheet">
-        <script src="{{ asset('/js/footable.all.min.js')}}"></script>
+        <link href="{{ asset('/css/footable.core.css', $url_secured)}}" rel="stylesheet">
+        <script src="{{ asset('/js/footable.all.min.js', $url_secured)}}"></script>
         <!-- FooTable -- Page-Level Scripts -->
 
         <style>
@@ -111,7 +111,7 @@
                     <div id="binding" class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h2 id="binding_noti" class="text-center"><img src="http://icons.iconarchive.com/icons/graphicloads/100-flat-2/128/signal-icon.png" class="img-circle"><br />Confirming</h2>
+                            <h2 id="binding_noti" class="text-center"><img src="{{ asset('/images/signal-icon.png', $url_secured)}}" class="img-circle"><br />Confirming</h2>
                         </div>
                         <div class="modal-body row">
                             <div id="binding_msg"> </div>
@@ -172,7 +172,7 @@
                     <div id="state" class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h2 id="state_noti" class="text-center"><img src="http://icons.iconarchive.com/icons/graphicloads/100-flat-2/128/signal-icon.png" class="img-circle"><br />Confirming</h2>
+                            <h2 id="state_noti" class="text-center"><img src="{{ asset('/images/signal-icon.png', $url_secured)}}" class="img-circle"><br />Confirming</h2>
                         </div>
                         <div class="modal-body row">
                             <div id="state_msg"> </div>
@@ -187,7 +187,7 @@
                 </div>
             </div>
 
-            <script href="http://code.jquery.com/jquery-3.2.0.min.js" ></script>
+            <script href="{{ asset('/js/jquery-3.2.0.min.js', $url_secured)}} " ></script>
 
             <script>
                 $(document).ready(function() {

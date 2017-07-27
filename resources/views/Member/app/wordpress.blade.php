@@ -30,7 +30,7 @@
                 <select id="host" name="host">
                     <option value="0">-- Select Account --</option>
                     @for($i = 0; $i < COUNT($web); $i++)
-                        <option value="{{ $web[$i]->root_path }}">{{ $web[$i]->binding_hostname }}</option>
+                        <option value="{{ $web[$i]->binding_hostname }}">{{ $web[$i]->binding_hostname }}</option>
                     @endfor
                 </select>
             </div>
@@ -99,7 +99,9 @@
                 if(host == "0") {
                     return false;
                 }
-                $('#location').val(host);
+
+                var location_path = root_path + host + "\\wwwroot\\public";
+                $('#location').val(location_path);
                 $('#button_install').show();
             });
         })

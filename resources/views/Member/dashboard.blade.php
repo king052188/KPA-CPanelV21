@@ -15,8 +15,8 @@
     </div>
     <!--//banner-->
 
-    <!--pie-chart--->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/numeral.js/1.5.6/numeral.min.js" type="text/javascript"></script>
+    <!--pie-chart-->
+    <script src="{{ asset("/js/numeral.min.js", $url_secured) }}" type="text/javascript"></script>
     <script src="{{ asset("/plugins/minimal_admin_panel/js/pie-chart.js", $url_secured) }}" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -269,8 +269,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h2 id="success_noti" class="text-center"><img src="http://icons.iconarchive.com/icons/graphicloads/100-flat-2/128/check-1-icon.png" class="img-circle"><br>Success</h2>
-                    <h2 id="alert_noti" class="text-center" style="display: none;"><img src="http://icons.iconarchive.com/icons/graphicloads/100-flat-2/128/information-icon.png" class="img-circle"><br>Alert</h2>
+                    <h2 id="success_noti" class="text-center"><img src="{{ asset('/images/check-1-icon.png', $url_secured)}}" class="img-circle"><br>Success</h2>
+                    <h2 id="alert_noti" class="text-center" style="display: none;"><img src="{{ asset('/images/information-icon.png', $url_secured)}}" class="img-circle"><br>Alert</h2>
                 </div>
                 <div class="modal-body row">
                     <div id="success_msg">
