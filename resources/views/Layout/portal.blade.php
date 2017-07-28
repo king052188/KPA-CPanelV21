@@ -113,7 +113,7 @@ $url_secured = $helper["status"];
 
                         @if($member[0]->role > 1)
                             <li>
-                                <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-indent nav_icon"></i> <span class="nav-label">Members</span><span class="fa arrow"></span></a>
+                                <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-users nav_icon"></i> <span class="nav-label">Members</span><span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <style>
                                         .m_counts {
@@ -124,49 +124,49 @@ $url_secured = $helper["status"];
                                         .on_processed { background: #F65A0C; color: #ffffff; }
                                         .pending { background: #EF0F7B; color: #ffffff; }
                                     </style>
-                                    <li><a href="/clients/activated" class=" hvr-bounce-to-right"> <i class="fa fa-users nav_icon"></i>Activated <span class="m_counts activated"> {{ number_format($activated, 0) }} </span></a></li>
-                                    <li><a href="/clients/on-processed" class=" hvr-bounce-to-right"> <i class="fa fa-users nav_icon"></i>On-Processed <span class="m_counts on_processed"> {{ number_format($on_processed, 0) }} </span></a></li>
-                                    <li><a href="/clients/pending" class=" hvr-bounce-to-right"> <i class="fa fa-users nav_icon"></i>Pending <span class="m_counts pending"> {{ number_format($pending, 0) }} </span></a></li>
+                                    <li><a href="/clients/activated" class=" hvr-bounce-to-right"> <i class="fa fa-star nav_icon"></i>Activated <span class="m_counts activated"> {{ number_format($activated, 0) }} </span></a></li>
+                                    <li><a href="/clients/on-processed" class=" hvr-bounce-to-right"> <i class="fa fa-star-half-o nav_icon"></i>On-Processed <span class="m_counts on_processed"> {{ number_format($on_processed, 0) }} </span></a></li>
+                                    <li><a href="/clients/pending" class=" hvr-bounce-to-right"> <i class="fa fa-star-o nav_icon"></i>Pending <span class="m_counts pending"> {{ number_format($pending, 0) }} </span></a></li>
                                 </ul>
                             </li>
                         @endif
 
                         @if($member[0]->status > 2)
                         <li>
-                            <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-inbox nav_icon"></i> <span class="nav-label">WebApp</span><span class="fa arrow"></span></a>
+                            <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-bars nav_icon"></i> <span class="nav-label">WebApp</span><span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li><a href="/app/wordpress" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>WordPress</a></li>
+                                <li><a href="/app/wordpress" class=" hvr-bounce-to-right"> <i class="fa fa-wordpress nav_icon"></i>WordPress</a></li>
                             </ul>
                         </li>
 
                         <li>
-                            <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-inbox nav_icon"></i> <span class="nav-label">WebSite</span><span class="fa arrow"></span></a>
+                            <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-tasks nav_icon"></i> <span class="nav-label">WebSite</span><span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li><a href="/web/site" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Sites</a></li>
-                                <li><a href="/web/create" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Create</a></li>
+                                <li><a href="/web/create" class=" hvr-bounce-to-right"> <i class="fa fa-plus-circle nav_icon"></i>Create</a></li>
+                                <li><a href="/web/site" class=" hvr-bounce-to-right"> <i class="fa fa-server nav_icon"></i>Sites</a></li>
                             </ul>
                         </li>
 
                         <li>
-                            <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-indent nav_icon"></i> <span class="nav-label">MySQL</span><span class="fa arrow"></span></a>
+                            <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-database nav_icon"></i> <span class="nav-label">MySQL</span><span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li><a href="/mysql/database" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Database</a></li>
-                                <li><a href="/mysql/create-database-username" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>User Accounts</a></li>
-                                <li><a href="/mysql/add-privileges" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>User Privileges</a></li>
-                                <li><a href="/mysql/phpmyadmin" class="hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>PHPMyAdmin</a></li>
+                                <li><a href="/mysql/database" class=" hvr-bounce-to-right"> <i class="fa fa-database nav_icon"></i>Database</a></li>
+                                <li><a href="/mysql/create-database-username" class=" hvr-bounce-to-right"> <i class="fa fa-plus-circle nav_icon"></i>Add Account</a></li>
+                                <li><a href="/mysql/add-privileges" class=" hvr-bounce-to-right"> <i class="fa fa-unlock nav_icon"></i>Account Privileges</a></li>
+                                <li><a href="/mysql/phpmyadmin" class="hvr-bounce-to-right"> <i class="fa fa-database nav_icon"></i>PHPMyAdmin</a></li>
                             </ul>
                         </li>
 
                         <li>
-                            <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-inbox nav_icon"></i> <span class="nav-label">FTP</span><span class="fa arrow"></span></a>
+                            <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-file-code-o nav_icon"></i> <span class="nav-label">FTP</span><span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li><a href="/ftp/lists" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Lists</a></li>
-                                <li><a href="/ftp/create" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Create Account</a></li>
+                                <li><a href="/ftp/create" class=" hvr-bounce-to-right"> <i class="fa fa-plus-circle nav_icon"></i>Create</a></li>
+                                <li><a href="/ftp/lists" class=" hvr-bounce-to-right"> <i class="fa fa-tasks nav_icon"></i>Lists</a></li>
                             </ul>
                         </li>
 
                         <li>
-                            <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-inbox nav_icon"></i> <span class="nav-label">Tool</span><span class="fa arrow"></span></a>
+                            <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-wrench nav_icon"></i> <span class="nav-label">Tool</span><span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li><a href="/tool/composer" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Composer</a></li>
                             </ul>
@@ -176,7 +176,7 @@ $url_secured = $helper["status"];
                         @if( IsSet($page["page"]) )
                             @if($page["page"] == "settings")
                                 <li>
-                                    <a href="/settings" class=" hvr-bounce-to-right"><i class="fa fa-cog nav_icon"></i> <span class="nav-label">Settings</span><span class="fa arrow"></span></a>
+                                    <a href="/settings" class=" hvr-bounce-to-right"><i class="fa fa-cogs nav_icon"></i> <span class="nav-label">Settings</span><span class="fa arrow"></span></a>
                                     <ul class="nav nav-second-level">
                                         <li><a href="/settings" class=" hvr-bounce-to-right"> <i class="fa fa-plus-square nav_icon"></i>General</a></li>
                                         <li><a href="/settings" class=" hvr-bounce-to-right"> <i class="fa fa-plus-square nav_icon"></i>Security</a></li>
