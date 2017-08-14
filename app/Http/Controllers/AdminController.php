@@ -88,7 +88,7 @@ class AdminController extends Controller
             return view('layout.404', compact('helper'));
         }
 
-        $sort_id = (int)$sort;
+        $sort_id = (int)$sort; 
 
         $query = "SELECT * FROM member_table WHERE hash_code = '{$hash}' AND status = {$sort_id} ORDER BY created_at ASC";
         if($sort_id > 2) {
