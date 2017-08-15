@@ -505,8 +505,8 @@ class Helper extends Controller
     public static function facebook_account_kit_v2(Request $request) {
 
         // Initialize variables
-        $app_id = "239866523142614";
-        $secret = "99647c4751d6afe5a54cbc1d4c20773b";
+        $app_id = "1968789146737360";
+        $secret = "04cb2fe5db98423bfa7a088557602234";
         $version = "v1.1";
         $code = $request['code'];
 
@@ -515,24 +515,8 @@ class Helper extends Controller
         $token_exchange_url = "https://graph.accountkit.com/{$version}/access_token?grant_type=authorization_code&code={$code}&access_token=AA|{$app_id}|{$secret}";
 
         $data = Helper::do_curl($token_exchange_url);
-
-        $user_id = $data['id'];
-        $user_access_token = $data['access_token'];
-        $refresh_interval = $data['token_refresh_interval_sec'];
-
-        // Get Account Kit information
-        $me_endpoint_url = 'https://graph.accountkit.com/'.$version.'/me?'.
-            'access_token='.$user_access_token;
-
-        $data = Helper::do_curl($me_endpoint_url);
-        $phone = isset($data['phone']) ? $data['phone']['number'] : '';
-        $email = isset($data['email']) ? $data['email']['address'] : '';
-
-        return array(
-            "phone_number" => $phone,
-            "email_address" => $email
-        );
-
+        
+        return $data;
     }
 
     public static function facebook_token($user_access_token) {
@@ -547,6 +531,7 @@ class Helper extends Controller
         $email = isset($data['email']) ? $data['email'] : '';
 
         return array(
+            "data" => $data,
             "phone_number" => $phone,
             "email_address" => $email
         );

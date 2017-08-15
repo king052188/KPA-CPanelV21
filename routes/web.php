@@ -96,17 +96,12 @@ Route::post('/mysql/create-database-username-execute', 'MySQLController@create_d
 
 Route::get('/mysql/add-privileges', 'MySQLController@add_privileges_init');
 Route::post('/mysql/add-privileges-execute', 'MySQLController@add_privileges_execute');
-
 Route::post('/mysql/share/database/{database}', 'MySQLController@share_database');
-
 Route::get('/mysql/phpmyadmin', 'MySQLController@phpmyadmin_init');
 
 Route::get('/ftp/lists', 'FTPController@init');
-
 Route::get('/ftp/create', 'FTPController@create_init');
-
 Route::post('/ftp/create-execute', 'PageController@temp');
-
 
 Route::get('/tool/composer', 'PageController@compose_init');
 
@@ -124,41 +119,35 @@ Route::get('/list-of-all-account', function() {
 });
 
 Route::get('/list-of-all-downline/{value}', function($value) {
-
     $id = array("uid" => $value);
-
     return view('test.downline', compact('id'));
-
-
-
 });
 
 Route::get('/smtp.mailgun.org/sandboxf97d79f7c7184f32b8d6b2e472f527ba.mailgun.org', function() {
-
     $var  = \App\Http\Controllers\Helper::notification_email_send_mailgun("King", "king@cdgpacific.com", "123213 13221 2 321 ", "3213213213123 213 21 321 321 3");
-
     if($var) {
         dd('Mail Send Successfully');
     }
     dd('Mail Sending Error');
 });
-
 
 Route::get('/smtp.mailgun.org/mail.cpanelv21.kpa21.com', function() {
-
     $var  = \App\Http\Controllers\Helper::welcome_email_send_mailgun("King", "king@cdgpacific.com", "ABC12abc");
-
     if($var) {
         dd('Mail Send Successfully');
     }
     dd('Mail Sending Error');
-
 });
 
 
+/// promotion 2017.1
 
 
+Route::get('/webs/wordpress/free-plan', 'WordpressController@free_plan');
 
+Route::get('/account/kit-2/execute', 'WordpressController@account_kit');
+
+Route::get('/account/kit-2/access/{id}/{token}', 'WordpressController@account_kit_token');
 
 
 
