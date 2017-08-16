@@ -36,10 +36,11 @@ function loginCallback(response) {
 
 // phone form submission handler
 function smsLogin() {
-    var _phoneNumber = $('#mobile').val();
+    _mobile = $('#mobile').val();
+
     AccountKit.login(
         'PHONE',
-        { countryCode : '+63', phoneNumber : _phoneNumber },
+        { countryCode : '+63', phoneNumber : _mobile },
         loginCallback
     );
 }
@@ -88,9 +89,7 @@ function ajax_execute(data, url, button_id) {
             }
         }).done(function(data){
             console.log(data);
-            if(data.access_token != "") {
-                window.location.href="/account/kit-2/access/"+ data.id + "/" + data.access_token;
-            }
+            window.location.href="/account/kit-2/access/"+ data.id + "/" + data.access_token + "/" + _mobile;
         });
     })
 }

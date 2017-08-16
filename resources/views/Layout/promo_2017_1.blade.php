@@ -20,7 +20,7 @@
             word-spacing: 1px;
         }
     </style>
-    <script> var _code = "", _csrf = "", _csrf_token = "{{ csrf_token() }}";</script>
+    <script> var _mobile = "", _code = "", _csrf = "", _csrf_token = "{{ csrf_token() }}";</script>
 </head>
 <body>
 <div class="back"></div>

@@ -20,7 +20,7 @@ class WordpressController extends Controller
         return $h;
     }
 
-    public function account_kit_token($id, $token) {
+    public function account_kit_token($id, $token, $mobile) {
 
         return Helper::facebook_token($token);
     }

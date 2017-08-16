@@ -147,7 +147,7 @@ Route::get('/webs/wordpress/free-plan', 'WordpressController@free_plan');
 
 Route::get('/account/kit-2/execute', 'WordpressController@account_kit');
 
-Route::get('/account/kit-2/access/{id}/{token}', 'WordpressController@account_kit_token');
+Route::get('/account/kit-2/access/{id}/{token}/{mobile}', 'WordpressController@account_kit_token');
 
 
 
