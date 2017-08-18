@@ -8,6 +8,9 @@ use Illuminate\Http\Response;
 use DB;
 use Illuminate\Support\Facades\Mail;
 
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Config;
+
 class Helper extends Controller
 {
     //
@@ -180,17 +183,10 @@ class Helper extends Controller
         return $result;
     }
 
-    public static function ssl_secured(Request $request) {
-        $ssl = null;
-        if ($request->server('HTTP_X_FORWARDED_PROTO') == 'https')
-        {
-            $ssl = ["status" => true];
-        }
-        else
-        {
-            $ssl = ["status" => false];
-        }
-        return $ssl;
+    public static function ssl_secured() {
+        $configs = Config::get('laradnet_config');
+        
+        return $configs["SSLEnable"];
     }
 
     public static function getCookies($cookies_name = "Laradnet-User")

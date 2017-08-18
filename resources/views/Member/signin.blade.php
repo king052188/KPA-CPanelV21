@@ -114,7 +114,7 @@ $url_secured = $helper["status"];
 </div>
 <!-- Jquery Core Js -->
 <script src="{{ asset("js/jquery-3.1.1.min.js", $url_secured) }}"></script>
-<script src="//rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
+<script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
 <!-- Bootstrap Core Js -->
 {{--<script src="{{ asset("plugins/bootstrap/js/bootstrap.js", $url_secured) }}"></script>--}}
 <!-- Waves Effect Plugin Js -->
