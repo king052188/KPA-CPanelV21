@@ -311,7 +311,7 @@ class ApiController extends Controller
 
         if($json["Code"] == 200) {
             $body = "We have received a request that you create an FTP Account for the following:";
-            $body .= "<br /><br /><b>Hostname:</b> ftp.lesterdigital.com";
+            $body .= "<br /><br /><b>Hostname:</b> ". ApiController::$host_ftp;
             $body .= "<br /><b>Port:</b> 21";
             $body .= "<br /><b>Path:</b> {$root}";
             $body .= "<br /><b>Username:</b> {$username}";
@@ -426,7 +426,7 @@ class ApiController extends Controller
 
         if($json["Code"] == 200) {
             $body = "Your FTP Account Created Automatically, Please check below:";
-            $body .= "<br /><br /><b>Hostname:</b> ftp.lesterdigital.com";
+            $body .= "<br /><br /><b>Hostname:</b> " . ApiController::$host_ftp;
             $body .= "<br /><b>Port:</b> 21";
             $body .= "<br /><b>Username:</b> {$account}";
             $body .= "<br /><b>Password:</b> {$password}";
