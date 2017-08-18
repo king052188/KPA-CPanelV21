@@ -23,17 +23,19 @@ class ApiController extends Controller
 {
     //
     public static $host_api = "";
+    public static $host_ftp = "";
 
     public function __construct()
     {
         $configs = Config::get('laradnet_config');
 
         ApiController::$host_api = $configs["RemoteEngineApi"];
+        ApiController::$host_ftp = $configs["FTP_Hosts"]["hostname"];
     }
 
     public function get_remote_engine_api() {
 
-        dd(ApiController::$host_api);
+        dd(ApiController::$host_api ." ---- ". ApiController::$host_ftp);
     }
 
     public function member_populate($type) {
