@@ -352,6 +352,19 @@ class MySQLController extends Controller
 
     }
 
+    public function create_database_dump(Request $request) {
+
+        $account = "sample";
+
+        $data = array(
+            "host" => "localhost",
+            "username" => "root",
+            "password" => "ABC12abc",
+            "database" => "cdg_pos"
+        );
+
+    }
+
     public static function post_notification_email_send($subject, $name, $email, $body) {
 
         $data = array(

@@ -255,6 +255,24 @@ class ApiController extends Controller
         return $data;
     }
 
+    public function lists_web() {
+        $user_cookies = Helper::getCookies();
+        if($user_cookies == null) {
+            $data = array(
+                "code" => 404,
+                "message" => "Fail",
+                "dump_url" => null
+            );
+            return $data;
+        }
+        $user = Crypt::decrypt($user_cookies);
+        $uid = $user[0]->Id;
+        $web = DB::select("SELECT binding_hostname FROM web_table WHERE user_id = {$uid};");
+        return array(
+            "data" => $web
+        );
+    }
+
     public function install_webApp(Request $request) {
         $user_cookies = Helper::getCookies();
         if($user_cookies == null) {
@@ -330,6 +348,41 @@ class ApiController extends Controller
         $data = array(
             "code" => $json["Code"],
             "message" => $json["Message"]
+        );
+        return $data;
+    }
+
+    public function create_dump(Request $request) {
+        $user_cookies = Helper::getCookies();
+        if($user_cookies == null) {
+            $data = array(
+                "code" => 404,
+                "message" => "Fail",
+                "dump_url" => null
+            );
+            return $data;
+        }
+
+        $users = Crypt::decrypt($user_cookies);
+        $hostname = $request->hostname;
+        $database = $request->database;
+
+        $web = DB::select("SELECT * FROM web_table WHERE binding_hostname = '{$hostname}';");
+        if( COUNT($web) == 0 ) {
+            $data = array(
+                "code" => 401,
+                "message" => $hostname . " did not found.",
+                "dump_url" => null
+            );
+            return $data;
+        }
+
+        $json = $this->mysql_dump($users[0]->username, $web[0]->binding_hostname, $database);
+
+        $data = array(
+            "code" => $json["Code"],
+            "message" => $json["Message"],
+            "dump_url" => $json["MySqlDump_Url"]
         );
         return $data;
     }
@@ -440,6 +493,19 @@ class ApiController extends Controller
             $ftp->status = 2;
             $r = $ftp->save();
         }
+        return $json;
+    }
+
+    public function mysql_dump_individual(Request $request) {
+        return $this->mysql_dump( $request->account, $request->hostname, $request->database );
+    }
+
+    public function mysql_dump($account, $hostname, $database) {
+        
+        $data = "?todo=MYSQL-DUMP&account={$account}&hostname={$hostname}&database={$database}";
+
+        $json = Helper::do_curl(ApiController::$host_api . $data);
+
         return $json;
     }
 

@@ -5,10 +5,11 @@
     $url_secured = $helper["status"];
     ?>
     <script>
-        var u_name = null, u_role = 0, d_name = null, s_uid = 0;
+        var u_name = null, u_role = 0, d_name = null, hostname = null, s_uid = 0;
         var mysql_hostname = "{{ $configs["MySQL_Hosts"]["hostname"] }}";
         var mysql_ip_address = "{{ $configs["MySQL_Hosts"]["ip_address"] }}";
     </script>
+
     <style>
         input#referral_link, span.referral_label {
             color: #B3AEAE;
@@ -55,6 +56,7 @@
             }
         }
     </style>
+
     <!--banner-->
     <div class="banner">
         <h2>
@@ -100,7 +102,6 @@
                     </script>
                 </div>
             </div>
-
         </h2>
     </div>
     <!--//banner-->
@@ -184,6 +185,7 @@
                             <td>
                                 <select>
                                     <option value="{{ $database[$i]["Id"] }}:select">-- select --</option>
+                                    <option value="{{ $database[$i]["Id"] }}:dump-sql:{{ $database[$i]["database_name"] }}">dump-sql</option>
                                     <option value="{{ $database[$i]["Id"] }}:share:{{ $database[$i]["database_name"] }}">share</option>
                                     <option value="{{ $database[$i]["Id"] }}:drop:{{ $database[$i]["database_name"] }}">drop</option>
                                 </select>
@@ -214,7 +216,24 @@
             <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
 
-                    {{--// activate account --}}
+                    {{--// dump-file password --}}
+
+                    <div id="dump-file" class="modal-content" style="display: none;">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h2 id="dump-file_noti" class="text-center"><img src="http://icons.iconarchive.com/icons/graphicloads/100-flat-2/128/signal-icon.png" class="img-circle"><br />Confirming</h2>
+                        </div>
+                        <div class="modal-body row">
+                            <div id="dump-file_msg">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" id="btnYesDumpFile" class="btn btn-primary">Yes</button>
+                            <button type="submit" id="btnNoDumpFile" class="btn btn-default" data-dismiss="modal" aria-hidden="true">No</button>
+                        </div>
+                    </div>
+
+                    {{--// share --}}
 
                     <div id="share" class="modal-content">
                         <div class="modal-header">
@@ -235,7 +254,7 @@
                         </div>
                     </div>
 
-                    {{--// reset password --}}
+                    {{--// drop password --}}
 
                     <div id="drop" class="modal-content" style="display: none;">
                         <div class="modal-header">
@@ -267,11 +286,28 @@
                         var values =        value.split(':');
                         _uid = parseInt(values[0]);
                         switch (values[1]) {
+                            case "dump-sql" :
+                                if(values.length > 2) {
+                                    var html = "<h5 class='text-center' style='line-height: 20px; margin-bottom: 10px;'>Would you like to create a dump-file for this <span style='color: #E91E63;'>( " + values[2] + " )</span> database?</h5>";
+
+                                    html += "<div id='ddl_hostname' style='margin: 0 auto; width: 390px; font-size: 0.9em;'></div>";
+
+                                    $('#dump-file_msg').empty().prepend(html);
+
+                                    load_hostname();
+                                }
+                                d_name = values[2];
+                                $('#dump-file').show();
+                                $('#share').hide();
+                                $('#drop').hide();
+                                $('#modal_event').click();
+                                break;
                             case "share" :
                                 if(values.length > 2) {
                                     $('#share_msg').empty().prepend("<h5 class='text-center' style='line-height: 20px;'>Would you like to share this <span style='color: #E91E63;'>( " + values[2] + " )</span> database?</h5>");
                                 }
                                 d_name = values[2];
+                                $('#dump-file').hide();
                                 $('#share').show();
                                 $('#drop').hide();
                                 $('#modal_event').click();
@@ -280,6 +316,7 @@
                                 if(values.length > 2) {
                                     $('#drop_msg').empty().prepend("<h5 class='text-center' style='line-height: 20px;'>Are you sure you want to DROP <span style='color: #E91E63;'>( " + values[2] + " )</span> database?<br />Click <span style='color: #E91E63;'>YES</span> to completely drop the database.</h5>");
                                 }
+                                $('#dump-file').hide();
                                 $('#share').hide();
                                 $('#drop').show();
                                 $('#modal_event').click();
@@ -348,6 +385,29 @@
                             }
                         });
                     })
+
+                    function load_hostname() {
+                        $.ajax({
+                            url: "/api/web/lists",
+                            dataType: "text",
+                            beforeSend: function () {
+                            },
+                            success: function(response) {
+                                var json = $.parseJSON(response);
+                                if(json == null)
+                                    return false;
+
+                                var html = "Hostname: <select id='ddlHostnameLists' style='font-size: 0.95em; width: 300px;'>";
+                                html += "<option>-- select --</option>";
+                                $(json.data).each(function(key, d){
+                                    html += "<option>"+d.binding_hostname+"</option>";
+                                })
+                                html += "</select>";
+                                $('#ddl_hostname').empty().prepend(html);
+                            }
+                        });
+                    }
+
                 } );
             </script>
 

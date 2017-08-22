@@ -31,10 +31,16 @@ Route::post('/web/app/install', 'ApiController@install_webApp');
 
 Route::post('/web/create', 'ApiController@create_web');
 
+Route::get('/web/lists', 'ApiController@lists_web');
+
 Route::post('/web/site/state', 'ApiController@web_state_update');
 
 Route::post('/web/site/status', 'ApiController@get_state_status');
 
 Route::post('/ftp/create', 'ApiController@create_ftp');
+
+Route::post('/mysql/dump/exec', 'ApiController@create_dump');
+
+Route::post('/mysql/dump/exec-download', 'ApiController@mysql_dump_individual');
 
 Route::get('/remote/engine', 'ApiController@get_remote_engine_api');

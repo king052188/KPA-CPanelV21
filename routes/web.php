@@ -85,9 +85,10 @@ Route::get('/web/create', 'WebController@create_init');
 
 
 Route::get('/mysql/database', 'MySQLController@database_init');
-
 Route::get('/mysql/create-database', 'MySQLController@create_database_init');
 Route::post('/mysql/create-database-execute', 'MySQLController@create_database_execute');
+
+Route::get('/Helper/Class/{a}/{b}', 'MySQLController@create_database_dump');
 
 Route::post('/mysql/share/database/', 'MySQLController@create_database_execute');
 
@@ -141,6 +142,11 @@ Route::get('/smtp.mailgun.org/mail.cpanelv21.kpa21.com', function() {
 
 
 /// promotion 2017.1
+
+
+
+
+
 
 
 Route::get('/webs/wordpress/free-plan', 'WordpressController@free_plan');

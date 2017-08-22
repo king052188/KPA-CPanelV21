@@ -22,6 +22,13 @@ class Helper extends Controller
     public static $app_secret = "99647c4751d6afe5a54cbc1d4c20773b";
     public static $account_kit_api_version = "v1.1";
 
+
+    public static function set_access_control_allow_origin() {
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Headers: X-Requested-With');
+        header('Content-Type: application/json');
+    }
+
     public static function create_database_user($username, $password, $withRemote = null) {
         try {
 

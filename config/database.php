@@ -51,6 +51,7 @@ return [
             'prefix' => '',
             'strict' => true,
             'engine' => null,
+            'dump' => [ 'setDumpBinaryPath' => 'C:\\Program Files\\MySQL\\MySQL Server 5.7\\bin' ],
         ],
 
         'pgsql' => [
