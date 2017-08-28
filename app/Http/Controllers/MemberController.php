@@ -388,21 +388,30 @@ class MemberController extends Controller
 
     public function activate_account(Request $request, $uid) {
 
-        $data = Member::where("Id", "=", $uid);
+        $data = Member::where("hash_code", "=", $uid);
         $u = $data->first();
 
-        if($u->status > 2) {
+        if($u->status == (int)$request->status) {
             return array(
                 "status" => 201
             );
         }
 
-        $m = $data->update(
+        if((int)$request->status > 0) {
+            $m = $data->update(
                 array(
                     "group_name" => $request->group,
-                    "status" => 3
+                    "status" => (int)$request->status
                 )
             );
+        }
+        else {
+            $m = $data->update(
+                array(
+                    "status" => (int)$request->status
+                )
+            );
+        }
 
         if($m) {
             return array(

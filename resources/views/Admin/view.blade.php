@@ -34,9 +34,9 @@
             <div class="col-md-12 form-group1 group-mail">
                 <label class="control-label">Fullname (first, middle and last)</label>
                 <?php
-                $f_name = strtoupper($client[0]->first_name);
-                $m_name = strtoupper($client[0]->middle_name);
-                $l_name = strtoupper($client[0]->last_name);
+                $f_name = strtoupper(IsSet( $client[0]->first_name ) ? $client[0]->first_name : "N/A");
+                $m_name = strtoupper(IsSet( $client[0]->middle_name ) ? $client[0]->first_name : "N/A");
+                $l_name = strtoupper(IsSet( $client[0]->last_name ) ? $client[0]->first_name : "N/A");
                 ?>
                 <input type="text" id="streets" name="streets" placeholder="House No./Streets" value="{{ $f_name .', '. $m_name . ', ' . $l_name }}" required="">
             </div>
@@ -76,10 +76,16 @@
             <div class="col-md-12 form-group1 group-mail">
                 <label class="control-label">Plan</label>
                 <?php
-                    $usd = $client[0]->price_usd;
-                    $php = $usd * $client[0]->price_ph;
+                    $usd = IsSet( $client[0]->price_usd ) ? $client[0]->price_usd : 0;
 
-                    $plan = IsSet( $client[0]->code_name ) ? $client[0]->code_name : "N/A";
+                    if(IsSet($client[0]->price_usd)) {
+                        $php = $usd * $client[0]->price_ph;
+                    }
+                    else {
+                        $php = $usd * 52;
+                    }
+
+                    $plan = IsSet( $client[0]->code_name ) ? $client[0]->code_name : "PLAN";
                     $plan = $plan . " - $" . number_format($usd, 2) . " | ₱" . number_format($php, 2);
                 ?>
                 <input type="text" id="streets" name="streets" placeholder="House No./Streets" value="{{ $plan }}" required="">

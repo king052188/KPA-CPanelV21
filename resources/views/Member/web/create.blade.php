@@ -78,7 +78,7 @@
             @if($web["available"] > 0)
                 <div class="col-md-12 form-group">
                     <button type="submit" id="btnWebSite" class="btn btn-primary">Save</button>
-                    <a href="/ftp/create" class="btn btn-default">Cancel</a>
+                    <a href="/web/sites" class="btn btn-default">Cancel</a>
                 </div>
             @else
                 <div class="col-md-12 form-group">

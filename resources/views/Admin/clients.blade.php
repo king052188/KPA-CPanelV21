@@ -10,7 +10,7 @@
         <h2>
             <a href="/login">Home</a>
             <i class="fa fa-angle-right"></i>
-            <span>{{ $types["name"] }} Clients List</span>
+            <span>{{ $types["name"] }} Client Lists</span>
         </h2>
     </div>
     <!--//banner-->
@@ -130,10 +130,12 @@
                                     <option value="{{ $members[$i]->hash_code }}:select">-- select --</option>
                                     <optgroup label="Administrator">Administrator</optgroup>
                                     <option value="{{ $members[$i]->hash_code }}:view">View</option>
-                                    <option value="{{ $members[$i]->hash_code }}:activate:{{ $f_name }}">Activate</option>
-                                    <option value="{{ $members[$i]->hash_code }}:deactivate">Deactivated</option>
+                                    @if($members[$i]->status == 3)
+                                        <option value="{{ $members[$i]->hash_code }}:deactivate:{{ $f_name }}">Deactivated</option>
+                                    @else
+                                        <option value="{{ $members[$i]->hash_code }}:activate:{{ $f_name }}">Activate</option>
+                                    @endif
                                     <option value="{{ $members[$i]->hash_code }}:reset_password:{{ $email }}">Reset Password</option>
-                                    <option value="{{ $members[$i]->hash_code }}:remove_account">Remove Account</option>
                                     @if($user[0]->role == 3)
                                         <optgroup label="Developer Mode">Developer Mode</optgroup>
                                         <option value="{{ $members[$i]->hash_code }}:make_admin">Make Admin</option>
@@ -169,7 +171,6 @@
                         </div>
                         <div class="modal-body row">
                             <div id="activation_msg"> </div>
-
                         </div>
                         <div class="modal-footer">
                             <select id="ddlGroups" style="padding: 5px; margin-top: 1.5px;">
@@ -178,7 +179,7 @@
                                 <option value="ckt">CKT</option>
                             </select>
                             <button type="submit" id="activationBtnSave" class="btn btn-primary">Yes</button>
-                            <button type="submit" id="activationNtnNo" class="btn btn-default" >No</button>
+                            <button type="submit" data-dismiss="modal" aria-hidden="true" class="btn btn-default" >No</button>
                         </div>
                     </div>
 
@@ -195,7 +196,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="submit" id="btnSave" class="btn btn-primary">Yes</button>
-                            <button type="submit" id="btnNo" class="btn btn-default" >No</button>
+                            <button type="submit" data-dismiss="modal" aria-hidden="true"  class="btn btn-default" >No</button>
                         </div>
                     </div>
 
@@ -243,25 +244,40 @@
                         }
                     });
 
-                    var _uid = 0;
+                    var _hash_code = null;
+                    var _status = 0;
+
                     $("#clients_dt > tbody  > tr").change(function(){
                         var selected =      $(this).find('select:first');
                         var value =         selected.val();
                         var values =        value.split(':');
-                        _uid = parseInt(values[0]);
+
+                        _hash_code = values[0];
+
+                        console.log(_hash_code);
+
                         switch (values[1]) {
                             case "view" :
                                 window.location.href="/clients/view/"+ {{ $types["id"] }} +"/"+values[0];
                                 break;
                             case "activate" :
+                                _status = 3;
                                 if(values.length > 2) {
-                                    $('#activation_msg').empty().prepend("<h5 class='text-center' style='line-height: 20px;'>Do you want to activate ( " + values[2] + " ) account?</h5>");
+                                    $('#activation_msg').empty().prepend("<h5 class='text-center' style='line-height: 20px;'>Do you want to <span style='color: green;'>Activate</span> ( " + values[2] + " ) account?</h5>");
                                 }
+                                $('#ddlGroups').show();
                                 $('#activation').show();
                                 $('#reset_password').hide();
                                 $('#modal_event').click();
                                 break;
                             case "deactivate" :
+                                _status = -3;
+                                if(values.length > 2) {
+                                    $('#activation_msg').empty().prepend("<h5 class='text-center' style='line-height: 20px;'>Do you want to <span style='color: red;'>Deactivate</span> ( " + values[2] + " ) account?</h5>");
+                                }
+                                $('#ddlGroups').hide();
+                                $('#activation').show();
+                                $('#reset_password').hide();
                                 $('#modal_event').click();
                                 break;
                             case "reset_password" :
@@ -276,19 +292,22 @@
                     });
 
                     $('#activationBtnSave').click(function() {
-                        if(_uid == 0) {
+                        if(_hash_code == null) {
                             alert("Please reload the page.");
                             return false;
                         }
 
-                        var groups = $('#ddlGroups').val();
-                        if(groups == "0") {
-                            alert("Please select a group.");
-                            return false;
+                        var groups = null;
+                        if(_status > 0) {
+                            groups = $('#ddlGroups').val();
+                            if(groups == "0") {
+                                alert("Please select a group.");
+                                return false;
+                            }
                         }
 
                         $.ajax({
-                            url: "/activate/account/"+_uid+"?group="+groups,
+                            url: "/activate/account/"+_hash_code+"?group="+groups+"&status="+_status,
                             dataType: "text",
                             beforeSend: function () {
                                 $('#activationBtnSave').text("Please wait...");
@@ -297,19 +316,26 @@
                                 var json = $.parseJSON(response);
                                 if(json == null)
                                     return false;
-
                                 if(json.status == 200) {
-                                    alert("Activation was successful");
-                                    location.reload();
+                                    swal({
+                                        title: "Good job! Activation was successful!",
+                                        text: "This page will automatically reload after you click OK.",
+                                        type: "success",
+                                        showCancelButton: false,
+                                        confirmButtonColor: "#337ab7",
+                                        confirmButtonText: "Ok, Reload the Page!",
+                                        closeOnConfirm: false
+                                    },
+                                    function(){
+                                        location.reload();
+                                    });
                                 }
                                 else if(json.status == 201) {
-                                    alert("Account already activated.");
+                                    swal("Nice try!", "Account already activated!", "info");
                                 }
                                 else {
-                                    alert("Error, Please try again.");
-                                    location.reload();
+                                    swal("Bad!", "Please try again!", "error");
                                 }
-
                                 $('#activationBtnSave').text("Yes");
                             }
                         });

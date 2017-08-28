@@ -30,6 +30,10 @@ class AdminController extends Controller
             $sort_id = 3;
             $sort_name = "Activated";
         }
+        else if($type == "deactivated") {
+            $sort_id = -3;
+            $sort_name = "Deactivated";
+        }
         else if ($type == "on-processed") {
             $sort_id = 2;
             $sort_name = "On-Processed";
@@ -90,9 +94,8 @@ class AdminController extends Controller
 
         $sort_id = (int)$sort; 
 
-        $query = "SELECT * FROM member_table WHERE hash_code = '{$hash}' AND status = {$sort_id} ORDER BY created_at ASC";
-        if($sort_id > 2) {
-            $query = "
+//        $query = "SELECT * FROM member_table WHERE hash_code = '{$hash}' AND status = {$sort_id} ORDER BY created_at ASC";
+        $query = "
                     SELECT m.*, 
                     b.code_name, b.code_description, b.web, b.disk, b.mysql, b.ftp, b.hostname, b.port, b.price_usd, b.price_ph, b.discount
                     FROM member_table AS m
@@ -102,7 +105,6 @@ class AdminController extends Controller
                     ON a.quota_id = b.Id
                     WHERE m.hash_code = '{$hash}' AND m.status = {$sort_id};
                 ";
-        }
 
         $client = DB::select($query);
 

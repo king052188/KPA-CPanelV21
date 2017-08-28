@@ -339,6 +339,9 @@ class Helper extends Controller
         if($type == "activated") {
             $sort_id = 3;
         }
+        else if ($type == "deactivated") {
+            $sort_id = -3;
+        }
         else if ($type == "on-processed") {
             $sort_id = 2;
         }

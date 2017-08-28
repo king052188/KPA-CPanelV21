@@ -39,6 +39,7 @@ $url_secured = $helper["status"];
 
     <script src="{{ asset("/plugins/minimal_admin_panel/js/skycons.js", $url_secured) }}"></script>
     <!--//skycons-icons-->
+
 </head>
 <body>
 <div id="wrapper">
@@ -120,10 +121,12 @@ $url_secured = $helper["status"];
                                             padding: 2px 7px 2px 7px;
                                             border-radius: 5px;
                                         }
-                                        .activated { background: #4267b2; color: #ffffff; }
+                                        .activated { background: #20DF54; color: #ffffff; }
+                                        .deactivated { background: #EF0F7B; color: #ffffff; }
                                         .on_processed { background: #F65A0C; color: #ffffff; }
-                                        .pending { background: #EF0F7B; color: #ffffff; }
+                                        .pending { background: #B2B2B2; color: #ffffff; }
                                     </style>
+                                    <li><a href="/clients/deactivated" class=" hvr-bounce-to-right"> <i class="fa fa-star nav_icon"></i>Deactivated <span class="m_counts deactivated"> {{ number_format($deactivated, 0) }} </span></a></li>
                                     <li><a href="/clients/activated" class=" hvr-bounce-to-right"> <i class="fa fa-star nav_icon"></i>Activated <span class="m_counts activated"> {{ number_format($activated, 0) }} </span></a></li>
                                     <li><a href="/clients/on-processed" class=" hvr-bounce-to-right"> <i class="fa fa-star-half-o nav_icon"></i>On-Processed <span class="m_counts on_processed"> {{ number_format($on_processed, 0) }} </span></a></li>
                                     <li><a href="/clients/pending" class=" hvr-bounce-to-right"> <i class="fa fa-star-o nav_icon"></i>Pending <span class="m_counts pending"> {{ number_format($pending, 0) }} </span></a></li>
@@ -140,11 +143,11 @@ $url_secured = $helper["status"];
                         </li>
 
                         <li>
-                            <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-tasks nav_icon"></i> <span class="nav-label">WebSite</span><span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li><a href="/web/create" class=" hvr-bounce-to-right"> <i class="fa fa-plus-circle nav_icon"></i>Create</a></li>
-                                <li><a href="/web/site" class=" hvr-bounce-to-right"> <i class="fa fa-server nav_icon"></i>Sites</a></li>
-                            </ul>
+                            <a href="/web/sites" class=" hvr-bounce-to-right"><i class="fa fa-tasks nav_icon"></i> <span class="nav-label">WebSite</span></a>
+                            {{--<ul class="nav nav-second-level">--}}
+                                {{--<li><a href="/web/create" class=" hvr-bounce-to-right"> <i class="fa fa-plus-circle nav_icon"></i>Create</a></li>--}}
+                                {{--<li><a href="/web/site" class=" hvr-bounce-to-right"> <i class="fa fa-server nav_icon"></i>Sites</a></li>--}}
+                            {{--</ul>--}}
                         </li>
 
                         <li>
@@ -158,11 +161,11 @@ $url_secured = $helper["status"];
                         </li>
 
                         <li>
-                            <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-file-code-o nav_icon"></i> <span class="nav-label">FTP</span><span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li><a href="/ftp/create" class=" hvr-bounce-to-right"> <i class="fa fa-plus-circle nav_icon"></i>Create</a></li>
-                                <li><a href="/ftp/lists" class=" hvr-bounce-to-right"> <i class="fa fa-tasks nav_icon"></i>Lists</a></li>
-                            </ul>
+                            <a href="/ftp/lists" class=" hvr-bounce-to-right"><i class="fa fa-file-code-o nav_icon"></i> <span class="nav-label">FTP</span></a>
+                            {{--<ul class="nav nav-second-level">--}}
+                                {{--<li><a href="/ftp/create" class=" hvr-bounce-to-right"> <i class="fa fa-plus-circle nav_icon"></i>Create</a></li>--}}
+                                {{--<li><a href="/ftp/lists" class=" hvr-bounce-to-right"> <i class="fa fa-tasks nav_icon"></i>Lists</a></li>--}}
+                            {{--</ul>--}}
                         </li>
 
                         <li>
@@ -209,9 +212,13 @@ $url_secured = $helper["status"];
 <!--//scrolling js-->
 <script src="{{ asset("/plugins/minimal_admin_panel/js/bootstrap.min.js", $url_secured) }}"> </script>
 
-<link href="{{ asset("/css/toastr.css", $url_secured) }}"" rel="stylesheet" type="text/css" />
+
+<link href="{{ asset("/css/toastr.css", $url_secured) }}" rel="stylesheet" type="text/css" />
 <script src="{{ asset("/js/toastr.js", $url_secured) }}"> </script>
 <script src="{{ asset("/js/cpanelV21.kpa.min.js", $url_secured) }}"></script>
+
+<script src="{{ asset("/js/sweetalert.min.js", $url_secured) }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ asset("/css/sweetalert.css", $url_secured) }}">
 </body>
 </html>
 

@@ -18,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
         {
             $view->with('member', Helper::getCookies())
             ->with('activated', Helper::get_total_members('activated'))
+            ->with('deactivated', Helper::get_total_members('deactivated'))
             ->with('on_processed', Helper::get_total_members('on-processed'))
             ->with('pending', Helper::get_total_members('pending'));
         });

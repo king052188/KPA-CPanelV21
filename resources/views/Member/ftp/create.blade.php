@@ -196,7 +196,7 @@
             @if($ftp["available"] > 0)
                 <div class="col-md-12 form-group">
                     <button type="submit" id="btnSaveFTP" class="btn btn-primary">Save</button>
-                    <a href="dashboard" class="btn btn-default">Cancel</a>
+                    <a href="/ftp/lists" class="btn btn-default">Cancel</a>
                 </div>
             @else
                 <div class="col-md-12 form-group">
