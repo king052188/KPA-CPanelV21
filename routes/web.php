@@ -82,6 +82,7 @@ Route::get('/app/wordpress', 'WebController@app_install_wordpress');
 
 Route::get('/web/sites', 'WebController@site_init');
 Route::get('/web/create', 'WebController@create_init');
+Route::get('/web/traffic/{license}/{site}', 'WebController@web_traffic');
 
 
 Route::get('/mysql/database', 'MySQLController@database_init');
@@ -105,7 +106,6 @@ Route::get('/ftp/create', 'FTPController@create_init');
 Route::post('/ftp/create-execute', 'PageController@temp');
 
 Route::get('/tool/composer', 'PageController@compose_init');
-
 
 Route::get('/logout', 'MemberController@member_sign_out_process');
 
@@ -142,12 +142,6 @@ Route::get('/smtp.mailgun.org/mail.cpanelv21.kpa21.com', function() {
 
 
 /// promotion 2017.1
-
-
-
-
-
-
 
 Route::get('/webs/wordpress/free-plan', 'WordpressController@free_plan');
 

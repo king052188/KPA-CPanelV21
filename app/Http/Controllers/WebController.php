@@ -51,10 +51,15 @@ class WebController extends Controller
 
         $web = DB::select("SELECT * FROM web_table WHERE user_id = {$user_id} AND status > 1;");
 
-//        dd($web);
-
         $configs = Config::get('laradnet_config');
 
         return view('member.app.wordpress', compact('helper', 'user', 'web', 'configs'));
+    }
+
+    public function web_traffic($license, $site_name) {
+
+        $site = array("name" => $site_name, "date" => Date("ymd"));
+        
+        return view('layout.traffic', compact('site'));
     }
 }
