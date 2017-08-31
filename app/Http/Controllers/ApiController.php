@@ -509,6 +509,15 @@ class ApiController extends Controller
         return $json;
     }
 
+    public function web_traffic(Request $request) {
+
+        $data = "?todo=WEB-TRAFFIC&hostname={$request->host}&date={$request->date}";
+
+        $json = Helper::do_curl(ApiController::$host_api . $data);
+
+        return $json;
+    }
+
     //
 
     public function get_disk_statistic(Request $request, $username, $disk_size) {

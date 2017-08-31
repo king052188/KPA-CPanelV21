@@ -8,7 +8,7 @@ return [
 
     'ApplicationRootFolder' => 'C:\\KPA_www\\',
 
-    'RemoteEngineApi' => 'http://localhost:61512/',
+    'RemoteEngineApi' => 'http://69.4.84.226:21001/',
 
     'SSLEnable' => ["status" => false],
 
