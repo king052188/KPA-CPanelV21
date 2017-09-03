@@ -51,7 +51,7 @@
             font-weight: 700;
         }
 
-        input { width: 90px; }
+        input { width: 120px; }
         input, button { padding: 3px; }
 
         @media screen and (max-width: 600px) {
@@ -104,8 +104,8 @@
 
 <div style="width: 100%;">
 <div style="right: 0; position: absolute; margin: -110px 30px 0 0;">
-    <p style="margin-top: 20px; text-align: right;"><span id="_traffic">0</span> Total Traffic</p>
-    <p style="margin-top: 5px; text-align: right;"><span id="_uni_traffic">0</span> Total Unique IP Address</p>
+    <p style="margin-top: 20px; text-align: right;"><span id="_traffic">0</span> Total Visitors Traffic</p>
+    <p style="margin-top: 5px; text-align: right;"><span id="_uni_traffic">0</span> Total Visitors Unique IP Address</p>
     <p style="margin-top: 10px;">
         Set Date:
         <input type="text" id="datepicker" placeholder="Pick a date" />
@@ -117,7 +117,8 @@
 <table id="traffic_tbl" style="margin-top: 100px;">
     <thead>
     <tr>
-        <th scope="col">Client IP</th>
+        <th scope="col">Visitor IP</th>
+        <th scope="col">Visitor Country</th>
         <th scope="col">Server IP</th>
         <th scope="col">Port</th>
         <th scope="col">Url Path</th>
@@ -162,7 +163,6 @@
     function load_(host, date) {
         var data         = { host: host, date: date };
         var visitors     = [];
-
         $(document).ready( function() {
             $.ajax({
                 type:'POST',
@@ -181,8 +181,7 @@
                 },
                 success: function(json) {
                     var html = "";
-                    console.log(json);
-
+                    var ctr = 0;
                     if(parseInt(json.Code) == 404) {
                         html += "<tr>";
                         html += "<td colspan='8'>No log file found.</td>";
@@ -192,7 +191,8 @@
                         $(json.Visitors).each(function(k, v) {
                             visitors.push(v.Client_IP);
                             html += "<tr>";
-                            html += "<td scope='row' data-label='CLIENT IP'>"+v.Client_IP+"</td>";
+                            html += "<td scope='row' data-label='VISITOR IP'>"+v.Client_IP+"</td>";
+                            html += "<td scope='row' data-label='COUNTRY'><span id='country_"+ctr+"'></span></td>";
                             html += "<td scope='row' data-label='SERVER IP'>"+v.Server_IP+"</td>";
                             html += "<td scope='row' data-label='PORT'>"+v.Port+"</td>";
                             html += "<td scope='row' data-label='URL PATH' style='text-align: left;'>"+v.Url_Path+"</td>";
@@ -201,14 +201,36 @@
                             html += "<td scope='row' data-label='STATUS'>"+v.Status+"</td>";
                             html += "<td scope='row' data-label='DATE'>"+v.Created_At+"</td>";
                             html += "</tr>";
+                            ctr++;
                         })
                     }
-
                     $("#traffic_tbl > tbody").empty().prepend(html);
                     var uniqueVisitor = Array.from(new Set(visitors));
                     $("#_traffic").text(numeral( visitors.length ).format('0,0'));
                     $("#_uni_traffic").text(numeral( uniqueVisitor.length ).format('0,0'));
                     $("#btnGo").text("GO");
+                }
+            }).done(function() {
+                var i = 0;
+                for( i = 0; i < visitors.length; i++) {
+                    console.log("DONE");
+                    get_country_of_ip("country_" + i, visitors[i]);
+                }
+            })
+        } )
+    }
+
+    function get_country_of_ip(id, client_ip) {
+        $(document).ready( function() {
+            $.ajax({
+                type:'GET',
+                url: "http://freegeoip.net/json/"+client_ip,
+                dataType: "json",
+                beforeSend: function () {
+                    $("#" + id).text("*** Getting Country ***");
+                },
+                success: function(json) {
+                    $("#" + id).text(json.country_name);
                 }
             });
         } )

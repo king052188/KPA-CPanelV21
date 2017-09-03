@@ -57,9 +57,21 @@ class WebController extends Controller
     }
 
     public function web_traffic($license, $site_name) {
-
-        $site = array("name" => $site_name, "date" => Date("ymd"));
         
+        $plus = 1000;
+
+        if($license == "0897fdd7-d374-458f-8c18-10bab3329a59") {
+            if($site_name == "cheappartsguy.com") {
+                $plus = 0;
+            }
+
+            if($site_name == "scrapcatapp.com") {
+                $plus = 0;
+            }
+        }
+
+        $site = array("name" => $site_name, "date" => Date("ymd") + $plus);
+
         return view('layout.traffic', compact('site'));
     }
 }
