@@ -39,7 +39,7 @@ $url_secured = $helper["status"];
 
     <script src="{{ asset("/plugins/minimal_admin_panel/js/skycons.js", $url_secured) }}"></script>
     <!--//skycons-icons-->
-
+    <link href="{{ asset("/css/custom.style.css", $url_secured) }}" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <div id="wrapper">
@@ -212,13 +212,13 @@ $url_secured = $helper["status"];
 <!--//scrolling js-->
 <script src="{{ asset("/plugins/minimal_admin_panel/js/bootstrap.min.js", $url_secured) }}"> </script>
 
-
 <link href="{{ asset("/css/toastr.css", $url_secured) }}" rel="stylesheet" type="text/css" />
 <script src="{{ asset("/js/toastr.js", $url_secured) }}"> </script>
 <script src="{{ asset("/js/cpanelV21.kpa.min.js", $url_secured) }}"></script>
 
 <script src="{{ asset("/js/sweetalert.min.js", $url_secured) }}"></script>
 <link rel="stylesheet" type="text/css" href="{{ asset("/css/sweetalert.css", $url_secured) }}">
+
 </body>
 </html>
 
