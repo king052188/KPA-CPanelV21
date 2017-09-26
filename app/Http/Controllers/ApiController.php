@@ -18,12 +18,48 @@ use Symfony\Component\Console\Input\ArrayInput;
 
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Cache;
+
 
 class ApiController extends Controller
 {
     //
     public static $host_api = "";
     public static $host_ftp = "";
+
+
+    public function sample() {
+
+        $time_pre = microtime(true);
+        if (!Cache::has('members')) {
+            $value = DB::table('member_table')->get();
+            Cache::put('members', $value, 60);
+            $time_post = microtime(true);
+            $exec_time = $time_post - $time_pre;
+            $values = array(
+                "Origin" => "Database",
+                "Timestamp" => $exec_time,
+                "Data" => $value
+            );
+        }
+        else {
+            $value = Cache::get('members');
+            $time_post = microtime(true);
+            $exec_time = $time_post - $time_pre;
+            $values = array(
+                "Origin" => "Cache Redis",
+                "Timestamp" => $exec_time,
+                "Data" => $value
+            );
+        }
+
+        return $values;
+    }
+
+    public function flush() {
+        Cache::forget('members');
+    }
+
 
     public function __construct()
     {
@@ -603,5 +639,6 @@ class ApiController extends Controller
         );
         return $data;
     }
+
 
 }
