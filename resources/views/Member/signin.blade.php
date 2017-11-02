@@ -6,6 +6,7 @@ $url_secured = $helper["status"];
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>CPanelV21 - Sign In</title>
     <!-- Favicon-->
     <link rel="icon" href="{{ asset('images/k-icon.png', $url_secured) }}" type="image/x-icon">
@@ -49,6 +50,8 @@ $url_secured = $helper["status"];
 </head>
 {{--//4267b2--}}
 <body class="login-page">
+<div id="app">
+
 <div class="login-box">
     <div class="logo" style="background: #4267b2; padding: 10px;">
         <a href="javascript:void(0);"><b>CPanelV21</b>- Log In</a>
@@ -147,6 +150,6 @@ $url_secured = $helper["status"];
         })
     </script>
 @endif
-
+<script src="http://localhost:4848/js/app.js"></script>
 </body>
 </html>
